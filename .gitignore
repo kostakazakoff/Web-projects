@@ -1,6 +1,6 @@
 db.sqlite3
 migrations
-pycashe
+__pycache__
 venv
 *.txt
 *.zip
