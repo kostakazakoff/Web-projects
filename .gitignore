@@ -1,0 +1,7 @@
+db.sqlite3
+migrations
+pycashe
+venv
+*.txt
+*.zip
+*.rar

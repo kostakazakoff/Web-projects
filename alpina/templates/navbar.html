@@ -1,0 +1,34 @@
+    <div class="container-fluid">
+
+            <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary"  style="box-shadow: 0 0 10px 2px rgb(151, 150, 150); padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/" style="margin-left: 3rem; font-size: 24pt; color: brown;">ALPINA confectionery</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Menu
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/../cakes_list/">Cakes</a></li>
+                                    {% if user.is_authenticated %}
+                                    <li><a class="dropdown-item" href="/../products_list/">Products</a></li>
+                                    <li><a class="dropdown-item" href="/../create_product/">Add a new product</a></li>
+                                    {% endif %}
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/">Account</a></li>
+                                </ul>
+                            </li>
+                            <!-- <li class="nav-item">
+                            <a class="nav-link disabled">Disabled</a>
+                            </li> -->
+                        </ul>   
+                    </div>
+                </div>
+              </nav>
+        
+        </div>
+    <div class="div" style="height: 10000;">a</div>
