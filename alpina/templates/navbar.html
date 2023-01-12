@@ -1,8 +1,8 @@
     <div class="container-fluid">
 
-            <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary"  style="box-shadow: 0 0 10px 2px rgb(151, 150, 150); padding-top: 1rem; padding-bottom: 1rem; padding-right: 6rem;">
+            <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary"  style="box-shadow: 0 0 10px 2px rgb(151, 150, 150); padding-top: 1rem; padding-bottom: 1rem; padding-right: 1rem;">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/" style="margin-left: 3rem; font-size: 18pt; color: brown;">ALPINA</a>
+                    <a class="navbar-brand" href="/" style="margin-left: 3rem; font-size: 18pt; color: brown;"><strong>ALPINA</strong></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -19,13 +19,17 @@
                                     <li><a class="dropdown-item" href="/../products_list/">Products</a></li>
                                     <li><a class="dropdown-item" href="/../create_product/">Add a new product</a></li>
                                     {% endif %}
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="/">Account</a></li>
+                                    <!-- <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/">Account</a></li> -->
                                 </ul>
                             </li>
-                            <!-- <li class="nav-item">
-                            <a class="nav-link disabled">Disabled</a>
-                            </li> -->
+                            <li class="nav-item">
+                                {% if user.is_authenticated %}
+                                <a class="nav-link active" aria-current="page" href="/">Logged in: {{request.user.first_name}} {{request.user.last_name}}</a>
+                                {% else %}
+                                
+                                {% endif %}
+                            </li>
                         </ul>   
                     </div>
                 </div>
