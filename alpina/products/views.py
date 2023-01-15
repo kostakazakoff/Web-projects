@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
-from .models import Product
-from .forms import ProductForm
+from .models import Product, Cake
+from .forms import ProductForm, CakeForm
 from django.contrib.auth.decorators import login_required
 # from django.http import HttpResponse
 
@@ -14,25 +14,35 @@ from django.contrib.auth.decorators import login_required
 #     return render(request, 'home.html', context)
 
 
+@login_required
 def cakes_list(request):
-    context = {}
-    return render(request, 'cakes/cakes_list.html', context)
+    operation = request.GET.get('operation')
+    search_text = ''
+    if operation == 'search':
+        search_text = request.GET.get('search').lower()
+    context = {
+        'cakes': [],
+    }
+    queryset = Cake.objects.all().order_by('title')
+    context['cakes'] = [p for p in queryset if search_text in p.title.lower()]
+    return render(request, 'articles/cakes_list.html', context)
 
 
 @login_required
 def products_list(request):
-    operation = request.GET.get('operation')
-    search_text = ''
-    if operation == 'Search':
-        search_text = request.GET.get('search').lower()
-        
+    queryset = Product.objects.all().order_by('title')
+    search_text = request.GET.get('search').lower() if request.GET.get('search') else None
+    search_product = request.GET.get('search_product') if request.GET.get('search_product') else None
 
     context = {
         'title': 'Продукти:',
-        'products': [],
-    }
-    queryset = Product.objects.all()
-    context['products'] = [p for p in queryset if search_text in p.title.lower()]
+        'products': [p for p in queryset],
+        }
+    
+    if search_text:
+        context['products'] = [p for p in queryset if search_text in p.title.lower()]
+    elif search_product:
+        context['products'] = [p for p in queryset if int(search_product) == p.id]
 
     return render(request, 'products/products_list.html', context)
 
@@ -41,7 +51,6 @@ def products_list(request):
 def product_details(request, id):
     obj = get_object_or_404(Product, id=id)
     form = ProductForm(request.POST or None, instance=obj)
-    print(request.POST)
     operation = request.POST.get('operation')
     if operation == 'Save':
         if form.is_valid():
@@ -64,8 +73,22 @@ def create_product(request):
             form = ProductForm()
             return redirect('/../products_list')
     context = {'form': form}
+    print(request)
 
     return render(request, 'products/product_create.html', context)
+
+
+@login_required
+def create_cake(request):
+    form = CakeForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        form = ProductForm()
+        return redirect('/../cakes_list')
+    queryset = Product.objects.all()
+    context = {'form': form, 'products': queryset}
+
+    return render(request, 'articles/cake_create.html', context)
 
 
 def login_view(request):
@@ -82,8 +105,5 @@ def login_view(request):
                 return redirect('/')
         elif operation == 'Logout':
             logout(request)
-
-        print()
-        print(operation)
 
     return render(request, 'home.html', {})

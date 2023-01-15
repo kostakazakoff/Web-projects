@@ -2,22 +2,38 @@
 
 {% block content %}
 
-<div>
-    <form class="d-flex" role="search" style="margin: 1rem; width: 30%;">
-        <input class="form-control me-2" type="search" placeholder="Product" aria-label="Search" name="search">
-        <button class="btn btn-dark type="submit" name="operation" value="Search">Search</button>
+<section class="container-fluid">
+
+    <form class="d-flex" role="search" style="margin-top: 1rem; margin-bottom: 1rem; width: 50%;">
+        <input class="form-control me-2" type="search" placeholder="Всички продукти" aria-label="Search" name="search"
+            id="search">
+        <button class="btn btn-dark type=" submit">Търсене</button>
     </form>
+
+    <form class="d-flex" role="search_product" style="margin-top: 1rem; margin-bottom: 1rem; width: 50%;">
+        <select class="form-control me-2" name="search_product" id="search_product">
+            <option value="">Всички продукти</option>
+            {% for p in products %}
+            <option value={{p.id}}>
+                {{p.title}}
+            </option>
+            {% endfor %}
+        </select>
+        <button class="btn btn-dark type=" submit">Продукт</button>
+    </form>
+
     {% for p in products %}
-    <div class="card w-xxl mb-3" style="margin:2mm; background-color: white;">
+    <article class="card w-xxl mb-3">
         <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPOUAxdUZpyCv5LtjxKGFTF_ezRoT4XALZKH7AE-gAecLboHdqih_e1iGyJJyMcT5vVbE&usqp=CAU" class="card-img-top" alt="..."> -->
         <div class="card-body">
             <h5 class="card-title">{{ p.title }}</h5>
             <p class="card-text">{{ p.comment }}</p>
-            <p class="card-text">{{ p.price }} лв/{{ p.unit }}</p>   
-            <a href="/products/{{ p.id }}" class="btn btn-dark btn-sm">Edit</a>
+            <p class="card-text">{{ p.price }} лв/{{ p.unit }}</p>
+            <a href="/products/{{ p.id }}" class="btn btn-dark btn-sm">Редактиране</a>
         </div>
-    </div>
+    </article>
     {% endfor %}
-</div>
+
+</section>
 
 {% endblock %}
