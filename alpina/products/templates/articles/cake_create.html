@@ -4,20 +4,27 @@
 
 <section class="container-fluid">
 
-    <form action="." method="POST">
+    <form action="." method="GET" name="cake_form">
+
         {% csrf_token %}
-        {{form.as_p}}
-    
-        <!-- <select class="form-select" aria-label="Products">
-            <option selected>Въведи продукт</option>
-            {% for p in products %}
-            <option value={{p.title}}>{{p.title}}</option>
+        <!-- {{form.as_p}} -->
+        <ul type="None">
+            <li>
+                {% for p in source_products %}
+                <label for="cake_product_id">{{p.title}}</label>
+                <input type="checkbox" name="cake_product_id" value={{p.id}}>
+            </li>
+            <li>
+                <label for="product_quantity">Количество</label>
+                <input type="number" name="product_quantity">
+            </li>
             {% endfor %}
-        </select> -->
-    
+        </ul>
+
+        <button type="submit" class="btn btn-dark" value="Save" name="operation">Въведи</button>
+
     </form>
-    <button type="submit" class="btn btn-dark" value="Save" name="operation">Въведи</button>
-    
+
 </section>
 
 {% endblock %}

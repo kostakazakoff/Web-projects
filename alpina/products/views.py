@@ -31,18 +31,22 @@ def cakes_list(request):
 @login_required
 def products_list(request):
     queryset = Product.objects.all().order_by('title')
-    search_text = request.GET.get('search').lower() if request.GET.get('search') else None
-    search_product = request.GET.get('search_product') if request.GET.get('search_product') else None
+    search_text = request.GET.get('search').lower(
+    ) if request.GET.get('search') else None
+    search_product = request.GET.get(
+        'search_product') if request.GET.get('search_product') else None
 
     context = {
         'title': 'Продукти:',
         'products': [p for p in queryset],
-        }
-    
+    }
+
     if search_text:
-        context['products'] = [p for p in queryset if search_text in p.title.lower()]
+        context['products'] = [
+            p for p in queryset if search_text in p.title.lower()]
     elif search_product:
-        context['products'] = [p for p in queryset if int(search_product) == p.id]
+        context['products'] = [
+            p for p in queryset if int(search_product) == p.id]
 
     return render(request, 'products/products_list.html', context)
 
@@ -69,24 +73,28 @@ def product_details(request, id):
 def create_product(request):
     form = ProductForm(request.POST or None)
     if form.is_valid():
-            form.save()
-            form = ProductForm()
-            return redirect('/../products_list')
+        form.save()
+        form = ProductForm()
+        return redirect('/../products_list')
     context = {'form': form}
-    print(request)
 
     return render(request, 'products/product_create.html', context)
 
 
 @login_required
 def create_cake(request):
-    form = CakeForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        form = ProductForm()
-        return redirect('/../cakes_list')
+    # form = CakeForm(request.POST or None)
+    # if form.is_valid():
+    #     form.save()
+    #     form = ProductForm()
+    #     return redirect('/../cakes_list')
     queryset = Product.objects.all()
-    context = {'form': form, 'products': queryset}
+    cake_product_id = request.GET.get('cake_product_id')
+    product_quantity = request.GET.get('product_quantity')
+    print(request.GET)
+    
+
+    context = {'source_products': queryset}
 
     return render(request, 'articles/cake_create.html', context)
 
