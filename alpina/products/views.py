@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
-from .models import Product, Cake
-from .forms import ProductForm, CakeForm
+from .models import Product, Article
+from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
 # from django.http import HttpResponse
 
@@ -23,7 +23,7 @@ def cakes_list(request):
     context = {
         'cakes': [],
     }
-    queryset = Cake.objects.all().order_by('title')
+    queryset = Article.objects.all().order_by('title')
     context['cakes'] = [p for p in queryset if search_text in p.title.lower()]
     return render(request, 'articles/cakes_list.html', context)
 
@@ -88,13 +88,14 @@ def create_cake(request):
     #     form.save()
     #     form = ProductForm()
     #     return redirect('/../cakes_list')
-    queryset = Product.objects.all()
-    cake_product_id = request.GET.get('cake_product_id')
-    product_quantity = request.GET.get('product_quantity')
-    print(request.GET)
-    
-
+    queryset = Product.objects.all().order_by('title')
     context = {'source_products': queryset}
+    # cake_product_id = request.GET.get('cake_product_id')
+    # product_quantity = request.GET.get('product_quantity')
+    # print(request.GET['products'])
+
+
+    [print(x) for x in request.GET.items() if x[1]]
 
     return render(request, 'articles/cake_create.html', context)
 

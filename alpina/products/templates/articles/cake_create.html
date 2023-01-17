@@ -10,18 +10,28 @@
         <!-- {{form.as_p}} -->
         <ul type="None">
             <li>
-                {% for p in source_products %}
-                <label for="cake_product_id">{{p.title}}</label>
-                <input type="checkbox" name="cake_product_id" value={{p.id}}>
+                <label for="title">Вид торта</label>
+                <input type="text" name="title" id="title">
             </li>
+            <hr>
+
+            <!-- <p><strong>Продукти</strong></p> -->
+            {% for p in source_products %}
             <li>
-                <label for="product_quantity">Количество</label>
-                <input type="number" name="product_quantity">
+                <label>{{p.title}}</label>
+                <input type="number" min="0" value="0" step="any" name={{p.id}}>
             </li>
             {% endfor %}
+            <hr>
+
+            <p><strong>Други</strong></p>
+            <li>
+                <label for="electricity">Ток</label>
+                <input type="number" name="electricity" id="electricity">
+            </li>
         </ul>
 
-        <button type="submit" class="btn btn-dark" value="Save" name="operation">Въведи</button>
+        <button type="submit" class="btn btn-dark">Въведи</button>
 
     </form>
 
