@@ -41,10 +41,10 @@ def products_list(request):
         'products': [p for p in queryset],
     }
 
-    if search_text:
-        context['products'] = [
-            p for p in queryset if search_text in p.title.lower()]
-    elif search_product:
+    # if search_text:
+    #     context['products'] = [
+    #         p for p in queryset if search_text in p.title.lower()]
+    if search_product:
         context['products'] = [
             p for p in queryset if int(search_product) == p.id]
 
