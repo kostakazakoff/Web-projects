@@ -2,10 +2,20 @@ from django.db import models
 from django.urls import reverse
 
 
+
+CHOICES = (
+    ('l', 'l'),
+    ('kg', 'kg'),
+    ('kw/h', 'kw/h'),
+    ('pc', 'pc'),
+    ('min', 'min')
+)
+
+
 class Product(models.Model):
     title = models.CharField(max_length=200, blank=False, null=False, verbose_name='Наименование')
     price = models.DecimalField(decimal_places=2, max_digits=1000, blank=True, null=False, default=0, verbose_name='Цена')
-    unit = models.CharField(max_length=10, blank=True, null=True, verbose_name='Мярка')
+    unit = models.CharField(max_length=10, blank=True, null=True, choices=CHOICES, verbose_name='Мярка')
     comment = models.TextField(max_length=200, default=None, blank=True, null=True, verbose_name='Забележка')
 
     def get_absolute_url(self):
@@ -23,22 +33,24 @@ class ComplexProduct(models.Model):
     comment = models.TextField(max_length=200, default=None, blank=True, null=True, verbose_name='Забележка')
 
     def get_absolute_url(self):
-        return reverse('products', kwargs={'id': self.id})
+        return reverse('complex_products', kwargs={'id': self.id})
 
     def __str__(self):
         return self.title
 
 
 class Article(models.Model):
+    products_choices = [(x.title, x.title) for x in Product.objects.all()]
+    complex_products_choices = [(x.title, x.title) for x in ComplexProduct.objects.all()]
+
     article_type = title = models.CharField(max_length=200, blank=False, null=False, verbose_name='Вид')
-    # choices = [(x.title, x.title) for x in Product.objects.all()]
     title = models.CharField(max_length=200, blank=False, null=False, verbose_name='Наименование')
     pieces = models.IntegerField(blank=False, null=False, default=16, verbose_name='Брой')
     weigth_g = models.IntegerField(blank=False, null=False, default=0, verbose_name='Тегло')
     weigth_per_piece_g = models.IntegerField(blank=False, null=False, default=0, verbose_name='Тегло/бр.')
 
-    products = models.ManyToManyField(Product, related_name='articles')
-    complex_products = models.ManyToManyField(ComplexProduct, related_name='articles')
+    products = models.ManyToManyField(Product, related_name='articles', choices=products_choices, blank=True, null=True, verbose_name='Продукти')
+    complex_products = models.ManyToManyField(ComplexProduct, related_name='articles', choices=complex_products_choices, blank=True, null=True, verbose_name='Заготовки')
 
     electricity = models.DecimalField(decimal_places=2, max_digits=10, blank=False, null=False, default=0, verbose_name='Ток')
     water = models.DecimalField(decimal_places=2, max_digits=10, blank=False, null=False, default=0, verbose_name='Вода')
@@ -67,7 +79,7 @@ class Article(models.Model):
     cake_image = models.ImageField(blank=True, null=True, verbose_name='Снимка')
 
     def get_absolute_url(self):
-        return reverse('cakes', kwargs={'id': self.id})
+        return reverse('articles', kwargs={'id': self.id})
 
     def __str__(self):
         return self.title
