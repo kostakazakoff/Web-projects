@@ -91,8 +91,7 @@ def create_article(request):
     
     if search_product:
         products = [p for p in products if int(search_product) == p.id]
-    elif operation:
-        print()
+    # elif operation:
         # product = request.POST.get('')
         # if operation == 'add_products':
         #     ingredients.append()

@@ -5,6 +5,7 @@
     <div class="row">
 
         <div class="col">
+
             <form class="d-flex" role="search_product" style="margin-top: 1rem; margin-bottom: 1rem; width: 50%;">
                 <select class="form-control me-2" name="search_product" id="search_product">
                     <option value="">Всички продукти</option>
@@ -21,7 +22,7 @@
                 {% csrf_token %}
                 {% for p in products %}
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name={{p.id}} value={{p.id}}>
+                    <input class="form-check-input" type="checkbox">
                     <label class="form-check-label" for={{p.id}} id="ingredient">{{p.title}}</label>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Количество</span>
@@ -32,6 +33,7 @@
                 {% endfor %}
                 <button type="submit" class="btn btn-dark" name="operation" value="add_products">Въведи продукти</button>
             </form>
+
         </div>
 
         <div class="col" style="background-color: beige;">
