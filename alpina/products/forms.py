@@ -13,7 +13,7 @@ class ProductForm(forms.ModelForm):
             'price',
             'unit',
             'comment',
-        ]
+            ]
 
 
 class ArticleCreateForm(forms.ModelForm):
@@ -22,7 +22,7 @@ class ArticleCreateForm(forms.ModelForm):
         fields = [
             'article_type',
             'title',
-        ]
+            ]
 
 
 class ArticleEditForm(forms.ModelForm):
@@ -49,4 +49,13 @@ class ArticleEditForm(forms.ModelForm):
             'workshop_price',
             'vat',
             'cake_image',
-        ]
+            ]
+
+
+class ArticleAddProductsForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = [
+            'products',
+            'complex_products',
+            ]

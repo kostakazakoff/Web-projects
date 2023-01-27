@@ -5,3 +5,7 @@
 .input_form ul {
     list-style: none;
 }
+
+#article_ingredients {
+    background-color: beige;
+}

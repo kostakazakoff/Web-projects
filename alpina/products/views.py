@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from .models import Product, Article, ComplexProduct
-from .forms import ProductForm, ArticleCreateForm, ArticleEditForm
+from .forms import ProductForm, ArticleCreateForm, ArticleEditForm, ArticleAddProductsForm
 from django.contrib.auth.decorators import login_required
 # from django.http import HttpResponse
 
@@ -56,9 +56,7 @@ def product_details(request, id):
     elif operation == 'Delete':
         obj.delete()
         return redirect('/../products_list')
-    context = {
-        'form': form,
-    }
+    context = {'form': form}
     return render(request, 'products/product_details.html', context)
 
 
@@ -77,19 +75,26 @@ def create_product(request):
 @login_required
 def create_article(request):
     form = ArticleCreateForm(request.POST or None)
+    obj_id = None
+    
     if form.is_valid():
         form.save()
-
-        form = ArticleEditForm()
-        return redirect('/../article_details.html')
-    context = {'form': form}
-    print(context)
+        obj = get_object_or_404(Article, title=form.data['title'])
+        obj_id = obj.id
+        return redirect(f'/../articles/{int(obj.id)}')
+        
+    context = {'form': form, 'id': obj_id}
 
     return render(request, 'articles/create_article.html', context)
 
 @login_required
-def article_details(request):
-    pass
+def article_details(request, id):
+    article = get_object_or_404(Article, id=id)
+    form = ArticleAddProductsForm(request.POST or None, instance=article)
+
+    context = {'form': form, 'article': article}
+    return render(request, f'articles/article_details.html', context)
+    
 
 def login_view(request):
     if request.method == "POST":
