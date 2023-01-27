@@ -1,61 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
+<form class="container-fluid" method="POST">
+    {% csrf_token %}
 
-<section class="container-fluid">
-    <div class="row">
-
-        <div class="col">
-
-            <form class="d-flex" role="search_product" style="margin-top: 1rem; margin-bottom: 1rem; width: 50%;">
-                <select class="form-control me-2" name="search_product" id="search_product">
-                    <option value="">Всички продукти</option>
-                    {% for p in products %}
-                    <option value={{p.id}}>
-                        {{p.title}}
-                    </option>
-                    {% endfor %}
-                </select>
-                <button class="btn btn-dark type=" submit">Продукт</button>
-            </form>
-
-            <form action="." method="GET">
-                {% csrf_token %}
-                {% for p in products %}
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox">
-                    <label class="form-check-label" for={{p.id}} id="ingredient">{{p.title}}</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Количество</span>
-                        <input type="number" class="form-control" name={{p.id}}>
-                        <span class="input-group-text">{{p.unit}}</span>
-                    </div>
-                </div>
-                {% endfor %}
-                <button type="submit" class="btn btn-dark" name="operation" value="add_products">Въведи продукти</button>
-            </form>
-
-        </div>
-
-        <div class="col" style="background-color: beige;">
-            <form action="." method="">
-                {% csrf_token %}
-                {% for i in ingredients %}
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value={{i.id}} id={{i.id}}>
-                    <label class="form-check-label" for={{i.id}} id="ingredient">{{i.title}}</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Количество</span>
-                        <input type="number" class="form-control">
-                        <span class="input-group-text">{{i.unit}}</span>
-                    </div>
-                </div>
-                {% endfor %}
-                <button type="submit" class="btn btn-dark" name="operation" value="remove_ingredients">Премахни продукти</button>
-            </form>
-        </div>
-        
-    </div>
-    
-</section>
-
+      <!-- <div>
+        <span>Тип</span>
+        <span>{{form.article_type}}</span>
+      </div>
+      <div>
+        <span>Наименование</span>
+        <span>{{form.title}}</span> 
+      </div> -->
+      
+      {{form.as_p}}
+      
+      <button class="btn btn-dark type="submit" name="operation" value="create">Създай</button>
+</form>
 {% endblock %}

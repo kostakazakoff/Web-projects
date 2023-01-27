@@ -16,16 +16,26 @@ class ProductForm(forms.ModelForm):
         ]
 
 
-class ArticleForm(forms.ModelForm):
+class ArticleCreateForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = [
+            'article_type',
+            'title',
+        ]
+
+
+class ArticleEditForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = [
+            'article_type',
             'title',
             'pieces',
             'weigth_g',
             'weigth_per_piece_g',
-            # 'products',
-            # 'complex_products',
+            'products',
+            'complex_products',
             'electricity',
             'water',
             'worker_expenses',

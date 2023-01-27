@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from .models import Product, Article, ComplexProduct
-from .forms import ProductForm, ArticleForm
+from .forms import ProductForm, ArticleCreateForm, ArticleEditForm
 from django.contrib.auth.decorators import login_required
 # from django.http import HttpResponse
 
@@ -21,10 +21,10 @@ def articles_list(request):
     if operation == 'search':
         search_text = request.GET.get('search').lower()
     context = {
-        'cakes': [],
+        'articles': [],
     }
     queryset = Article.objects.all().order_by('title')
-    context['cakes'] = [p for p in queryset if search_text in p.title.lower()]
+    context['articles'] = [p for p in queryset if search_text in p.title.lower()]
     return render(request, 'articles/articles_list.html', context)
 
 
@@ -76,31 +76,20 @@ def create_product(request):
 
 @login_required
 def create_article(request):
+    form = ArticleCreateForm(request.POST or None)
+    if form.is_valid():
+        form.save()
 
-    search_product = request.GET.get('search_product') if request.GET.get('search_product') else None
-    operation = request.POST.get('operation') if request.POST.get('operation') else None
-
-    queryset_products = Product.objects.all().order_by('title')
-    queryset_complex_products = ComplexProduct.objects.all().order_by('title')
-
-
-    ingredients = []
-    products = [p for p in queryset_products]
-    products = [cp for cp in queryset_complex_products] + products
-    products = [p for p in products if p not in ingredients]
-    
-    if search_product:
-        products = [p for p in products if int(search_product) == p.id]
-    # elif operation:
-        # product = request.POST.get('')
-        # if operation == 'add_products':
-        #     ingredients.append()
-
-
-    context = {'products': products, 'ingredients': ingredients}
+        form = ArticleEditForm()
+        return redirect('/../article_details.html')
+    context = {'form': form}
+    print(context)
 
     return render(request, 'articles/create_article.html', context)
 
+@login_required
+def article_details(request):
+    pass
 
 def login_view(request):
     if request.method == "POST":

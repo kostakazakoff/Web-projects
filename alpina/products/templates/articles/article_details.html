@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<article class="container">
+    <form action="." method="POST" class="input_form">
+        {% csrf_token %}
+        {{form.as_p}}
+        
+    
+        <button type="submit" class="btn btn-dark" value="Save" name="operation">Save</button>
+        <button type="submit" class="btn btn-danger" value='Delete' name="operation">Delete</button>
+    </form>
+</article>
+
+{% endblock %}
