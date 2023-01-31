@@ -5,7 +5,15 @@
 .input_form ul {
     list-style: none;
 }
-
 #article_ingredients {
     background-color: beige;
+}
+
+.a_button{
+    size: 2rem;
+    background-color: whitesmoke;
+    color: dimgray;
+    border: 1px solid whitesmoke;
+    border-radius: 8px;
+    box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.1);
 }

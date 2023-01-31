@@ -2,38 +2,25 @@
 
 {% block content %}
 
-    <div class="container-fluid">
-        <form action="." method="POST" class="input_form">
-            <h2>{{article.title}}</h2>
-            {% csrf_token %}
-            <div>
-                Продукт
-                {{form.as_p}}
-            </div>
-            <div>
-                Заготовка
-                {{form.complex_products}}
-            </div>
-            
-            
-            <button type="submit" class="btn btn-dark" value="Add" name="operation">Add</button>
-    
-            <div>
-                <button type="submit" class="btn btn-dark" value="Save" name="operation">Save</button>
-                <button type="submit" class="btn btn-danger" value='Delete' name="operation">Delete</button>
-            </div>
-            
-        </form>
-    </div>
+<section>
+    <form class="container-fluid" method="POST">
+      {% csrf_token %}
+        
+      {{article_form.as_p}}
+        
+      <button class="btn btn-dark type="submit" name="operation" value="create_article">Създай артикул</button>
+    </form>
+</section>
 
-    <hr>
-    
-    <div  class="container-fluid" id="article_ingredients">
-        <form>
-            <h2>Съставки</h2> 
-            <button type="submit" class="btn btn-dark" value="Remove" name="operation">Remove</button> 
-        </form>
-    </div>
+<section>
+    <form class="container-fluid" method="POST">
+        {% csrf_token %}
+        
+        {{ingredient_form.as_p}}
+        
+        <button class="btn btn-dark type="submit" name="operation" value="add_ingredient">Добави съставка</button>
+    </form>
+</section>
 
 
 {% endblock %}

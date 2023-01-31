@@ -4,13 +4,9 @@
   <form class="container-fluid" method="POST">
     {% csrf_token %}
       
-    {{form.as_p}}
+    {{article_form.title}}
       
-    <button class="btn btn-dark type="submit" name="operation" value="create">Създай</button>
-</form>
-</section>
-
-<section>
-  <h2>{{article.title}}</h2>
+    <button class="btn btn-dark type="submit">Създай артикул</button>
+  </form>
 </section>
 {% endblock %}
