@@ -1,19 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-<form class="container-fluid" method="POST">
+<section>
+  <form class="container-fluid" method="POST">
     {% csrf_token %}
-
-      <!-- <div>
-        <span>Тип</span>
-        <span>{{form.article_type}}</span>
-      </div>
-      <div>
-        <span>Наименование</span>
-        <span>{{form.title}}</span> 
-      </div> -->
       
-      {{form.as_p}}
+    {{form.as_p}}
       
-      <button class="btn btn-dark type="submit" name="operation" value="create">Създай</button>
+    <button class="btn btn-dark type="submit" name="operation" value="create">Създай</button>
 </form>
+</section>
+
+<section>
+  <h2>{{article.title}}</h2>
+</section>
 {% endblock %}
