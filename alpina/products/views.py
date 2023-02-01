@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from .models import Product, Article, Ingredient
-from .forms import ProductForm, ArticleForm, IngredientForm
+from .forms import ProductForm, ArticleForm, IngredientForm, ArticleCreateForm
 from django.contrib.auth.decorators import login_required
 from decimal import Decimal
 
@@ -24,17 +24,13 @@ def articles_list(request):
 @login_required
 def products_list(request):
     queryset = Product.objects.all().order_by('title')
-    search_product = request.GET.get(
-        'search_product') if request.GET.get('search_product') else None
+    search_product = request.GET.get('search_product') if request.GET.get('search_product') else None
 
-    context = {
-        'title': 'Продукти:',
-        'products': [p for p in queryset],
-    }
+    context = {'title': 'Продукти:',
+        'products': [p for p in queryset]}
 
     if search_product:
-        context['products'] = [
-            p for p in queryset if int(search_product) == p.id]
+        context['products'] = [p for p in queryset if int(search_product) == p.id]
 
     return render(request, 'products/products_list.html', context)
 
@@ -70,14 +66,17 @@ ingredients = []
 
 @login_required
 def create_article(request):
-    article_form = ArticleForm(request.POST or None)
+    article_form = ArticleCreateForm(request.POST or None)
     context = {'article_form': article_form}
 
     if article_form.is_valid():
         article_form.save()
-        article = Article.objects.last()
-        context = {'article': article}
-        return redirect(f'/../articles/{int(article.id)}')
+        print(article_form.data)
+        obj = Article.objects.last()
+        obj_id = obj.id
+        print(obj_id)
+        context = {'article': obj}
+        return redirect(f'/../articles/{obj.id}')
     
     # article = get_object_or_404(Article, title=article_form.data['title'])
     # ingredient = get_object_or_404(Ingredient, title=ingredient_form.data['title'])
@@ -113,7 +112,7 @@ def create_article(request):
 @login_required
 def article_details(request, id):
     article = get_object_or_404(Article, id=id)
-    article_form = ArticleForm(request.POST or None)
+    article_form = ArticleForm(request.POST or None, instance=article)
     ingredient_form = IngredientForm(request.POST or None)
     operation = request.POST.get('operation')
     
@@ -123,13 +122,10 @@ def article_details(request, id):
             ingredient_form = IngredientForm()
             ingredient = Ingredient.objects.last()
             ingredients.append(ingredient)
-            
-            print(ingredient.product)
-            print(len(ingredients))
     
     elif operation == 'create_article':
         if article_form.is_valid():
-            print(article_form.cleaned_data)
+            article.ingredients.add(ingredients)
 
     context = {'article_form': article_form, 'ingredient_form': ingredient_form, 'article': article}
     return render(request, f'articles/article_details.html', context)

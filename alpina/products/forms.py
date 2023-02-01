@@ -39,3 +39,9 @@ class ArticleForm(forms.ModelForm):
             'reciep',
             'cake_image'
             ]
+
+class ArticleCreateForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ['article_type',
+                'title',]

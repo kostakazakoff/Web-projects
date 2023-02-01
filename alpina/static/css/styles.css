@@ -1,13 +1,32 @@
-*, ::after, ::before {
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body{
+    background-color: beige;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.navbar{
+    background-color: antiquewhite;
+    box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+}
+
+.main-container{
+    margin: 40px 20px 20px 20px;
+}
+
+.navbar__brand{
+    display: inline-block;
+}
+
+.navbar__item{
+    display: inline-block;
 }
 
 .input_form ul {
     list-style: none;
 }
-#article_ingredients {
-    background-color: beige;
-}
+
 
 .a_button{
     size: 2rem;
