@@ -4,25 +4,17 @@
     </h1>
 
     <ul class="navbar__menu">
-        <!-- <li class="nav-item dropdown"> -->
-        <li class="navbar_menu_item">
+        <li class="navbar__menu__item">
             {% if user.is_authenticated %}
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Меню
             </a>
 
             <ul class="dropdown-menu">
-
-                <li><a class="dropdown-item" href="/../articles_list/">Артикули</a></li>
-                <li><a class="dropdown-item" href="/../products_list/">Продукти</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="/../create_product/">Нов продукт</a></li>
-                <li><a class="dropdown-item" href="/../create_article/">Нов артикул</a></li>
-
-                <!-- <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/">Account</a></li> -->
+                <li><a class="dropdown-item" href="/../articles_list/">Артикули</a></option>
+                <li><a class="dropdown-item" href="/../products_list/">Продукти</a></option>
+                <li><a class="dropdown-item" href="/../create_product/">Нов продукт</a></option>
+                <li><a class="dropdown-item" href="/../create_article/">Нов артикул</a></option>
             </ul>
             {% endif %}
         </li>
