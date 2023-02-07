@@ -2,6 +2,7 @@
 
 body{
     font-family: 'Raleway', sans-serif;
+    font-weight: 500;
 }
 .bg-container{
     width: 100vw;
@@ -9,7 +10,7 @@ body{
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #e2e2e2;
+    background-color: #234465;
     overflow: hidden;
 }
 .bg-container img{
@@ -26,7 +27,8 @@ body{
     left: 25%;
     transform: translate(-50%, -50%);
     border-radius: 6px;
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+    /* border:1px solid #eee; */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
     overflow: hidden;
 }
 .card .card__img-person{
@@ -36,12 +38,12 @@ body{
 }
 .card .card__info-container{
     position: absolute;
-    bottom: -276px;
+    bottom: -246px;
     left: 0;
     width: 100%;
     color: antiquewhite;
-    background-color: #131313;
-    opacity: 0.8;
+    background-color: #234465;
+    opacity: 0.9;
     padding: 12px;
     padding-bottom: 0;
     font-size: 12px;
@@ -75,31 +77,38 @@ body{
     border-radius: 3px;
 }
 .card .card__info-container .info-content .info a:hover{
-    color: black;
-    border: 4px solid orange;
-    background-color: orange;
+    /* color: black; */
+    border: 4px solid #c47a22;
+    background-color: #c47a22;
     transition: border 150ms ease-in-out;
 }
 .card .card__info-container .info-content .info a:active{
     border: none;
     transition: border 150ms ease-in-out;
 }
-/* .certificates-container{
-    width: 40vw;
-    height: 90vh;
+.certificates-container{
+    width: 400px;
+    height: 550px;
     position: absolute;
-    top: 5%;
-    left: 50%;
-    border-radius: 6px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    top: 8%;
+    left: 55%;
+    border-radius: 4px;
+    overflow: hidden;
+    opacity: 0.3;
+}
+.certificates-container:hover{
+    opacity: 1;
 }
 .certificates-container .certificates{
     width: 100%;
     height: 100%;
     object-fit: cover;
+    overflow-y: scroll;
 }
 .certificates-container .certificates img{
     width: 100%;
     aspect-ratio: 100%;
-} */
+}
+::-webkit-scrollbar {
+    display: none;
+}
