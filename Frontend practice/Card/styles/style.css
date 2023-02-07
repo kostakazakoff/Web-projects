@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
 body{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Raleway', sans-serif;
 }
 .bg-container{
     width: 100vw;
@@ -34,7 +36,7 @@ body{
 }
 .card .card__info-container{
     position: absolute;
-    bottom: -270px;
+    bottom: -276px;
     left: 0;
     width: 100%;
     color: antiquewhite;
@@ -42,9 +44,8 @@ body{
     opacity: 0.8;
     padding: 12px;
     padding-bottom: 0;
-    font-size: 14px;
+    font-size: 12px;
     box-shadow: 0 0 30px rgba(33, 33, 33, 0.6);
-    /* z-index: 2; */
     transition: bottom 300ms linear;
     z-index: 100;
 }
@@ -57,6 +58,9 @@ body{
 .card .card__info-container .info-head{
     margin-bottom: 12px;
     text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.3ch;
 }
 .card:hover .card__info-container{
     bottom: 0;
@@ -75,19 +79,22 @@ body{
     border-color: orange;
     background-color: orange;
 }
-.certificates-container{
+/* .certificates-container{
     width: 40vw;
-    height: 80vh;
+    height: 90vh;
     position: absolute;
-    top: 10%;
+    top: 5%;
     left: 50%;
-    /* transform: translate(-50%, -50%); */
+    border-radius: 6px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
-.certificates-container #networking{
+.certificates-container .certificates{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    top: 0;
-    left: 0%;
-    /* transform: translate(-50%, -50%); */
 }
+.certificates-container .certificates img{
+    width: 100%;
+    aspect-ratio: 100%;
+} */
