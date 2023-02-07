@@ -76,8 +76,13 @@ body{
 }
 .card .card__info-container .info-content .info a:hover{
     color: black;
-    border-color: orange;
+    border: 4px solid orange;
     background-color: orange;
+    transition: border 150ms ease-in-out;
+}
+.card .card__info-container .info-content .info a:active{
+    border: none;
+    transition: border 150ms ease-in-out;
 }
 /* .certificates-container{
     width: 40vw;
