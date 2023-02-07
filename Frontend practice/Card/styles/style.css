@@ -4,7 +4,7 @@ body{
 .bg-container{
     width: 100vw;
     height: 100vh;
-    position: relative;
+    position: fixed;
     top: 0;
     left: 0;
     background-color: #e2e2e2;
@@ -14,14 +14,14 @@ body{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    bottom: 0;
+    /* bottom: 0; */
 }
 .card{
     width: 300px;
     aspect-ratio: 1/1.5;
-    position: absolute;
+    position: fixed;
     top: 50%;
-    left: 50%;
+    left: 25%;
     transform: translate(-50%, -50%);
     border-radius: 6px;
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
@@ -46,6 +46,7 @@ body{
     box-shadow: 0 0 30px rgba(33, 33, 33, 0.6);
     /* z-index: 2; */
     transition: bottom 300ms linear;
+    z-index: 100;
 }
 .card .card__info-container .info-content{
     border: 1px solid antiquewhite;
@@ -71,6 +72,22 @@ body{
 }
 .card .card__info-container .info-content .info a:hover{
     color: black;
-    border-color: #879916;
-    background-color: #879916;
+    border-color: orange;
+    background-color: orange;
+}
+.certificates-container{
+    width: 40vw;
+    height: 80vh;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    /* transform: translate(-50%, -50%); */
+}
+.certificates-container #networking{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0%;
+    /* transform: translate(-50%, -50%); */
 }
