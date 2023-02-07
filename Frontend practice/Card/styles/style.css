@@ -88,9 +88,9 @@ body{
 }
 .certificates-container{
     width: 400px;
-    height: 550px;
+    height: 570px;
     position: absolute;
-    top: 8%;
+    top: 7%;
     left: 55%;
     border-radius: 4px;
     overflow: hidden;
