@@ -3,7 +3,25 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Product, Article, Ingredient
 from .forms import ProductForm, ArticleForm, IngredientForm, ArticleCreateForm
 from django.contrib.auth.decorators import login_required
-from decimal import Decimal
+# from decimal import Decimal
+
+
+@login_required
+def home(request):
+    articles_queryset = Article.objects.all().order_by('title')
+    products_queryset = Product.objects.all().order_by('title')
+    articles = [a for a in articles_queryset]
+    products = [p for p in products_queryset]
+
+    search_article = request.GET.get('search_article') if request.GET.get('search_article') else None
+    search_product = request.GET.get('search_product') if request.GET.get('search_product') else None
+    if search_article:
+        articles = [a for a in articles_queryset if int(search_article) == a.id]
+    if search_product:
+        products = [p for p in products_queryset if int(search_product) == p.id]
+        
+    context = {'articles': articles, 'products': products}
+    return render(request, 'home.html', context)
 
 
 @login_required
@@ -12,12 +30,9 @@ def articles_list(request):
     search_text = ''
     if operation == 'search':
         search_text = request.GET.get('search').lower()
-    context = {
-        'articles': [],
-    }
+    context = {'articles': []}
     queryset = Article.objects.all().order_by('title')
-    context['articles'] = [
-        p for p in queryset if search_text in p.title.lower()]
+    context['articles'] = [p for p in queryset if search_text in p.title.lower()]
     return render(request, 'articles/articles_list.html', context)
 
 
@@ -25,13 +40,9 @@ def articles_list(request):
 def products_list(request):
     queryset = Product.objects.all().order_by('title')
     search_product = request.GET.get('search_product') if request.GET.get('search_product') else None
-
-    context = {'title': 'Продукти:',
-        'products': [p for p in queryset]}
-
+    context = {'title': 'Продукти:', 'products': [p for p in queryset]}
     if search_product:
         context['products'] = [p for p in queryset if int(search_product) == p.id]
-
     return render(request, 'products/products_list.html', context)
 
 
@@ -146,4 +157,4 @@ def login_view(request):
         elif operation == 'Logout':
             logout(request)
 
-    return render(request, 'home.html', {})
+    return render(request, 'login-page.html', {})
