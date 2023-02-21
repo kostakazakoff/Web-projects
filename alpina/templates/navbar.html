@@ -1,13 +1,13 @@
 <nav class="navbar">
     <div class="navbar-content">
         
-        <h1 class="navbar__brand">
-            <a class="navbar-brand" href="/"><strong>АЛПИНА</strong></a>
-        </h1>
+        <div class="navbar__brand">
+            <a href="/"><i class="fa-solid fa-house"></i><strong> АЛПИНА</strong></a>
+        </div>
 
         {% if user.is_authenticated %}
         <div class="dropdown">
-            <p class="dropdown-btn">Меню</p>
+            <p class="dropdown-btn"><i class="fa-solid fa-bars"></i> Меню</p>
             <ul class="dropdown__items" role="list">
                 <li><a class="dropdown__item" href="/../articles_list/">Артикули</a></option>
                 <li><a class="dropdown__item" href="/../products_list/">Продукти</a></option>

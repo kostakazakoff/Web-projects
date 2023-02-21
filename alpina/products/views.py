@@ -19,7 +19,15 @@ def home(request):
         articles = [a for a in articles_queryset if int(search_article) == a.id]
     if search_product:
         products = [p for p in products_queryset if int(search_product) == p.id]
-        
+
+    article_details = request.GET.get('article-details') if request.GET.get('article-details') else None
+    if article_details:
+        return redirect(f'./articles/{int(article_details)}')
+    
+    product_details = request.GET.get('product-details') if request.GET.get('product-details') else None
+    if product_details:
+        return redirect(f'./products/{int(product_details)}')
+
     context = {'articles': articles, 'products': products}
     return render(request, 'home.html', context)
 

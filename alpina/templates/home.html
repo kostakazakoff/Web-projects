@@ -1,51 +1,60 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="home-wrapper">
-    <section class="section articles">
-        <form action="" class="search-form">
-            <select class="selsect" name="search_article">
-                <option value="">Всички продукти</option>
+    <section class="section articles-wrap">
+
+            <form action="" class="search-form">
+                <select class="items" name="search_article">
+                    <option value="">Всички артикули</option>
+                    {% for a in articles %}
+                    <option value={{a.id}}>
+                        {{a.title}}
+                    </option>
+                    {% endfor %}
+                </select>
+                <button class="btn primary" type="submit">Филтрирай</button>
+            </form>
+    
+            <section class="products">
                 {% for a in articles %}
-                <option value={{a.id}}>
-                    {{a.title}}
-                </option>
+                <form class="product">
+                    <button name="article-details" type="submit" value="{{a.id}}">
+                        <span>{{a.title}}</span>
+                        <span>{{ a.price_incl_vat }} лв</span>
+                        <span>{{ a.price_incl_vat_per_piece }} лв/бр.</span>
+                    </button>
+                </form>
                 {% endfor %}
-            </select>
-            <button class="btn primary" type="submit">Филтрирай</button>
-        </form>
-
-        <section class="products">
-            {% for a in articles %}
-            <article class="product">
-                <span>{{a.title}}</span>
-                <span>{{ a.price_incl_vat }} лв</span>
-                <span>{{ a.price_incl_vat_per_piece }} лв/бр.</span>
-            </article>
-            {% endfor %}
-        </section>
+            </section>
+        
     </section>
 
-    <section class="section products">
-        <form action="" class="search-form">
-            <select class="selsect" name="search_product">
-                <option value="">Всички продукти</option>
+    <section class="section products-wrap">
+
+            <form action="" class="search-form">
+                <select class="items" name="search_product">
+                    <option value="">Всички продукти</option>
+                    {% for p in products %}
+                    <option value={{p.id}}>
+                        {{p.title}}
+                    </option>
+                    {% endfor %}
+                </select>
+                <button class="btn primary" type="submit">Филтрирай</button>
+            </form>
+
+            <section class="products">
                 {% for p in products %}
-                <option value={{p.id}}>
-                    {{p.title}}
-                </option>
+                <form class="product">
+                    <button name="product-details" type="submit" value="{{p.id}}">
+                        <span>{{p.title}}</span>
+                        <span>{{ p.price }} лв/{{ p.unit }}</span>
+                    </button>
+                </form>
                 {% endfor %}
-            </select>
-            <button class="btn primary" type="submit">Филтрирай</button>
-        </form>
+            </section>
 
-        <section class="products">
-            {% for p in products %}
-            <article class="product">
-                <span>{{p.title}}</span>
-                <span>{{ p.price }} лв/{{ p.unit }}</span>
-            </article>
-            {% endfor %}
-        </section>
     </section>
+
 </div>
 {% endblock %}

@@ -1,23 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+::-webkit-scrollbar {
+    display: none;
+}
+select{
+    all: unset;
+    border-bottom: 1px solid black;
+}
+button{
+    all: unset;
+    cursor: pointer;
+    padding: 0 24px;
+}
+.primary{
+    border: 1px solid black;
+    border-radius: 6px;
+}
 body {
     background-color: #eee;
     font-family: 'Montserrat', sans-serif;
 }
 
 /* NAVIGATION BAR ----------------------------------------------- */
-
-.navbar {
+header{
     width: 100%;
     height: 60px;
-    background-color: #DDE8DE;
-    color: black;
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 100;
+    background-color: #DDE8DE;
+    color: black;
+}
+.navbar {
+    width: 100%;
+    height: 100%;
+    
+    
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 .navbar-content {
     /* box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.1); */
@@ -64,34 +87,71 @@ body {
     position: absolute;
 }
 .top-distance{
-    height: 80px;
+    height: 60px;
 }
 /* HOME PAGE ------------------------------------------------------ */
 
+.main-container{
+    max-width: 1800px;
+    margin: auto;
+    min-height: 100vh;
+}
+
 .home-wrapper{
+    width: 100%;
+    height: 95%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: 'articles products preview';
+    align-items: center;
+    padding: 12px 60px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: end;
 }
-.articles{
+
+.section{
+    width: 90%;
+    height: 90%;
+    position: relative;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    background-color: white;
+}
+.items{
+    flex-grow: 1;
+}
+.articles-wrap{
     grid-area: articles;
 }
-.products{
-    grid-area: products;
+.products-wrap{
+    grid-area: products; 
 }
+
 .search-form{
     position: sticky;
-    top: 60px;
-}
-.products{
-    width: 80%;
+    top: 0;
     display: flex;
-    gap: 8px;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    background-color: #eee;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
 }
 .product:nth-child(even){
-    background-color: #dedede;
+    background-color: #eee;
+}
+.products{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    object-fit: cover;
 }
 .product{
     display: flex;
