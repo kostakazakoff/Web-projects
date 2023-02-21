@@ -35,8 +35,6 @@ header{
 .navbar {
     width: 100%;
     height: 100%;
-    
-    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,7 +50,7 @@ header{
     justify-content: flex-start;
     align-items: center;
     gap: 24px;
-    padding: 12px 60px;
+    padding: 12px 96px;
 }
 .navbar a {
     text-decoration: none;
@@ -99,28 +97,30 @@ header{
 
 .home-wrapper{
     width: 100%;
-    height: 95%;
+    height: 92%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas: 'articles products preview';
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas: 'products articles';
     align-items: center;
-    padding: 12px 60px;
+    gap: 24px;
+    padding: 24px 60px;
     position: fixed;
-    top: 50%;
+    top: 60px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     align-items: end;
 }
 
 .section{
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     position: relative;
     overflow: scroll;
     display: flex;
     flex-direction: column;
     justify-self: center;
     background-color: white;
+    border-radius: 6px;
 }
 .items{
     flex-grow: 1;
@@ -141,8 +141,9 @@ header{
     align-items: flex-end;
     gap: 24px;
     background-color: #eee;
-    padding-bottom: 12px;
+    padding: 12px;
     margin-bottom: 12px;
+    background-color: #DDE8DE;
 }
 .product:nth-child(even){
     background-color: #eee;
