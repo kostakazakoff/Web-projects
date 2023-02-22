@@ -13,6 +13,7 @@ class Product(models.Model):
     title = models.CharField(max_length=200, blank=False, null=False, unique=True, verbose_name='Наименование')
     price = models.DecimalField(decimal_places=2, max_digits=1000, blank=True, null=False, default=0, verbose_name='Цена')
     unit = models.CharField(max_length=10, blank=True, null=True, choices=UNITS, verbose_name='Мярка')
+    # quantity = models.DecimalField(decimal_places=3, max_digits=10, default=1, blank=True, null=True, verbose_name='Количество')
     comment = models.TextField(max_length=200, default=None, blank=True, null=True, verbose_name='Забележка')
 
     def get_absolute_url(self):
@@ -20,9 +21,20 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+    
 
+# class Ingredient(models.Model):
+#     title = models.CharField(max_length=200, blank=False, null=False, unique=True, verbose_name='Наименование')
+#     price = models.DecimalField(decimal_places=2, max_digits=1000, blank=True, null=False, default=0, verbose_name='Цена')
+#     unit = models.CharField(max_length=10, blank=True, null=True, choices=UNITS, verbose_name='Мярка')
+#     quantity = models.DecimalField(decimal_places=3, max_digits=10, default=1, blank=True, null=True, verbose_name='Количество')
+#     comment = models.TextField(max_length=200, default=None, blank=True, null=True, verbose_name='Забележка')
 
+#     def get_absolute_url(self):
+#         return reverse('products', kwargs={'id': self.id})
 
+#     def __str__(self):
+#         return self.title
 
 
 class Article(models.Model):
@@ -38,47 +50,8 @@ class Article(models.Model):
     weigth_g = models.IntegerField(blank=True, null=True, default=0, verbose_name='Тегло')
     weigth_per_piece_g = models.IntegerField(editable=False, blank=True, null=True, default=0, verbose_name='Тегло/бр.')
 
-    # ingredients = models.ManyToManyField(Ingredient, related_name='articles', blank=True, verbose_name='Продукти')
     product_01 = models.CharField(max_length=100, blank=True, null=True, choices=products_choice, verbose_name='Продукт')
     product_01_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=True, null=False, default=0, verbose_name='Количество')
-    # product_02 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_02_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_03 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_03_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_04 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_04_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_05 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_05_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_06 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_06_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_07 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_07_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_08 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_08_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_09 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_09_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_10 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_10_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_11 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_11_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_12 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_12_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_13 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_13_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_14 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_14_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_15 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_15_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_16 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_16_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_17 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_17_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_18 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_18_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_19 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_19_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
-    # product_20 = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, choices=products_choice, verbose_name='Продукт')
-    # product_20_quantity = models.DecimalField(decimal_places=3, max_digits=10, blank=False, null=False, default=0, verbose_name='Количество')
 
     electricity = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, verbose_name='Ток')
     water = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, verbose_name='Вода')

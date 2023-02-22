@@ -99,7 +99,7 @@ def create_article(request):
     # article = get_object_or_404(Article, title=article_form.data['title'])
 
     if article_form.is_valid():
-        # print(article_form.cleaned_data)
+        print(article_form.cleaned_data)
         article_form.save()
         article = Article.objects.last()
 
