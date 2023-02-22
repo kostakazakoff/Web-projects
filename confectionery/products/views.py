@@ -131,25 +131,10 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('/../products_list')
+                return redirect('/')
             else:
                 return redirect('/')
         elif operation == 'Logout':
             logout(request)
 
     return render(request, 'login-page.html', {})
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Web-projects/views.py at main · kostakazakoff/Web-projects
