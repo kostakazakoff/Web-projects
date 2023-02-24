@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
-from .models import Product, Article
+from .models import Product, Article, ComplexProduct
 from .forms import ProductForm, ArticleForm
 from django.contrib.auth.decorators import login_required
 from decimal import Decimal
@@ -10,8 +10,9 @@ from decimal import Decimal
 def home(request):
     articles_queryset = Article.objects.all().order_by('title')
     products_queryset = Product.objects.all().order_by('title')
+    complex_products_queryset = ComplexProduct.objects.all().order_by('title')
     articles = [a for a in articles_queryset]
-    products = [p for p in products_queryset]
+    products = [p for p in products_queryset] + [p for p in complex_products_queryset]
 
     search_article = request.GET.get('search_article') if request.GET.get('search_article') else None
     search_product = request.GET.get('search_product') if request.GET.get('search_product') else None
@@ -51,12 +52,17 @@ def product_details(request, id):
 @login_required
 def create_product(request):
     form = ProductForm(request.POST or None)
+
+    operation = request.POST.get('operation')
+    if operation == 'Cancel':
+        return redirect('/')
+
     if form.is_valid():
         form.save()
         form = ProductForm()
-        return redirect('/../products_list')
+        return redirect('/')
+    
     context = {'form': form}
-
     return render(request, 'products/product_create.html', context)
 
 ingredients = []

@@ -2,9 +2,6 @@ from django import forms
 from .models import Product, Article
 
 
-# all_products = Product.objects.all()
-# context = [(p.title, p.title) for p in all_products]
-
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
@@ -12,6 +9,13 @@ class ProductForm(forms.ModelForm):
                 'price',
                 'unit',
                 'comment']
+        
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'input-field'}),
+            'price': forms.NumberInput(attrs={'class': 'input-field'}),
+            'unit': forms.Select(attrs={'class': 'input-field'}),
+            'comment': forms.Textarea(attrs={'class': 'input-field'}),
+        }
 
 class ArticleForm(forms.ModelForm):
     class Meta:
@@ -30,3 +34,18 @@ class ArticleForm(forms.ModelForm):
             'reciep',
             'cake_image'
             ]
+        
+        widgets = {
+            'article_type': forms.Select(attrs={'class': 'input-field'}),
+            'title': forms.TextInput(attrs={'class': 'input-field'}),
+            'pieces': forms.NumberInput(attrs={'class': 'input-field'}),
+            'weigth_g': forms.NumberInput(attrs={'class': 'input-field'}),
+            'electricity': forms.NumberInput(attrs={'class': 'input-field'}),
+            'water': forms.NumberInput(attrs={'class': 'input-field'}),
+            'worker_expenses': forms.NumberInput(attrs={'class': 'input-field'}),
+            'package': forms.NumberInput(attrs={'class': 'input-field'}),
+            'fuel': forms.NumberInput(attrs={'class': 'input-field'}),
+            'comment': forms.Textarea(attrs={'class': 'input-field'}),
+            'reciep': forms.Textarea(attrs={'class': 'input-field'}),
+            'cake_image': forms.URLInput(attrs={'class': 'input-field'}),
+        }

@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<section>
-  <form class="container-fluid" method="POST">
+<section class="container-form">
+  <form class="input-form" method="POST">
     {% csrf_token %}
-
     {{article_form.as_p}}
-
-    <button class="btn btn-dark type="submit">Създай артикул</button>
+    <div class="buttons-container">
+      <button class="btn btn-dark type="submit">Създай артикул</button>
+    </div>
   </form>
 </section>
 {% endblock %}

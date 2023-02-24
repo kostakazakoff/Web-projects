@@ -1,32 +1,14 @@
 {% extends 'base.html' %}
-
 {% block content %}
-
-<article class="container">
-    <form action="." method="POST" class="input_form">
+<section class="container-form">
+    <form action="." method="POST" class="input-form">
         {% csrf_token %}
-        <!-- {{form.as_p}} -->
-        <ul>
-            <li class="mb-3">
-                <span>Продукт</span>
-                {{form.title}}
-            </li>
-            <li>
-                <span>Цена</span>
-                {{form.price}}
-            </li>
-            <li>
-                <span>Мярка</span>
-                {{form.unit}}
-            </li>
-            <li>
-                <span>Забележка</span>
-                {{form.comment}}
-            </li>
-    
-        <button type="submit" class="btn btn-dark" value="Save" name="operation">Save</button>
-        <button type="submit" class="btn btn-danger" value='Delete' name="operation">Delete</button>
-    </form>
-</article>
+        {{form.as_p}}
+        <div class="buttons-container">
+            <button type="submit" class="primary" value="Save" name="operation">Save</button>
+            <button type="submit" class="danger" value='Delete' name="operation">Delete</button>
+        </div>
 
+    </form>
+</section>
 {% endblock %}

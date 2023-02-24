@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<section class="container-fluid ">
-    <form action="." method="POST"">
+<section class="container-form">
+    <form action="" method="POST" class="input-form">
         {% csrf_token %}
         {{form.as_p}}
-        <button type="submit" class="btn btn-dark" value="Save" name="operation">Save</button>
+        <div class="buttons-container">
+            <button type="submit" class="primary" value="Save" name="operation">Save</button>
+            <button class="primary" name="operation" value="Cancel">Cancel</button>
+        </div>
     </form>
 </section>
 {% endblock %}
