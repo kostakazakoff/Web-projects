@@ -48,7 +48,7 @@ class Article(models.Model):
     
     
     products_choice = [(x.title, x.title) for x in Product.objects.all()]
-    article_type = models.CharField(max_length=100, blank=True, null=False, choices=ArticleTypes.choices, verbose_name='Вид')
+    article_type = models.CharField(max_length=100, blank=True, null=False, choices=ArticleTypes.choices, default=ArticleTypes.cake, verbose_name='Вид')
     title = models.CharField(max_length=200, blank=False, null=False, unique=True, verbose_name='Наименование')
     pieces = models.IntegerField(blank=True, null=True, default=16, verbose_name='Брой')
     weigth_g = models.IntegerField(blank=True, null=True, default=0, verbose_name='Тегло')

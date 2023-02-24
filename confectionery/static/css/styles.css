@@ -199,9 +199,9 @@ header{
 .container-form{
     max-width: 300px;
     position: absolute;
-    top: 50%;
+    top: 84px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     padding: 12px;
     background-color: #DDE8DE;
     border-radius: 8px;
