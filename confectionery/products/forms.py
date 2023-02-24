@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, Article
+from .models import Product, Article, ComplexProduct
 
 
 class ProductForm(forms.ModelForm):
@@ -16,6 +16,26 @@ class ProductForm(forms.ModelForm):
             'unit': forms.Select(attrs={'class': 'input-field'}),
             'comment': forms.Textarea(attrs={'class': 'input-field'}),
         }
+
+
+class ComplexProductForm(forms.ModelForm):
+    class Meta:
+        model = ComplexProduct
+        fields = [
+            'title',
+            'unit',
+            'quantity',
+            'comment',
+        ]
+
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'input-field'}),
+            'unit': forms.Select(attrs={'class': 'input-field'}),
+            'quantity': forms.Select(attrs={'class': 'input-field'}),
+            'comment': forms.Textarea(attrs={'class': 'input-field'}),
+            'price': forms.NumberInput(attrs={'class': 'input-field'}),
+        }
+
 
 class ArticleForm(forms.ModelForm):
     class Meta:

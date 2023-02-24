@@ -125,6 +125,11 @@ header{
     align-items: end;
 }
 
+.home-wrapper .create-product-container{
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'products complex-product';
+}
+
 .section{
     width: 100%;
     height: 100%;
@@ -154,10 +159,10 @@ header{
     justify-content: space-between;
     align-items: flex-end;
     gap: 24px;
-    background-color: #eee;
     padding: 12px;
     margin-bottom: 12px;
     background-color: #DDE8DE;
+    z-index: 2;
 }
 .product:nth-child(even){
     background-color: #eee;
@@ -193,7 +198,11 @@ header{
     border: 1px solid black;
     border-radius: 4px;
     background-color: #eee;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.ingredients-field{
+    height: 200px;
 }
 
 .container-form{
@@ -205,4 +214,8 @@ header{
     padding: 12px;
     background-color: #DDE8DE;
     border-radius: 8px;
+}
+
+.container-form .create-form{
+    max-width: 600px;
 }

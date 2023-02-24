@@ -33,9 +33,10 @@ class Product(models.Model):
 class ComplexProduct(models.Model):
     title = models.CharField(max_length=200, blank=False, null=False, unique=True, verbose_name='Наименование')
     products = models.ManyToManyField(Product, verbose_name='Продукти')
-    unit = models.CharField(max_length=10, blank=True, null=True, choices=Units.choices, verbose_name='Мярка')
+    unit = models.CharField(max_length=10, blank=True, null=True, choices=Units.choices, default=Units.pc, verbose_name='Мярка')
     quantity = models.DecimalField(decimal_places=3, max_digits=10, default=0, blank=True, null=True, verbose_name='Количество')
     comment = models.TextField(max_length=200, default=None, blank=True, null=True, verbose_name='Забележка')
+    price = models.DecimalField(decimal_places=2, max_digits=1000, blank=True, null=False, default=0, editable=None, verbose_name='Цена')
 
     def get_absolute_url(self):
         return reverse('complex_products', kwargs={'id': self.id})
@@ -45,8 +46,6 @@ class ComplexProduct(models.Model):
 
 
 class Article(models.Model):
-    
-    
     products_choice = [(x.title, x.title) for x in Product.objects.all()]
     article_type = models.CharField(max_length=100, blank=True, null=False, choices=ArticleTypes.choices, default=ArticleTypes.cake, verbose_name='Вид')
     title = models.CharField(max_length=200, blank=False, null=False, unique=True, verbose_name='Наименование')

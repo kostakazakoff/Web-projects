@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from .models import Product, Article, ComplexProduct
-from .forms import ProductForm, ArticleForm
+from .forms import ProductForm, ArticleForm, ComplexProductForm
 from django.contrib.auth.decorators import login_required
 from decimal import Decimal
 
@@ -65,7 +65,26 @@ def create_product(request):
     context = {'form': form}
     return render(request, 'products/product_create.html', context)
 
-ingredients = []
+
+@login_required
+def create_complex_product(request):
+    products = [p for p in Product.objects.all()]
+    complex_product_form = ComplexProductForm(request.POST or None)
+    product_form = ProductForm(request.POST or None)
+    id = request.POST.get('add')
+    if id:
+        product = get_object_or_404(Product, id=id)
+        # if product_form.is_valid():
+        print('OK')
+    context = {
+        'products': products,
+        'product_form': product_form,
+        'complex_product_form': complex_product_form,
+        }
+    return render(request, 'products/create_complex_product.html', context)
+
+
+# ingredients = []
 
 @login_required
 def create_article(request):
@@ -122,7 +141,8 @@ def article_details(request, id):
     
     if operation == 'create_article':
         if article_form.is_valid():
-            article.ingredients.add(ingredients)
+            print('OK')
+            # article.ingredients.add(ingredients)
 
     context = {'article_form': article_form, 'article': article}
     return render(request, f'articles/article_details.html', context)
