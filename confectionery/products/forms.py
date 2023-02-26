@@ -24,17 +24,39 @@ class ComplexProductForm(forms.ModelForm):
         fields = [
             'title',
             'unit',
+            'comment',
+            'product_01',
+            'product_01_quantity',
+            'product_02',
+            'product_02_quantity',
+            'product_03',
+            'product_03_quantity',
+            'product_04',
+            'product_04_quantity',
+            'product_05',
+            'product_05_quantity',
+            'product_06',
+            'product_06_quantity',
+            'product_07',
+            'product_07_quantity',
+            'product_08',
+            'product_08_quantity',
+            'product_09',
+            'product_09_quantity',
+            'product_10',
+            'product_10_quantity',
+            'unit',
             'quantity',
             'comment',
         ]
 
-        widgets = {
-            'title': forms.TextInput(attrs={'class': 'input-field'}),
-            'unit': forms.Select(attrs={'class': 'input-field'}),
-            'quantity': forms.Select(attrs={'class': 'input-field'}),
-            'comment': forms.Textarea(attrs={'class': 'input-field'}),
-            'price': forms.NumberInput(attrs={'class': 'input-field'}),
-        }
+        # widgets = {
+        #     'title': forms.TextInput(attrs={'class': 'input-field'}),
+        #     'product_01': forms.Select(attrs={'class': 'input-field'}),
+        #     'product_01_quantity': forms.NumberInput(attrs={'class': 'input-field'}),
+        #     'unit': forms.Select(attrs={'class': 'input-field'}),
+        #     'comment': forms.Textarea(attrs={'class': 'input-field'}),
+        # }
 
 
 class ArticleForm(forms.ModelForm):

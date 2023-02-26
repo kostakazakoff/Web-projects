@@ -20,7 +20,6 @@ class Product(models.Model):
     title = models.CharField(max_length=200, blank=False, null=False, unique=True, verbose_name='Наименование')
     price = models.DecimalField(decimal_places=2, max_digits=1000, blank=True, null=False, default=0, verbose_name='Цена')
     unit = models.CharField(max_length=10, blank=True, null=True, choices=Units.choices, default=Units.pc, verbose_name='Мярка')
-    quantity = models.DecimalField(decimal_places=3, max_digits=10, default=0, blank=True, null=True, verbose_name='Количество')
     comment = models.TextField(max_length=200, default=None, blank=True, null=True, verbose_name='Забележка')
 
     def get_absolute_url(self):
@@ -28,21 +27,63 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
-    
+
 
 class ComplexProduct(models.Model):
+    p_choices = [(p.title, p.title) for p in Product.objects.all()]
     title = models.CharField(max_length=200, blank=False, null=False, unique=True, verbose_name='Наименование')
-    products = models.ManyToManyField(Product, verbose_name='Продукти')
+    # products = models.ManyToManyField(Product, verbose_name='Продукти')
+
+    product_01 = models.CharField(max_length=100, choices=p_choices, blank=True, null=True, verbose_name='Съставка')
+    product_01_quantity = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, verbose_name='Количество')
+    product_02 = models.CharField(max_length=100, choices=p_choices, blank=True, null=True, verbose_name='Съставка')
+    product_02_quantity = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, verbose_name='Количество')
+    product_03 = models.CharField(max_length=100, choices=p_choices, blank=True, null=True, verbose_name='Съставка')
+    product_03_quantity = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, verbose_name='Количество')
+    product_04 = models.CharField(max_length=100, choices=p_choices, blank=True, null=True, verbose_name='Съставка')
+    product_04_quantity = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, verbose_name='Количество')
+    product_05 = models.CharField(max_length=100, choices=p_choices, blank=True, null=True, verbose_name='Съставка')
+    product_05_quantity = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, verbose_name='Количество')
+    product_06 = models.CharField(max_length=100, choices=p_choices, blank=True, null=True, verbose_name='Съставка')
+    product_06_quantity = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, verbose_name='Количество')
+    product_07 = models.CharField(max_length=100, choices=p_choices, blank=True, null=True, verbose_name='Съставка')
+    product_07_quantity = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, verbose_name='Количество')
+    product_08 = models.CharField(max_length=100, choices=p_choices, blank=True, null=True, verbose_name='Съставка')
+    product_08_quantity = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, verbose_name='Количество')
+    product_09 = models.CharField(max_length=100, choices=p_choices, blank=True, null=True, verbose_name='Съставка')
+    product_09_quantity = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, verbose_name='Количество')
+    product_10 = models.CharField(max_length=100, choices=p_choices, blank=True, null=True, verbose_name='Съставка')
+    product_10_quantity = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=0, verbose_name='Количество')
+
+    quantity = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=False, default=1, verbose_name='Количество на заготовката')
     unit = models.CharField(max_length=10, blank=True, null=True, choices=Units.choices, default=Units.pc, verbose_name='Мярка')
-    quantity = models.DecimalField(decimal_places=3, max_digits=10, default=0, blank=True, null=True, verbose_name='Количество')
     comment = models.TextField(max_length=200, default=None, blank=True, null=True, verbose_name='Забележка')
-    price = models.DecimalField(decimal_places=2, max_digits=1000, blank=True, null=False, default=0, editable=None, verbose_name='Цена')
+    price = models.DecimalField(decimal_places=2, max_digits=100, blank=True, null=False, default=0, editable=None, verbose_name='Цена')
 
     def get_absolute_url(self):
         return reverse('complex_products', kwargs={'id': self.id})
 
     def __str__(self):
         return self.title
+    
+    def get_ingredients(self):
+        ingredients = {}
+        all = {
+            Product.objects.get(title=self.product_01): self.product_01_quantity,
+            Product.objects.get(title=self.product_02): self.product_02_quantity,
+            Product.objects.get(title=self.product_03): self.product_03_quantity,
+            Product.objects.get(title=self.product_04): self.product_04_quantity,
+            # Product.objects.get(title=self.product_05): self.product_05_quantity,
+            # Product.objects.get(title=self.product_06): self.product_06_quantity,
+            # Product.objects.get(title=self.product_07): self.product_07_quantity,
+            # Product.objects.get(title=self.product_08): self.product_08_quantity,
+            # Product.objects.get(title=self.product_09): self.product_09_quantity,
+            # Product.objects.get(title=self.product_10): self.product_10_quantity,
+            }
+        for k,v in all.items():
+            if k:
+                ingredients.update({k: v})
+        return ingredients
 
 
 class Article(models.Model):

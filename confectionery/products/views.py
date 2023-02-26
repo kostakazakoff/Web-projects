@@ -12,24 +12,40 @@ def home(request):
     products_queryset = Product.objects.all().order_by('title')
     complex_products_queryset = ComplexProduct.objects.all().order_by('title')
     articles = [a for a in articles_queryset]
-    products = [p for p in products_queryset] + [p for p in complex_products_queryset]
+    products = [p for p in products_queryset]
+    complex_products = [cp for cp in complex_products_queryset]
 
-    search_article = request.GET.get('search_article') if request.GET.get('search_article') else None
-    search_product = request.GET.get('search_product') if request.GET.get('search_product') else None
+    search_article = request.GET.get(
+        'search_article') if request.GET.get('search_article') else None
+    search_product = request.GET.get(
+        'search_product') if request.GET.get('search_product') else None
+    search_complex_product = request.GET.get(
+        'search_complex_product') if request.GET.get('search_complex_product') else None
     if search_article:
-        articles = [a for a in articles_queryset if int(search_article) == a.id]
+        articles = [a for a in articles if int(search_article) == a.id]
     if search_product:
-        products = [p for p in products_queryset if int(search_product) == p.id]
+        products = [p for p in products if int(search_product) == p.id]
+    if search_complex_product:
+        complex_products = [cp for cp in complex_products if int(
+            search_complex_product) == cp.id]
 
-    article_details = request.GET.get('article-details') if request.GET.get('article-details') else None
+    article_details = request.GET.get(
+        'article-details') if request.GET.get('article-details') else None
     if article_details:
         return redirect(f'./articles/{int(article_details)}')
-    
-    product_details = request.GET.get('product-details') if request.GET.get('product-details') else None
-    if product_details:
-        return redirect(f'./products/{int(product_details)}')
 
-    context = {'articles': articles, 'products': products}
+    product_details = request.GET.get(
+        'product-details') if request.GET.get('product-details') else None
+    if product_details:
+        return redirect(f'./products/{product_details}')
+
+    complex_product_details = request.GET.get(
+        'complex-product-details') if request.GET.get('complex-product-details') else None
+    if complex_product_details:
+        return redirect(f'./complex_products/{int(complex_product_details)}')
+
+    context = {'articles': articles, 'products': products,
+               'complex-products': complex_products}
     return render(request, 'home.html', context)
 
 
@@ -49,6 +65,56 @@ def product_details(request, id):
     return render(request, 'products/product_details.html', context)
 
 
+def calc_complex_product_price(id):
+    complex_product = ComplexProduct.objects.get(pk=id)
+    ingredients = complex_product.get_ingredients()
+    complex_product.price = sum(k.price * v for k, v in ingredients.items()) / complex_product.quantity
+    complex_product.save()
+    
+    # complex_product_ingredients = [
+    #     [[i.price for i in ingredients if i.title ==
+    #       complex_product.product_01][0], complex_product.product_01_quantity],
+    #     [[i.price for i in ingredients if i.title ==
+    #       complex_product.product_02][0], complex_product.product_02_quantity],
+    #     [[i.price for i in ingredients if i.title ==
+    #       complex_product.product_03][0], complex_product.product_03_quantity],
+    #     [[i.price for i in ingredients if i.title ==
+    #       complex_product.product_04][0], complex_product.product_04_quantity],
+    #     [[i.price for i in ingredients if i.title ==
+    #       complex_product.product_05][0], complex_product.product_05_quantity],
+    #     [[i.price for i in ingredients if i.title ==
+    #       complex_product.product_06][0], complex_product.product_06_quantity],
+    #     [[i.price for i in ingredients if i.title ==
+    #       complex_product.product_07][0], complex_product.product_07_quantity],
+    #     [[i.price for i in ingredients if i.title ==
+    #       complex_product.product_08][0], complex_product.product_08_quantity],
+    #     [[i.price for i in ingredients if i.title ==
+    #       complex_product.product_09][0], complex_product.product_09_quantity],
+    #     [[i.price for i in ingredients if i.title ==
+    #       complex_product.product_10][0], complex_product.product_10_quantity],
+    # ]
+    # complex_product.price = sum(
+    #     [x[0] * x[1] for x in complex_product_ingredients]) * Decimal(1.2)
+    # complex_product.save()
+
+
+@login_required
+def complex_product_details(request, id):
+    obj = get_object_or_404(ComplexProduct, id=id)
+    form = ComplexProductForm(request.POST or None, instance=obj)
+    operation = request.POST.get('operation')
+    if operation == 'Save':
+        if form.is_valid():
+            form.save()
+            calc_complex_product_price(id)
+            return redirect('/')
+    elif operation == 'Delete':
+        obj.delete()
+        return redirect('/')
+    context = {'form': form, 'complex_product': obj}
+    return render(request, 'products/complex_product_details.html', context)
+
+
 @login_required
 def create_product(request):
     form = ProductForm(request.POST or None)
@@ -61,26 +127,28 @@ def create_product(request):
         form.save()
         form = ProductForm()
         return redirect('/')
-    
+
     context = {'form': form}
     return render(request, 'products/product_create.html', context)
 
 
 @login_required
 def create_complex_product(request):
-    products = [p for p in Product.objects.all()]
-    complex_product_form = ComplexProductForm(request.POST or None)
-    product_form = ProductForm(request.POST or None)
-    id = request.POST.get('add')
-    if id:
-        product = get_object_or_404(Product, id=id)
-        # if product_form.is_valid():
-        print('OK')
+    form = ComplexProductForm(request.POST or None)
+    ingredients = [i for i in Product.objects.all()]
+    operation = request.POST.get('operation')
     context = {
-        'products': products,
-        'product_form': product_form,
-        'complex_product_form': complex_product_form,
-        }
+        'form': form,
+    }
+
+    if operation:
+        if operation == 'Save':
+            if form.is_valid():
+                form.save()
+                complex_product = ComplexProduct.objects.last()
+                calc_complex_product_price(complex_product['id'])
+                return redirect(f'/complex_products/{complex_product["id"]}')
+
     return render(request, 'products/create_complex_product.html', context)
 
 
@@ -98,7 +166,7 @@ def create_article(request):
     #     # print(obj_id)
     #     context = {'article': obj}
     #     return redirect(f'/../articles/{obj.id}')
-    
+
     # article = get_object_or_404(Article, title=article_form.data['title'])
 
     if article_form.is_valid():
@@ -111,10 +179,11 @@ def create_article(request):
         ingredients_total_cost = 0
 
         article.cost_price = ingredients_total_cost + article.electricity + article.water \
-                             + article.worker_expenses + article.package + article.fuel
+            + article.worker_expenses + article.package + article.fuel
         article.other_expenses = article.cost_price * Decimal(0.1)
         article.manufacturing_costs = article.cost_price * Decimal(0.08)
-        article.final_costs_price = article.cost_price + article.other_expenses + article.manufacturing_costs
+        article.final_costs_price = article.cost_price + \
+            article.other_expenses + article.manufacturing_costs
         article.workshop_profit = article.final_costs_price * Decimal(0.1)
         article.workshop_price = article.final_costs_price + article.workshop_profit
         article.vat = article.workshop_price * Decimal(0.2)
@@ -126,7 +195,7 @@ def create_article(request):
         context = {'article_form': article_form, 'article': article}
 
         return redirect('/')
-    
+
     context = {'article_form': article_form}
     print('Not valid form')
 
@@ -138,7 +207,7 @@ def article_details(request, id):
     article = get_object_or_404(Article, id=id)
     article_form = ArticleForm(request.POST or None, instance=article)
     operation = request.POST.get('operation')
-    
+
     if operation == 'create_article':
         if article_form.is_valid():
             print('OK')

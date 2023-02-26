@@ -1,60 +1,86 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="home-wrapper">
-    <section class="section articles-wrap">
-
-            <form action="" class="search-form">
-                <select class="items" name="search_article">
-                    <option value="">Всички изделия</option>
-                    {% for a in articles %}
-                    <option value={{a.id}}>
-                        {{a.title}}
-                    </option>
-                    {% endfor %}
-                </select>
-                <button class="btn primary" type="submit">Филтрирай</button>
-            </form>
-    
-            <section class="products">
-                {% for a in articles %}
-                <form class="product">
-                    <button name="article-details" type="submit" value="{{a.id}}">
-                        <span>{{a.title}}</span>
-                        <span>{{ a.price_incl_vat }} лв</span>
-                        <span>{{ a.price_incl_vat_per_piece }} лв/бр.</span>
-                    </button>
-                </form>
-                {% endfor %}
-            </section>
-        
-    </section>
-
     <section class="section products-wrap">
 
-            <form action="" class="search-form">
-                <select class="items" name="search_product">
-                    <option value="">Всички продукти</option>
-                    {% for p in products %}
-                    <option value={{p.id}}>
-                        {{p.title}}
-                    </option>
-                    {% endfor %}
-                </select>
-                <button class="btn primary" type="submit">Филтрирай</button>
-            </form>
-
-            <section class="products">
+        <form action="" class="search-form">
+            <select class="items" name="search_product">
+                <option value="">Всички продукти</option>
                 {% for p in products %}
-                <form class="product">
-                    <button name="product-details" type="submit" value="{{p.id}}">
-                        <span>{{p.title}}</span>
-                        <span>{{ p.price }} лв/{{ p.unit }}</span>
-                    </button>
-                </form>
+                <option value={{p.id}}>
+                    {{p.title}}
+                </option>
                 {% endfor %}
-            </section>
+            </select>
+            <button class="btn primary" type="submit">Филтрирай</button>
+        </form>
+
+        <section class="products">
+            {% for p in products %}
+            <form class="product">
+                <button name="product-details" type="submit" value={{p.id}}>
+                    <span>{{p.title}}</span>
+                    <span>{{ p.price }} лв/{{ p.unit }}</span>
+                </button>
+            </form>
+            {% endfor %}
+        </section>
 
     </section>
 
+    <section class="section complex-products-wrap">
+
+        <form action="" class="search-form">
+            <select class="items" name="search_complex_product">
+                <option value="">Всички заготовки</option>
+                {% for cp in complex_products %}
+                <option value={{a.id}}>
+                    {{cp.title}}
+                </option>
+                {% endfor %}
+            </select>
+            <button class="btn primary" type="submit">Филтрирай</button>
+        </form>
+
+        <section class="products">
+            {% for cp in complex_products %}
+            <form class="product">
+                <button name="complex-products-details" type="submit" value={{cp.id}}>
+                    <span>{{ cp.title }}</span>
+                    <span>{{ cp.price }} лв</span>
+                </button>
+            </form>
+            {% endfor %}
+        </section>
+    
+</section>
+
+    <section class="section articles-wrap">
+
+        <form action="" class="search-form">
+            <select class="items" name="search_article">
+                <option value="">Всички изделия</option>
+                {% for a in articles %}
+                <option value={{a.id}}>
+                    {{a.title}}
+                </option>
+                {% endfor %}
+            </select>
+            <button class="btn primary" type="submit">Филтрирай</button>
+        </form>
+
+        <section class="products">
+            {% for a in articles %}
+            <form class="product">
+                <button name="article-details" type="submit" value="{{a.id}}">
+                    <span>{{a.title}}</span>
+                    <span>{{ a.price_incl_vat }} лв</span>
+                    <span>{{ a.price_incl_vat_per_piece }} лв/бр.</span>
+                </button>
+            </form>
+            {% endfor %}
+        </section>
+
+    </section>
 </div>
 {% endblock %}

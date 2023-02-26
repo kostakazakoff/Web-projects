@@ -1,61 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-
-    <div class="home-wrapper create-product-container">
-
-        <section class="section products-wrap">
-            <form action="" class="search-form">
-                <select class="items" name="search_product">
-                    <option value="">Всички продукти</option>
-                    {% for p in products %}
-                    <option value={{p.id}}>
-                        {{p.title}}
-                    </option>
-                    {% endfor %}
-                </select>
-                <button class="btn primary" type="submit">Филтрирай</button>
+    <!-- <section class="section"> -->
+        <section class="container-form">
+            <form action="" method="POST" class="input-form">
+                {% csrf_token %}
+                {{form.as_p}}
+                <div class="buttons-container">
+                    <button type="submit" class="primary" value="Save" name="operation">Save</button>
+                    <button class="primary" name="operation" value="Cancel">Cancel</button>
+                </div>
             </form>
-
-            <section class="products">
-                {% for p in products %}
-                <form class="product">
-                    <p name="product-details" type="submit" value="{{p.id}}">
-                        <span>{{p.title}}</span>
-                        <span>{{ p.price }} лв/{{ p.unit }}</span>
-                    </p>
-                    <p>
-                        <label for="">Количество</label>
-                        <input>{{ product_form.quantity }}</input>
-                    </p>
-                    <button class="primary" type="submit" name="add" value={{ p.id }}>Добави</button>
-                </form>
-                {% endfor %}
-            </section>
         </section>
-
-        <section class="section articles-wrap">
-            <section class="search-form">
-                <div>Заготовка</div>
-            </section>
-
-            <section class="container-form create-form">
-                <form action="" method="POST" class="input-form">
-                    {% csrf_token %}
-                    {{complex_product_form.as_p}}
-                    <p>
-                        <label for="complex-product-ingredients">Съставки</label>
-                        <textarea name="ingredients-field" id="ingredients" cols="30" rows="10"></textarea>
-                    </p>
-
-                    <p>Price</p>
-                    <div class="buttons-container">
-                        <button type="submit" class="primary" value="Save" name="operation">Save</button>
-                        <button class="primary" name="operation" value="Cancel">Cancel</button>
-                    </div>
-                </form>
-            </section>
-        </section>
-
-    </div>
-
+    <!-- </section> -->
 {% endblock %}
