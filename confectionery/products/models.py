@@ -113,7 +113,7 @@ class Article(models.Model):
     price_incl_vat_per_piece = models.DecimalField(editable=None, decimal_places=2, max_digits=10, blank=True, default=0, null=False, verbose_name='Стойност с ДДС')
     comment = models.TextField(max_length=200, default=None, blank=True, null=True, verbose_name='Забележка')
     reciep = models.TextField(max_length=5000, default=None, blank=True, null=True, verbose_name='Рецепта')
-    cake_image = models.ImageField(blank=True, null=True, verbose_name='Снимка')
+    cake_image = models.ImageField(upload_to='images/', default='images/default.jpg', verbose_name='Снимка')
 
     def get_absolute_url(self):
         return reverse('articles', kwargs={'id': self.id})

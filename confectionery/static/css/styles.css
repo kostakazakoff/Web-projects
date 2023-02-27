@@ -13,6 +13,9 @@ select{
     align-items: center;
     gap: 12px;
 }
+.buttons-container a{
+    text-decoration: none;
+}
 button{
     all: unset;
     cursor: pointer;
@@ -123,11 +126,6 @@ header{
     left: 50%;
     transform: translate(-50%, 0);
     align-items: end;
-}
-
-.create-product-container{
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 'products complex-product';
 }
 
 .section{

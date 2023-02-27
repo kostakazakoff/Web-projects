@@ -30,7 +30,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('products/<int:id>/', product_details, name='product_details'),
-    path('complex_products/<int:id>/', complex_product_details, name='product_details'),
+    path('complex_products/<int:id>/', complex_product_details, name='complex_product_details'),
     path('articles/<int:id>/', article_details, name='article_details'),
     path('create_product/', create_product, name='create_product'),
     path('create_complex_product/', create_complex_product, name='create_complex_product'),

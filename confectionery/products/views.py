@@ -32,20 +32,23 @@ def home(request):
     article_details = request.GET.get(
         'article-details') if request.GET.get('article-details') else None
     if article_details:
-        return redirect(f'./articles/{int(article_details)}')
+        return redirect(f'/articles/{int(article_details)}')
 
     product_details = request.GET.get(
         'product-details') if request.GET.get('product-details') else None
     if product_details:
-        return redirect(f'./products/{product_details}')
+        return redirect(f'/products/{product_details}')
 
     complex_product_details = request.GET.get(
-        'complex-product-details') if request.GET.get('complex-product-details') else None
+        'complex-products-details') if request.GET.get('complex-products-details') else None
     if complex_product_details:
-        return redirect(f'./complex_products/{int(complex_product_details)}')
+        print('COMPLEX PRODUCTS REDIRECT')
+        return redirect(f'/complex_products/{complex_product_details}')
 
-    context = {'articles': articles, 'products': products,
-               'complex-products': complex_products}
+    context = {'articles': articles,
+               'products': products,
+               'complex_products': complex_products}
+    
     return render(request, 'home.html', context)
 
 
@@ -112,14 +115,14 @@ def complex_product_details(request, id):
         obj.delete()
         return redirect('/')
     context = {'form': form, 'complex_product': obj}
-    return render(request, 'products/complex_product_details.html', context)
+    return render(request, 'complex_products/complex_product_details.html', context)
 
 
 @login_required
 def create_product(request):
     form = ProductForm(request.POST or None)
 
-    operation = request.POST.get('operation')
+    operation = request.session.get('operation')
     if operation == 'Cancel':
         return redirect('/')
 
@@ -135,7 +138,6 @@ def create_product(request):
 @login_required
 def create_complex_product(request):
     form = ComplexProductForm(request.POST or None)
-    ingredients = [i for i in Product.objects.all()]
     operation = request.POST.get('operation')
     context = {
         'form': form,
@@ -149,7 +151,7 @@ def create_complex_product(request):
                 calc_complex_product_price(complex_product['id'])
                 return redirect(f'/complex_products/{complex_product["id"]}')
 
-    return render(request, 'products/create_complex_product.html', context)
+    return render(request, 'complex_products/create_complex_product.html', context)
 
 
 # ingredients = []
@@ -170,7 +172,6 @@ def create_article(request):
     # article = get_object_or_404(Article, title=article_form.data['title'])
 
     if article_form.is_valid():
-        print(article_form.cleaned_data)
         article_form.save()
         article = Article.objects.last()
 
@@ -197,7 +198,6 @@ def create_article(request):
         return redirect('/')
 
     context = {'article_form': article_form}
-    print('Not valid form')
 
     return render(request, 'articles/create_article.html', context)
 

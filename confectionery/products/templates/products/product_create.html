@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <section class="container-form">
     <form action="" method="POST" class="input-form">
@@ -6,7 +7,7 @@
         {{form.as_p}}
         <div class="buttons-container">
             <button type="submit" class="primary" value="Save" name="operation">Save</button>
-            <button class="primary" name="operation" value="Cancel">Cancel</button>
+            <a href="/" class="primary">Cancel</a>
         </div>
     </form>
 </section>
