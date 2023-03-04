@@ -3,8 +3,6 @@
 html{
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
-    min-width: 380px;
-    width: 400px;
 }
 
 input{
@@ -12,6 +10,8 @@ input{
 }
 
 body{
+    min-width: 360px;
+    width: 400px;
     background-color: #eee;
     padding: 24px;
     display: flex;
@@ -67,5 +67,10 @@ button{
     justify-content: flex-start;
     align-items: flex-start;
     gap: 12px;
-    align-self: stretch;
+    padding-left: 0;
+}
+
+.leads-container a{
+    text-decoration: none;
+    color: green;
 }
