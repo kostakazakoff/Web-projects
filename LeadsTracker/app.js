@@ -32,7 +32,7 @@ tabBtn.addEventListener('click', function () {
         });
 });
 
-deleteBtn.addEventListener('click', function () {
+deleteBtn.addEventListener('dblclick', function () {
     localStorage.clear()
     render(myLeads)
 })
@@ -43,7 +43,7 @@ function render(items) {
             listItems += `
         <li>
             <a href="${items[i]}" target="_blank">${items[i]}</a>
-        </li>   
+        </li>
         `;
         }
         console.log(listItems);
