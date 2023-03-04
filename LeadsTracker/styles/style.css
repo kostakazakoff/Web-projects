@@ -11,13 +11,13 @@ input{
 
 body{
     min-width: 360px;
-    width: 400px;
-    background-color: #eee;
+    background-color: #333333;
     padding: 24px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    color: #eee;
 }
 
 button{
@@ -29,6 +29,7 @@ button{
 }
 
 .input-group{
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -42,6 +43,7 @@ button{
     height: 40px;
     border: 1px solid green;
     padding: 4px 12px;
+    border-radius: 4px;
 }
 
 .buttons-container{
@@ -56,9 +58,15 @@ button{
 .primary-btn{
     border: 1px solid green;
 }
+.primary-btn:hover{
+    background-color: green;
+}
 
 .danger-btn{
     border: 1px solid coral;
+}
+.danger-btn:hover{
+    background-color: coral;
 }
 
 .leads-container{
@@ -68,9 +76,10 @@ button{
     align-items: flex-start;
     gap: 12px;
     padding-left: 0;
+    margin-top: 24px;
 }
 
 .leads-container a{
     text-decoration: none;
-    color: green;
+    color: coral;
 }
