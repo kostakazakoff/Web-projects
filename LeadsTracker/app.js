@@ -5,7 +5,6 @@ const deleteBtn = document.getElementById('delete-btn');
 const ulEl = document.getElementById('leads-container');
 let myLeads = [];
 leadsFromLocalStorage = JSON.parse(localStorage.getItem('Leads'));
-console.log(leadsFromLocalStorage)
 
 if (leadsFromLocalStorage) {
     myLeads = leadsFromLocalStorage;
@@ -21,31 +20,39 @@ inputBtn.addEventListener('click', function () {
     }
 })
 
-tabBtn.addEventListener('click', function () {
+tabBtn.addEventListener('click', () => {
     chrome.tabs.query({
-        active: true, currentWindow: true}, tabs => {
-            if (!myLeads.includes(tabs[0].url)) {
-                myLeads.push(tabs[0].url);
-                localStorage.setItem('Leads', JSON.stringify(myLeads));
-                render(myLeads);
-            }
-        });
+        active: true, currentWindow: true
+    }, tabs => {
+        if (!myLeads.includes(tabs[0].url)) {
+            myLeads.push(tabs[0].url);
+            localStorage.setItem('Leads', JSON.stringify(myLeads));
+            render(myLeads);
+        }
+    });
 });
 
-deleteBtn.addEventListener('dblclick', function () {
-    localStorage.clear()
-    render(myLeads)
+deleteBtn.addEventListener('dblclick', () => {
+    localStorage.clear();
+    render(myLeads);
 })
 
 function render(items) {
-        let listItems = '';
-        for (let i = 0; i < items.length; i++) {
-            listItems += `
+    let listItems = '';
+    for (let i = 0; i < items.length; i++) {
+        listItems += `
         <li>
+            <form method="POST">
             <a href="${items[i]}" target="_blank">${items[i]}</a>
+            </form>
         </li>
         `;
-        }
-        console.log(listItems);
-        ulEl.innerHTML = listItems;
     }
+    ulEl.innerHTML = listItems;
+}
+
+// function remove(item) {
+//     console.log(item);
+//     localStorage.removeItem(item);
+//     render(myLeads);
+// }
