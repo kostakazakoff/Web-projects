@@ -11,7 +11,7 @@ if (leadsFromLocalStorage) {
     render(myLeads)
 }
 
-inputBtn.addEventListener('click', function () {
+inputBtn.addEventListener('click', () => {
     if (inputEl.value && !myLeads.includes(inputEl.value)) {
         myLeads.push(inputEl.value);
         inputEl.value = '';
@@ -35,24 +35,17 @@ tabBtn.addEventListener('click', () => {
 deleteBtn.addEventListener('dblclick', () => {
     localStorage.clear();
     render(myLeads);
-})
+});
 
 function render(items) {
     let listItems = '';
     for (let i = 0; i < items.length; i++) {
         listItems += `
         <li>
-            <form method="POST">
             <a href="${items[i]}" target="_blank">${items[i]}</a>
-            </form>
+            <button class="chkbx-rmv-btn" name="chkbx-rmv-btn" id="chkbx-rmv-btn" value="${items[i]}"><i class="fa-solid fa-xmark"></i></button>
         </li>
         `;
     }
     ulEl.innerHTML = listItems;
 }
-
-// function remove(item) {
-//     console.log(item);
-//     localStorage.removeItem(item);
-//     render(myLeads);
-// }
