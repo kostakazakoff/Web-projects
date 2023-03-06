@@ -5,6 +5,19 @@ const deleteBtn = document.getElementById('delete-btn');
 const ulEl = document.getElementById('leads-container');
 let myLeads = [];
 leadsFromLocalStorage = JSON.parse(localStorage.getItem('Leads'));
+let leadsToRmv = [];
+leadItems = document.getElementsByName('chkbx')
+
+
+console.log(leadItems);
+
+for(element of leadItems) {
+    console.log(element)
+    // leadsToRmv.push(element.childNodes);
+}
+
+
+// console.log(leadsToRmv)
 
 if (leadsFromLocalStorage) {
     myLeads = leadsFromLocalStorage;
@@ -41,9 +54,9 @@ function render(items) {
     let listItems = '';
     for (let i = 0; i < items.length; i++) {
         listItems += `
-        <li>
+        <li name="lead-item">
             <a href="${items[i]}" target="_blank">${items[i]}</a>
-            <button class="chkbx-rmv-btn" name="chkbx-rmv-btn" id="chkbx-rmv-btn" value="${items[i]}"><i class="fa-solid fa-xmark"></i></button>
+            <input type="checkbox" name="chkbx" id="chkbx" value="${items[i]}">
         </li>
         `;
     }
