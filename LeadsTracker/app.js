@@ -4,25 +4,25 @@ const tabBtn = document.getElementById('tab-btn');
 const deleteBtn = document.getElementById('delete-btn');
 const ulEl = document.getElementById('leads-container');
 let myLeads = [];
-leadsFromLocalStorage = JSON.parse(localStorage.getItem('Leads'));
+let leadsFromLocalStorage = JSON.parse(localStorage.getItem('Leads'));
 let leadsToRmv = [];
-leadItems = document.getElementsByName('chkbx')
 
 
-console.log(leadItems);
-
-for(element of leadItems) {
-    console.log(element)
-    // leadsToRmv.push(element.childNodes);
-}
-
-
-// console.log(leadsToRmv)
+// new Promise((resolve, reject) => {
+//     leadsChkBoxes = document.getElementsByName("#chkbx");
+// }).then((result) => {
+//     console.log(result);
+// }).catch((error) => {
+//     console.log('Error: ', error);
+// })
 
 if (leadsFromLocalStorage) {
     myLeads = leadsFromLocalStorage;
     render(myLeads)
 }
+
+
+
 
 inputBtn.addEventListener('click', () => {
     if (inputEl.value && !myLeads.includes(inputEl.value)) {
