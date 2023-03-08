@@ -5,24 +5,11 @@ const deleteBtn = document.getElementById('delete-btn');
 const ulEl = document.getElementById('leads-container');
 let myLeads = [];
 let leadsFromLocalStorage = JSON.parse(localStorage.getItem('Leads'));
-let leadsToRmv = [];
-
-
-// new Promise((resolve, reject) => {
-//     leadsChkBoxes = document.getElementsByName("#chkbx");
-// }).then((result) => {
-//     console.log(result);
-// }).catch((error) => {
-//     console.log('Error: ', error);
-// })
 
 if (leadsFromLocalStorage) {
     myLeads = leadsFromLocalStorage;
     render(myLeads)
 }
-
-
-
 
 inputBtn.addEventListener('click', () => {
     if (inputEl.value && !myLeads.includes(inputEl.value)) {
@@ -50,13 +37,17 @@ deleteBtn.addEventListener('dblclick', () => {
     render(myLeads);
 });
 
+function rmvItem() {
+    console.log('OK')
+}
+
 function render(items) {
     let listItems = '';
     for (let i = 0; i < items.length; i++) {
         listItems += `
         <li name="lead-item">
             <a href="${items[i]}" target="_blank">${items[i]}</a>
-            <input type="checkbox" name="chkbx" id="chkbx" value="${items[i]}">
+            <button id="rmv-btn" type="submit" value="${items[i]}"><i class="fa-solid fa-xmark"></i></button>
         </li>
         `;
     }

@@ -37,7 +37,6 @@ button {
 .input-group {
     background-color: black;
     padding: 24px 0;
-    position: sticky;
     top: 0;
     width: 100%;
     display: flex;
@@ -45,6 +44,10 @@ button {
     justify-content: flex-start;
     align-items: flex-start;
     gap: 24px;
+}
+
+.sticky{
+    position: sticky;
 }
 
 .input-field {
@@ -119,5 +122,13 @@ button {
     color: white;
 }
 .chkbx-rmv-btn:hover{
+    color: coral;
+}
+
+.fa-xmark{
+    color: white;
+}
+
+.fa-xmark:hover{
     color: coral;
 }
