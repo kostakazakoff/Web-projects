@@ -16,18 +16,18 @@ function listenChecks() {
                 if (checker.checked) {
                     leadsToRemove.push(checker.value);
                 } else {
-                    const index = leadsToRemove.indexOf(checker.value)
+                    const index = leadsToRemove.indexOf(checker.value);
                     leadsToRemove.splice(index, 1);
-                }
+                };
             });
-        }
+        };
     };
-}
+};
 
 if (leadsFromLocalStorage) {
     myLeads = leadsFromLocalStorage;
-    render(myLeads)
-}
+    render(myLeads);
+};
 
 inputBtn.addEventListener('click', () => {
     if (inputEl.value && !myLeads.includes(inputEl.value)) {
@@ -35,8 +35,8 @@ inputBtn.addEventListener('click', () => {
         inputEl.value = '';
         localStorage.setItem('Leads', JSON.stringify(myLeads));
         render(myLeads);
-    }
-})
+    };
+});
 
 tabBtn.addEventListener('click', () => {
     chrome.tabs.query({
@@ -46,7 +46,7 @@ tabBtn.addEventListener('click', () => {
             myLeads.push(tabs[0].url);
             localStorage.setItem('Leads', JSON.stringify(myLeads));
             render(myLeads);
-        }
+        };
     });
 });
 
@@ -61,7 +61,7 @@ deleteBtn.addEventListener('click', () => {
         index = myLeads.indexOf(el);
         myLeads.splice(index, 1);
         localStorage.setItem('Leads', JSON.stringify(myLeads));
-    }
+    };
     render(myLeads);
 });
 
@@ -74,7 +74,7 @@ function render(items) {
             <input type="checkbox" name="item-checker" id="${items[i]}chk" value="${items[i]}">
         </li>
         `;
-    }
+    };
     ulEl.innerHTML = listItems;
     listenChecks();
 }
