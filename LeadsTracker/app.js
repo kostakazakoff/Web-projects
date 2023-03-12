@@ -4,7 +4,25 @@ const tabBtn = document.getElementById('tab-btn');
 const deleteBtn = document.getElementById('delete-btn');
 const ulEl = document.getElementById('leads-container');
 let myLeads = [];
+let leadsToRemove = [];
 let leadsFromLocalStorage = JSON.parse(localStorage.getItem('Leads'));
+const itemCheckers = document.getElementsByName('item-checker');
+
+function listenChecks() {
+    for (let chk in itemCheckers) {
+        let checker = document.getElementById(itemCheckers[chk].id);
+        if (checker) {
+            checker.addEventListener('change', () => {
+                if (checker.checked) {
+                    leadsToRemove.push(checker.value);
+                } else {
+                    const index = leadsToRemove.indexOf(checker.value)
+                    leadsToRemove.splice(index, 1);
+                }
+            });
+        }
+    };
+}
 
 if (leadsFromLocalStorage) {
     myLeads = leadsFromLocalStorage;
@@ -37,19 +55,26 @@ deleteBtn.addEventListener('dblclick', () => {
     render(myLeads);
 });
 
-function rmvItem() {
-    console.log('OK')
-}
+deleteBtn.addEventListener('click', () => {
+    for (el of leadsToRemove) {
+        console.log(el);
+        index = myLeads.indexOf(el);
+        myLeads.splice(index, 1);
+        localStorage.setItem('Leads', JSON.stringify(myLeads));
+    }
+    render(myLeads);
+});
 
 function render(items) {
     let listItems = '';
     for (let i = 0; i < items.length; i++) {
         listItems += `
-        <li name="lead-item">
+        <li name="lead-item" id="${items[i]}">
             <a href="${items[i]}" target="_blank">${items[i]}</a>
-            <button id="rmv-btn" type="submit" value="${items[i]}"><i class="fa-solid fa-xmark"></i></button>
+            <input type="checkbox" name="item-checker" id="${items[i]}chk" value="${items[i]}">
         </li>
         `;
     }
     ulEl.innerHTML = listItems;
+    listenChecks();
 }
