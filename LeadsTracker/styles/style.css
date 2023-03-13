@@ -3,7 +3,9 @@
 html {
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
-    border: none important;
+    border: none;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 1);
 }
 
 ::-webkit-scrollbar {
@@ -22,6 +24,7 @@ body {
     color: #333333;
     overflow: scroll;
     position: relative;
+    border: none;
 }
 
 button {
@@ -126,7 +129,7 @@ button {
 .leads-container input {
     all: unset;
     border: 1px solid #333333;
-    padding: 4px;
+    padding: 5px;
     border-radius: 50%;
     cursor: pointer;
 }
