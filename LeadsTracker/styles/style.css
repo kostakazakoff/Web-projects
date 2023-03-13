@@ -3,6 +3,7 @@
 html {
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
+    position: relative;
 }
 
 ::-webkit-scrollbar {
@@ -12,9 +13,8 @@ html {
 body {
     min-width: 360px;
     max-width: 360px;
-    max-height: 400px;
     background-color: inherit;
-    color: #333333;
+    color: #313242;
     padding: 0 24px;
     display: flex;
     flex-direction: column;
@@ -57,8 +57,8 @@ button {
     padding: 4px 12px;
     border-radius: 4px;
     background-color: white;
-    color: #333333;
-    border: 1px solid #333333;
+    color: #313242;
+    border: 1px solid #313242;
 }
 
 .buttons-container {
@@ -71,13 +71,13 @@ button {
 }
 
 .primary-btn {
-    border: 2px solid #333333;
+    border: 2px solid #313242;
     transition: all 200ms ease-in-out;
 }
 
 .primary-btn:hover {
-    background-color: #333333;
-    border: 2px solid #333333;
+    background-color: #313242;
+    border: 2px solid #313242;
     color: white;
 }
 
@@ -121,19 +121,19 @@ button {
     overflow: hidden;
     flex-basis: 90%;
     text-decoration: none;
-    color: #333333;
+    color: #313242;
 }
 .leads-container a:hover{
-    color: #008F7A;
+    color: #787878;
 }
 
 .leads-container input {
     all: unset;
-    border: 1px solid #333333;
+    border: 1px solid #313242;
     padding: 5px;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 200ms ease-in-out;
+    transition: all 150ms ease-in-out;
 }
 
 .leads-container input:hover {
@@ -142,5 +142,5 @@ button {
 
 .leads-container input:checked {
     background-color: #C34A36;
-    border: none;
+    border: 2px solid #C34A36;
 }

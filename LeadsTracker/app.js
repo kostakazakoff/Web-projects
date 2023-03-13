@@ -50,7 +50,7 @@ tabBtn.addEventListener('click', () => {
 
 deleteBtn.addEventListener('dblclick', () => {
     localStorage.clear();
-    render(myLeads);
+    render(leadsFromLocalStorage);
 });
 
 deleteBtn.addEventListener('click', () => {
