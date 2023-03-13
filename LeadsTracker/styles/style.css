@@ -12,13 +12,13 @@ html {
 body {
     min-width: 360px;
     max-width: 360px;
-    background-color: black;
+    background-color: inherit;
     padding: 0 24px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    color: #eee;
+    color: #333333;
     overflow: scroll;
     border-radius: 6px;
     position: relative;
@@ -34,7 +34,7 @@ button {
 }
 
 .input-group {
-    background-color: black;
+    background-color: white;
     padding: 24px 0;
     top: 0;
     width: 100%;
@@ -42,7 +42,7 @@ button {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 24px;
+    gap: 16px;
 }
 
 .sticky{
@@ -56,7 +56,8 @@ button {
     padding: 4px 12px;
     border-radius: 4px;
     background-color: white;
-    color: black;
+    color: #333333;
+    border: 1px solid #333333;
 }
 
 .buttons-container {
@@ -69,21 +70,29 @@ button {
 }
 
 .primary-btn {
-    border: 2px solid lightgreen;
+    border: 2px solid #008F7A;
 }
 
 .primary-btn:hover {
-    background-color: lightgreen;
-    color: black;
+    background-color: #008F7A;
+    color: white;
+}
+
+.primary-btn:active {
+    border: none;
 }
 
 .danger-btn {
-    border: 2px solid coral;
+    border: 2px solid #C34A36;
 }
 
 .danger-btn:hover {
-    background-color: coral;
-    color: black;
+    background-color: #C34A36;
+    color: white;
+}
+
+.danger-btn:active {
+    border: none;
 }
 
 .leads-container {
@@ -92,9 +101,8 @@ button {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 12px;
+    gap: 1rem;
     padding-left: 0;
-    margin-top: 24px;
 }
 
 .leads-container li {
@@ -109,25 +117,21 @@ button {
     overflow: hidden;
     flex-basis: 90%;
     text-decoration: none;
-    color: lightgreen;
+    color: #333333;
+}
+.leads-container a:hover{
+    color: #008F7A;
 }
 
 .leads-container input {
-    background-color: lightgreen;
-    color: coral;
+    all: unset;
+    border: 1px solid #333333;
+    padding: 4px;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
-.chkbx-rmv-btn{
-    color: white;
-}
-.chkbx-rmv-btn:hover{
-    color: coral;
-}
-
-.fa-xmark{
-    color: white;
-}
-
-.fa-xmark:hover{
-    color: coral;
+.leads-container input:checked {
+    background-color: #C34A36;
+    border: none;
 }
