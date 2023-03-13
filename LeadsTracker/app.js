@@ -3,10 +3,10 @@ const inputBtn = document.getElementById('input-btn');
 const tabBtn = document.getElementById('tab-btn');
 const deleteBtn = document.getElementById('delete-btn');
 const ulEl = document.getElementById('leads-container');
+const itemCheckers = document.getElementsByName('item-checker');
 let myLeads = [];
 let leadsToRemove = [];
 let leadsFromLocalStorage = JSON.parse(localStorage.getItem('Leads'));
-const itemCheckers = document.getElementsByName('item-checker');
 
 function listenChecks() {
     for (let chk in itemCheckers) {
@@ -46,6 +46,7 @@ tabBtn.addEventListener('click', () => {
             myLeads.push(tabs[0].url);
             localStorage.setItem('Leads', JSON.stringify(myLeads));
             render(myLeads);
+            console.log(tabBtn)
         };
     });
 });
