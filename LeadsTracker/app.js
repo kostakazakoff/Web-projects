@@ -39,14 +39,11 @@ inputBtn.addEventListener('click', () => {
 });
 
 tabBtn.addEventListener('click', () => {
-    chrome.tabs.query({
-        active: true, currentWindow: true
-    }, tabs => {
+    chrome.tabs.query({active: true, currentWindow: true}, tabs => {
         if (!myLeads.includes(tabs[0].url)) {
             myLeads.push(tabs[0].url);
             localStorage.setItem('Leads', JSON.stringify(myLeads));
             render(myLeads);
-            console.log(tabBtn)
         };
     });
 });
@@ -58,7 +55,6 @@ deleteBtn.addEventListener('dblclick', () => {
 
 deleteBtn.addEventListener('click', () => {
     for (el of leadsToRemove) {
-        console.log(el);
         index = myLeads.indexOf(el);
         myLeads.splice(index, 1);
         localStorage.setItem('Leads', JSON.stringify(myLeads));
