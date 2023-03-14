@@ -8,6 +8,11 @@ let myLeads = [];
 let leadsToRemove = [];
 let leadsFromLocalStorage = JSON.parse(localStorage.getItem('Leads'));
 
+if (leadsFromLocalStorage) {
+    myLeads = leadsFromLocalStorage;
+    render(myLeads);
+};
+
 function listenChecks() {
     for (let chk in itemCheckers) {
         let checker = document.getElementById(itemCheckers[chk].id);
@@ -22,11 +27,6 @@ function listenChecks() {
             });
         };
     };
-};
-
-if (leadsFromLocalStorage) {
-    myLeads = leadsFromLocalStorage;
-    render(myLeads);
 };
 
 inputBtn.addEventListener('click', () => {

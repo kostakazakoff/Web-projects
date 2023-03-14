@@ -2,7 +2,7 @@
 
 html {
     font-family: 'Poppins', sans-serif;
-    font-size: 14px;
+    font-size: 1.1rem;
     position: relative;
 }
 
@@ -15,7 +15,7 @@ body {
     max-width: 360px;
     background-color: inherit;
     color: #313242;
-    padding: 0 24px;
+    padding: 0 32px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -43,7 +43,7 @@ button {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 16px;
+    gap: 24px;
 }
 
 .sticky{
@@ -55,10 +55,11 @@ button {
     align-self: stretch;
     height: 40px;
     padding: 4px 12px;
-    border-radius: 4px;
+    border-radius: 6px;
     background-color: white;
     color: #313242;
-    border: 1px solid #313242;
+    border: 1px solid white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .buttons-container {
@@ -99,7 +100,7 @@ button {
     border: none;
 }
 
-.leads-container {
+.flex-column-container {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -109,7 +110,7 @@ button {
     padding-left: 0;
 }
 
-.leads-container li {
+.flex-column-container li {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -117,17 +118,17 @@ button {
     gap: 4px;
 }
 
-.leads-container a {
+.flex-column-container a {
     overflow: hidden;
     flex-basis: 90%;
     text-decoration: none;
     color: #313242;
 }
-.leads-container a:hover{
+.flex-column-container a:hover{
     color: #787878;
 }
 
-.leads-container input {
+.flex-column-container input {
     all: unset;
     border: 1px solid #313242;
     padding: 5px;
@@ -136,11 +137,12 @@ button {
     transition: all 150ms ease-in-out;
 }
 
-.leads-container input:hover {
+.flex-column-container input:hover {
     border: 2px solid #C34A36;
 }
 
-.leads-container input:checked {
+.flex-column-container input:checked {
     background-color: #C34A36;
-    border: 2px solid #C34A36;
+    border: 2px solid white;
+    outline: 2px solid #C34A36;
 }
