@@ -13,22 +13,6 @@ if (leadsFromLocalStorage) {
     render(myLeads);
 };
 
-function listenChecks() {
-    for (let chk in itemCheckers) {
-        let checker = document.getElementById(itemCheckers[chk].id);
-        if (checker) {
-            checker.addEventListener('change', () => {
-                if (checker.checked) {
-                    leadsToRemove.push(checker.value);
-                } else {
-                    const index = leadsToRemove.indexOf(checker.value);
-                    leadsToRemove.splice(index, 1);
-                };
-            });
-        };
-    };
-};
-
 inputBtn.addEventListener('click', () => {
     if (inputEl.value && !myLeads.includes(inputEl.value)) {
         myLeads.push(inputEl.value);
@@ -75,3 +59,19 @@ function render(items) {
     ulEl.innerHTML = listItems;
     listenChecks();
 }
+
+function listenChecks() {
+    for (let chk in itemCheckers) {
+        let checker = document.getElementById(itemCheckers[chk].id);
+        if (checker) {
+            checker.addEventListener('change', () => {
+                if (checker.checked) {
+                    leadsToRemove.push(checker.value);
+                } else {
+                    const index = leadsToRemove.indexOf(checker.value);
+                    leadsToRemove.splice(index, 1);
+                };
+            });
+        };
+    };
+};
