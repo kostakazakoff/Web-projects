@@ -12,10 +12,10 @@ html {
 
 body {
     min-width: 360px;
-    max-width: 360px;
+    width: 360px;
+    min-height: 100%;
     background-color: inherit;
     color: #313242;
-    padding: 0 32px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -35,8 +35,7 @@ button {
 }
 
 .input-group {
-    background-color: white;
-    padding: 24px 0;
+    padding: 24px 32px;
     top: 0;
     width: 100%;
     display: flex;
@@ -44,6 +43,8 @@ button {
     justify-content: flex-start;
     align-items: flex-start;
     gap: 24px;
+    background-color: white;
+    z-index: 10;
 }
 
 .sticky{
@@ -146,4 +147,12 @@ button {
     background-color: #C34A36;
     border: 2px solid white;
     outline: 2px solid #C34A36;
+}
+
+.wrapper {
+    position: relative;
+    overflow: scroll;
+    width: 100%;
+    max-height: 360px;
+    padding: 0 32px;
 }
