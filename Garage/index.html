@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garage</title>
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav>
+            <ul class="nav" role="list">
+                <li class="nav__rolldown">
+                    <p>Vehicles</p>
+                    <div class="nav__rolldown__list" id="garageMenu">
+                        <!-- <ul role="list">
+                            <li class="nav__rolldown__item" id="volvo"><a href="#">Volvo</a></li>
+                            <li class="nav__rolldown__item" id="honda"><a href="#">Honda</a></li>
+                        </ul> -->
+                    </div>
+                </li>
+                <li class="nav__item" id="nav__service">Service</li>
+                <li class="nav__item" id="nav__reminders">Reminders</li>
+            </ul>
+        </nav>
+        <button class="header__search"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </header>
+    <main>
+
+        <section id="garage" class="section-flex">
+            <h2 class="section-title">Garage</h2>
+
+            <!-- <article class="vehicle" id="1">
+                <h3 id="vehicle__title">Brand: Volvo</h3>
+                <p id="vehicle__model">Model: V50 T5 AWD</p>
+                <p id="vehicle__vin">VIN: YV1MW675792470144</p>
+                <p id="vehicle__plate">Plate:</p>
+                <p id="vehicle__odometer">Odometer: 252000 km</p>
+                <p id="vehicle__year">Year:</p>
+            </article> -->
+        </section>
+
+        <section id="vehicle-all" class="hidden">
+            <h2 class="section-title">Volvo</h2>
+
+            <article class="expand-container" id="service">
+                <h3>
+                    <i class="fa-regular fa-calendar-days"></i> Service
+                </h3>
+                <!-- <p>
+                    <a href="https://tracksport.live/e/velikdenski-maraton-2023-g" target="_blank">Великденски маратон
+                        23.04.2023</a>
+                </p> -->
+            </article>
+
+            <article class="expand-container" id="reminders">
+                <h3>
+                    <i class="fa-regular fa-calendar-days"></i> Reminders
+                </h3>
+                <!-- <p>
+                    <a href="https://tracksport.live/e/velikdenski-maraton-2023-g" target="_blank">Великденски маратон
+                        23.04.2023</a>
+                </p> -->
+            </article>
+        </section>
+
+    </main>
+    <!-- <script src="jquery-3.6.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
+    <script src="./app.js"></script>
+</body>
+
+</html>
