@@ -8,7 +8,7 @@ html {
 body {
     min-width: 420px;
     font-size: 14px;
-    overflow: hidden;
+    overflow: scroll;
     background-color: #333333;
     color: #E1E2E9;
     max-width: 800px;
@@ -129,18 +129,16 @@ a {
 }
 
 .nav__rolldown__item {
-    margin: 24px 12px;
+    margin: 12px;
 }
 
 .nav__rolldown__item:hover {
     color: #A3FF5D;
 }
 
-.header__search {
+.right-nav-item {
     margin-left: auto;
     margin-right: 48px;
-    padding: 4px;
-    border-radius: 50%;
 }
 
 .header__search:hover {
@@ -153,11 +151,13 @@ a {
 
 .section-flex {
     width: 100%;
-    padding-top: 48px;
+    padding: 48px 0;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-content: flex-start;
+    gap: 20px;
     overflow: hidden;
     background-color: #333333;
 }
@@ -168,7 +168,7 @@ a {
     /* text-transform: uppercase; */
     letter-spacing: 0.1rem;
     color: #E69C24;
-    margin-bottom: 48px;
+    margin-bottom: 24px;
 }
 
 .vehicle {
@@ -177,7 +177,11 @@ a {
     border: 1px solid #E1E2E9;
     border-radius: 6px;
     cursor: pointer;
-    margin-bottom: 24px;
+}
+
+.params {
+    border: none;
+    padding: 0;
 }
 
 .vehicle:hover {
@@ -249,10 +253,12 @@ a {
     border-bottom: 1px solid #E69C24;
 }
 
-.vehicle-row {
-    display: flex;
+.service-item {
+    width: 100%;
+    /* display: flex;
+    flex-direction: column;
     gap: 12px;
     flex-wrap: wrap;
     padding: 8px 24px;
-    border: 1px solid #E1E2E9;
+    border: 1px solid #E1E2E9; */
 }

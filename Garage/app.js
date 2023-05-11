@@ -4,13 +4,15 @@ function start() {
     const garageMenu = document.getElementById('garageMenu');
     const garage = document.getElementById('garage');
     const vehicleList = document.getElementById('vehicle-service');
-    // const service = document.getElementById('service');
-    const reminders = document.getElementById('reminders');
+    const home = document.getElementById('home');
+    const nav = document.getElementById('nav')
     let caschedData = [];
+    home.addEventListener('click', loadAllVehicles)
     loadAllVehicles();
 
     function loadAllVehicles() {
         garage.innerHTML = '';
+        vehicleList.innerHTML = '';
         garage.classList = ['section-flex'];
         fetch(`${BASE_URL}/vehicleItems`)
             .then(res => res.json())
@@ -19,64 +21,91 @@ function start() {
     }
 
     function handleData(data) {
+        garageMenu.innerHTML = '';
         const vehicleList = createHTMLElement('ul', garageMenu, null, null, null, { 'role': 'list' });
+
+        if (data.vehicleItems.length < 4) {
+            const addNewVehicle = createHTMLElement('li', nav, 'Add New Vehicle', ['nav__item', 'right-nav-item']);
+            addNewVehicle.addEventListener('click', addNewVehicle)
+        }
 
         Object.values(data.vehicleItems).forEach(v => {
             caschedData.push(v);
             const menuVehicle = createHTMLElement('li', vehicleList, v.brand, ['nav__rolldown__item']);
             menuVehicle.addEventListener('click', loadVehicleService);
-            const vehicle = createHTMLElement('article', garage, null, ['vehicle'], v.id-1);
-            createHTMLElement('p', vehicle, `${v.brand}`, ['vehicle__brand']);
-            createHTMLElement('p', vehicle, `Model: ${v.model}`, ['vehicle__model']);
-            createHTMLElement('p', vehicle, `VIN: ${v.vin}`, ['vehicle__vin']);
-            createHTMLElement('p', vehicle, `Plate: ${v.plate}`, ['vehicle__plate']);
-            createHTMLElement('p', vehicle, `Odometer: ${v.odometer}`, ['vehicle__odometer']);
-            createHTMLElement('p', vehicle, `Year: ${v.year}`, ['vehicle__year']);
+            const vehicle = createHTMLElement('article', garage, null, ['vehicle'], v.id - 1);
+            const params = createHTMLElement('div', vehicle, null, ['vehicle', 'params'])
+            createHTMLElement('p', params, `${v.brand}`, ['vehicle__brand']);
+            createHTMLElement('p', params, `Model: ${v.model}`, ['vehicle__model']);
+            createHTMLElement('p', params, `VIN: ${v.vin}`, ['vehicle__vin']);
+            createHTMLElement('p', params, `Plate: ${v.plate}`, ['vehicle__plate']);
+            createHTMLElement('p', params, `Odometer: ${v.odometer}`, ['vehicle__odometer']);
+            createHTMLElement('p', params, `Year: ${v.year}`, ['vehicle__year']);
+
+            params.addEventListener('click', loadVehicleService)
 
             const btnsContainer = createHTMLElement('div', vehicle, null, ['btns-container']);
             const vehicleEditBtn = createHTMLElement('button', btnsContainer, 'Edit', ['btn', 'primary-btn']);
             vehicleEditBtn.addEventListener('click', editVehicle);
             const vehicleDeleteBtn = createHTMLElement('button', btnsContainer, 'Delete', ['btn', 'danger-btn']);
             vehicleDeleteBtn.addEventListener('click', deleteVehicle);
-
-            vehicle.addEventListener('click', loadVehicleService)
         });
-
-        const addNewVehicleItem = createHTMLElement('p', vehicleList, 'Add New Vehicle', ['nav__rolldown__item']);
-        addNewVehicleItem.addEventListener('click', addNewVehicle)
     }
 
     function loadVehicleService() {
         const id = this.id;
+        const model = this.querySelector('.vehicle__brand').textContent
         this.parentNode.classList = ['hidden'];
         vehicleList.classList = ['section-flex'];
 
         fetch(`${BASE_URL}/${id}`)
             .then(res => res.json())
-            .then(data => outputService(Object.values(data[id])))
+            .then(data => outputService(Object.values(data[id]), id, model))
             .catch(err => console.error(err));
     }
 
-    function outputService(data) {
+    function outputService(data, id, model) {
         console.log(data);
 
-        // const tbody = createHTMLElement('tbody', table);
-        const service = createHTMLElement('article', vehicleList)
+        createHTMLElement('h2', vehicleList, `${model} Service History`, ['section-title'], id)
         for (let i = 0; i < data.length; i++) {
-            const form = createHTMLElement('form', service, null, ['vehicle-row'], i);
-            createHTMLElement('label', form, 'Description');
-            createHTMLElement('input', form, null, null, 'description', { 'value': data[i].description });
-            createHTMLElement('label', form, 'Odometer');
-            createHTMLElement('input', form, null, null, 'km', { 'value': data[i].km });
-            createHTMLElement('label', form, 'Date');
-            createHTMLElement('input', form, null, null, 'date', { 'value': data[i].date });
-            // TODO: service row items
+            
+            // const form = createHTMLElement('form', vehicleList, null, ['service-item'], i);
+            // createHTMLElement('input', form, null, null, 'description', { 'value': data[i].description });
+            // const odometer = createHTMLElement('div', form, null, ['service-item__row'])
+            // createHTMLElement('label', odometer, 'Odometer');
+            // createHTMLElement('input', odometer, null, null, 'km', { 'value': data[i].km });
+            // const date = createHTMLElement('div', form, null, ['service-item__row'])
+            // createHTMLElement('label', date, 'Date');
+            // createHTMLElement('input', date, null, null, 'date', { 'value': data[i].date });
+
+            const article = createHTMLElement('article', vehicleList, null, ['vehicle', 'service-item']);
+            createHTMLElement('h3', article, data[i].description, ['service-item__row']);
+            createHTMLElement('div', article, `Odometer: ${data[i].odometer}`, ['service-item__row']);
+            createHTMLElement('div', article, `Date: ${data[i].date}`, ['service-item__row']);
+            createHTMLElement('div', article, `Notes: ${data[i].notes}`, ['service-item__row']);
+            createHTMLElement('div', article, `Autoservice: ${data[i].service}`, ['service-item__row']);
+            createHTMLElement('div', article, `Price: ${data[i].price}`, ['service-item__row']);
+
+            const btnsContainer = createHTMLElement('div', article, null, ['btns-container']);
+            const vehicleEditBtn = createHTMLElement('button', btnsContainer, 'Edit', ['btn', 'primary-btn']);
+            vehicleEditBtn.addEventListener('click', editServiceItem);
+            const vehicleDeleteBtn = createHTMLElement('button', btnsContainer, 'Delete', ['btn', 'danger-btn']);
+            vehicleDeleteBtn.addEventListener('click', deleteServiceItem);
         }
+    }
+
+    function editServiceItem() {
+        // TODO
+    }
+
+    function deleteServiceItem() {
+        // TODO
     }
 
     function editVehicle() {
         const vehicle = this.parentNode.parentNode;
-        const id = parseInt(this.parentNode.parentNode.id);
+        const id = parseInt(this.parentNode.parentNode.id) + 1;
         console.log(id)
         const v = caschedData.find((obj) => obj.id == id);
         console.log(caschedData);
@@ -119,18 +148,19 @@ function start() {
     }
 
     function deleteVehicle() {
-        const id = this.parentNode.parentNode.id;
+        const id = parseInt(this.parentNode.parentNode.id) + 1;
+
         const deleteHeaders = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
         }
-        fetch(`${BASE_URL}/${id}`, deleteHeaders)
-            .then(
-                fetch(`${BASE_URL}/vehicleItems/${id}`, deleteHeaders)
-                    .then(loadAllVehicles)
-                    .catch(err => console.error(err))
-            )
+        // fetch(`${BASE_URL}/${id}`, deleteHeaders)
+        //     .then(
+        fetch(`${BASE_URL}/vehicleItems/${id}`, deleteHeaders)
+            .then(loadAllVehicles)
             .catch(err => console.error(err))
+        // )
+        // .catch(err => console.error(err))
     }
 
     function addNewVehicle() {
