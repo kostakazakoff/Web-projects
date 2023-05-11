@@ -3,11 +3,10 @@ const BASE_URL = 'https://api.sheety.co/d9720f78f21726e71b7382e3cab36f43/garage'
 function start() {
     const garageMenu = document.getElementById('garageMenu');
     const garage = document.getElementById('garage');
-    const vehicleList = document.getElementById('vehicle-all');
-    const service = document.getElementById('service');
+    const vehicleList = document.getElementById('vehicle-service');
+    // const service = document.getElementById('service');
     const reminders = document.getElementById('reminders');
     let caschedData = [];
-
     loadAllVehicles();
 
     function loadAllVehicles() {
@@ -25,9 +24,9 @@ function start() {
         Object.values(data.vehicleItems).forEach(v => {
             caschedData.push(v);
             const menuVehicle = createHTMLElement('li', vehicleList, v.brand, ['nav__rolldown__item']);
-            menuVehicle.addEventListener('click', loadVehicle);
-            const vehicle = createHTMLElement('article', garage, null, ['vehicle'], v.id);
-            createHTMLElement('p', vehicle, `Brand: ${v.brand}`, ['vehicle__brand']);
+            menuVehicle.addEventListener('click', loadVehicleService);
+            const vehicle = createHTMLElement('article', garage, null, ['vehicle'], v.id-1);
+            createHTMLElement('p', vehicle, `${v.brand}`, ['vehicle__brand']);
             createHTMLElement('p', vehicle, `Model: ${v.model}`, ['vehicle__model']);
             createHTMLElement('p', vehicle, `VIN: ${v.vin}`, ['vehicle__vin']);
             createHTMLElement('p', vehicle, `Plate: ${v.plate}`, ['vehicle__plate']);
@@ -40,18 +39,18 @@ function start() {
             const vehicleDeleteBtn = createHTMLElement('button', btnsContainer, 'Delete', ['btn', 'danger-btn']);
             vehicleDeleteBtn.addEventListener('click', deleteVehicle);
 
-            vehicle.addEventListener('click', loadVehicle)
+            vehicle.addEventListener('click', loadVehicleService)
         });
 
         const addNewVehicleItem = createHTMLElement('p', vehicleList, 'Add New Vehicle', ['nav__rolldown__item']);
         addNewVehicleItem.addEventListener('click', addNewVehicle)
     }
 
-    function loadVehicle() {
+    function loadVehicleService() {
         const id = this.id;
         this.parentNode.classList = ['hidden'];
         vehicleList.classList = ['section-flex'];
-        
+
         fetch(`${BASE_URL}/${id}`)
             .then(res => res.json())
             .then(data => outputService(Object.values(data[id])))
@@ -60,29 +59,18 @@ function start() {
 
     function outputService(data) {
         console.log(data);
-        // const table = createHTMLElement('table', service);
-        // const thead = createHTMLElement('thead', table);
-        // const headRow = createHTMLElement('tr', thead);
-        // createHTMLElement('td', headRow, 'km');
-        // createHTMLElement('td', headRow, 'date');
-        // createHTMLElement('td', headRow, 'description');
-        // createHTMLElement('td', headRow, 'notes');
-        // createHTMLElement('td', headRow, 'service');
-        // createHTMLElement('td', headRow, 'price');
 
         // const tbody = createHTMLElement('tbody', table);
+        const service = createHTMLElement('article', vehicleList)
         for (let i = 0; i < data.length; i++) {
-            // const tr = createHTMLElement('tr', tbody, null, null, i)
-            // createHTMLElement('td', tr, data[i].km);
-            // createHTMLElement('td', tr, data[i].date);
-            // createHTMLElement('td', tr, data[i].description);
-            // createHTMLElement('td', tr, data[i].notes);
-            // createHTMLElement('td', tr, data[i].service);
-            // createHTMLElement('td', tr, data[i].price);
-
             const form = createHTMLElement('form', service, null, ['vehicle-row'], i);
+            createHTMLElement('label', form, 'Description');
+            createHTMLElement('input', form, null, null, 'description', { 'value': data[i].description });
             createHTMLElement('label', form, 'Odometer');
-            createHTMLElement('input', form, null, null, null, {'value': data[i].km})
+            createHTMLElement('input', form, null, null, 'km', { 'value': data[i].km });
+            createHTMLElement('label', form, 'Date');
+            createHTMLElement('input', form, null, null, 'date', { 'value': data[i].date });
+            // TODO: service row items
         }
     }
 
@@ -148,6 +136,7 @@ function start() {
     function addNewVehicle() {
         console.log(this);
     }
+
 }
 
 start();
