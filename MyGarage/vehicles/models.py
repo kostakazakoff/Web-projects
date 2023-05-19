@@ -18,8 +18,8 @@ class Vehicles(models.Model):
         )
     plate = models.CharField(
         max_length=10,
-        null=True,
-        blank=True
+        null=False,
+        blank=False
         )
     odometer = models.CharField(
         max_length=6,
@@ -31,3 +31,41 @@ class Vehicles(models.Model):
         null=False,
         blank=False
         )
+    
+class Service(models.Model):
+    odometer = models.CharField(
+        max_length=6,
+        null=False,
+        blank=False
+        )
+    date = models.DateField(
+        blank=False,
+        null=False,
+    )
+    description = models.TextField(
+        blank=False,
+        null=False,
+        max_length=200
+    )
+    notes = models.TextField(
+        max_length=100,
+        null=True,
+        blank=True
+        )
+    autoservice = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True
+    )
+    price = models.DecimalField(
+        decimal_places=2,
+        max_digits=10,
+        null=False,
+        default=0
+    )
+    vehicle = models.ForeignKey(
+        Vehicles,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False
+    )
