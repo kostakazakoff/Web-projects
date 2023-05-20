@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from my_garage.keys import Keys
+from my_garage.hidden import ThisProject
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = Keys.secret_key
+SECRET_KEY = ThisProject.secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ThisProject.alowed_hosts
 
 
 # Application definition
@@ -78,16 +78,7 @@ WSGI_APPLICATION = 'my_garage.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "garage",
-        "USER": Keys.db_user,
-        "PASSWORD": Keys.db_passwd,
-        "HOST": "localhost",
-        "PORT": "5434",
-    }
-}
+DATABASES = ThisProject.databases
 
 
 # Password validation
