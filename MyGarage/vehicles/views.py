@@ -14,10 +14,14 @@ def service(request, *args, **kwargs):
     print(f'Args: {args}')
     print(f'Kwargs: {kwargs}')
 
-    v_id = kwargs['vehicle_id']
-    car = next(filter(lambda c: c.id == v_id, Vehicles.objects.all())).brand
+    vehicle_service = [x for x in Service.objects.all().order_by('date')]
+    car = 'All vehicles'
 
-    vehicle_service = [x for x in Service.objects.all().order_by('date') if x.vehicle_id == v_id]
+    if kwargs:
+        v_id = kwargs['vehicle_id']
+        car = next(filter(lambda c: c.id == v_id, Vehicles.objects.all())).brand
+        vehicle_service = [x for x in Service.objects.all().order_by('date') if x.vehicle_id == v_id]
+
     context = {'service': vehicle_service, 'title': 'Service', 'vehicle': car}
 
     return render(request, 'service.html', context)
