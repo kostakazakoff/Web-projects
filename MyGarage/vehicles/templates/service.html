@@ -11,14 +11,17 @@
 <body>
     <header>
         <h2>{{ title }}: {{ vehicle }}</h2>
-        <p>{{ request.user }}</p>
+        <p>{{ time|date:'D: d.M.Y' }}</p>
+        <hr>
     </header>
     <main>
         {% for s in service %}
-        <h3>{{ s.description }}</h3>
-        <p>{{ s.odometer }}</p>
-        <p>{{ s.date }}</p>
-        <p>{{ s.price }}</p>
+        <article id="{{ s.vehicle.id }}">
+            <h3>{{ s.description }}</h3>
+            <p>{{ s.odometer }}</p>
+            <p>{{ s.date }}</p>
+            <p>{{ s.price }}</p>
+        </article>
         {% endfor %}
     </main>
 </body>
