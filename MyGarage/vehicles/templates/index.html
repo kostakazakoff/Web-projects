@@ -1,3 +1,4 @@
+{% load tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +11,7 @@
 
 <body>
     <header>
+        <nav>{% app_nav 'service' %}</nav>
         <h2>{{ title|upper }}</h2>
         <p>{{ request.user }}</p>
         <hr>
@@ -24,7 +26,7 @@
             <p>{{v.plate}}</p>
             <p>{{v.odometer}}</p>
             <p>{{v.year}}</p>
-            <a href="{% url 'service' v.id %}">{% url 'service' %}</a>
+            <a href="{% url 'service' v.id %}">Service history</a>
         </article>
         {% endfor %}
         {% else %}

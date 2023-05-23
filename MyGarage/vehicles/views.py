@@ -23,6 +23,6 @@ def service(request, *args, **kwargs):
         vehicle = next(filter(lambda c: c.id == v_id, Vehicles.objects.all())).brand
         vehicle_service = [x for x in Service.objects.all().order_by('date') if x.vehicle_id == v_id]
 
-    context = {'service': vehicle_service, 'title': 'Service', 'vehicle': vehicle, 'time': datetime.now()}
+    context = {'service': vehicle_service, 'title': 'Service History', 'vehicle': vehicle, 'time': datetime.now()}
 
     return render(request, 'service.html', context)

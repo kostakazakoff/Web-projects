@@ -1,3 +1,5 @@
+{% load filters %} {# same name as file #}
+{% load tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,9 +12,12 @@
 
 <body>
     <header>
+        {# same name as function #}
+        <nav>{% app_nav 'home' %}</nav>
+        
         <h2>{{ title }}: {{ vehicle }}</h2>
-        <p>{{ time|date:'D: d.M.Y' }}</p>
-        <a href="{% url 'home' %}">Home</a>
+        <hr>
+        <p>{{ time|data_style }}</p>
         <hr>
     </header>
     <main>

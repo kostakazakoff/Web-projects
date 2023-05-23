@@ -1,0 +1,7 @@
+<ul>
+    {% for url_name in url_names %}
+    <li>
+        <a href="{% url url_name %}">{{url_name|upper}}</a>
+    </li>
+    {% endfor %}
+</ul>
