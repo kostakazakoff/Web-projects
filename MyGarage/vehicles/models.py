@@ -32,6 +32,9 @@ class Vehicles(models.Model):
         blank=False
         )
     
+    def __str__(self):
+        return self.brand
+    
 class Service(models.Model):
     odometer = models.CharField(
         max_length=6,
@@ -69,3 +72,6 @@ class Service(models.Model):
         null=False,
         blank=False
     )
+
+    def __str__(self):
+        return self.description

@@ -1,35 +1,30 @@
-{% load filters %} {# same name as file #}
+{% extends 'base/base.html' %}
 {% load tags %}
-<!DOCTYPE html>
-<html lang="en">
+{% load filters %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service</title>
-</head>
+{% block page_title %}Service history{% endblock %}
+{% block content %}
 
-<body>
-    <header>
-        {# same name as function #}
-        <nav>{% app_nav 'home' %}</nav>
-        
-        <h2>{{ title }}: {{ vehicle }}</h2>
-        <hr>
-        <p>{{ time|data_style }}</p>
-        <hr>
-    </header>
-    <main>
+{% app_nav 'home' %}
+
+<header class="section-title">
+    <h2>{{ title }}: {{ vehicle }}</h2>
+    <p>{{ time|data_style }}</p>
+</header>
+<main>
+    <div class="section-flex ">
         {% for s in service %}
-        <article id="{{ s.vehicle.id }}">
-            <h3>{{ s.description }}</h3>
+        <article class="article" id="{{ s.vehicle.id }}">
+            {% if vehicle == 'All vehicles' %}
+            <h4 class="brand">{{ s.vehicle.brand }}</h4>
+            {% endif %}
+            <h3 class="article-title">{{ s.description }}</h3>
             <p>{{ s.odometer }}</p>
             <p>{{ s.date }}</p>
             <p>{{ s.price }}</p>
         </article>
         {% endfor %}
-    </main>
-</body>
+    </div>
 
-</html>
+</main>
+{% endblock %}

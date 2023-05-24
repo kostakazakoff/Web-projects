@@ -1,38 +1,33 @@
+{% extends 'base/base.html' %}
 {% load tags %}
-<!DOCTYPE html>
-<html lang="en">
+{% load filters %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyGarage</title>
-</head>
+{% block page_title %}Garage{% endblock %}
 
-<body>
-    <header>
-        <nav>{% app_nav 'service' %}</nav>
-        <h2>{{ title|upper }}</h2>
-        <p>{{ request.user }}</p>
-        <hr>
-    </header>
-    <main>
+{% block content %}
+{% app_nav 'service' %}
+<header class="section-title">
+    <h2>{{ title|upper }}</h2>
+</header>
+<main>
+    <div class="section-flex ">
         {% if vehicles %}
         {% for v in vehicles %}
-        <article id="{{v.id}}">
+        <article class="article" id="{{v.id}}">
             <h3>{{v.brand}}</h3>
             <p>{{v.model}}</p>
             <p>{{v.vin}}</p>
             <p>{{v.plate}}</p>
             <p>{{v.odometer}}</p>
             <p>{{v.year}}</p>
-            <a href="{% url 'service' v.id %}">Service history</a>
+            <div class="btns-container">
+                <a class="btn primary-btn" href="{% url 'service' v.id %}">Service history</a>
+            </div>
         </article>
         {% endfor %}
         {% else %}
         <h3>Garage is empty</h3>
         {% endif %}
-    </main>
-</body>
-
-</html>
+    </div>
+</main>
+{% endblock %}

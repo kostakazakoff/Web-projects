@@ -11,12 +11,12 @@ def index(request, *args, **kwargs):
 
     return render(request, 'index.html', context)
 
-def service(request, *args, **kwargs):
-    print(f'Args: {args}')
-    print(f'Kwargs: {kwargs}')
 
+def service(request, *args, **kwargs):
     vehicle_service = [x for x in Service.objects.all().order_by('date')]
     vehicle = 'All vehicles'
+    print(args)
+    print(kwargs)
 
     if kwargs:
         v_id = kwargs['vehicle_id']

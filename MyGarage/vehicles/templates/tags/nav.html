@@ -1,7 +1,15 @@
-<ul>
+<nav class="header">
+    <ul role="list" class="nav">
     {% for url_name in url_names %}
     <li>
-        <a href="{% url url_name %}">{{url_name|upper}}</a>
+        <a class="nav__item" href="{% url url_name %}">{{url_name|upper}}</a>
     </li>
     {% endfor %}
-</ul>
+    </ul>
+    <div class="header__search">
+        <form action="">
+            <input type="text" name="nav__search" id="nav__search_field">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</nav>

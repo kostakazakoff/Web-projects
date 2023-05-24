@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from vehicles.models import Vehicles, Service
 
 @admin.register(Vehicles)
