@@ -1,9 +1,9 @@
 from django.urls import path
 
-from vehicles.views import index, service
+from vehicles.views import home, service
 
 urlpatterns = [
-    path('', index, name='home'),
+    path('', home, name='home'),
     path('service/', service, name='service'),
     path('service/<int:vehicle_id>/', service, name='service'),
 ]

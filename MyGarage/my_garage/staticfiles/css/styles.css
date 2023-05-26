@@ -83,9 +83,9 @@ a {
     margin-left: auto;
 }
 
-#nav__search_field {
-    background-color: black;
-    color: white;
+#header__search_field {
+    background-color: #333333;
+    color: #E1E2E9;
 }
 
 .header__search:hover {
@@ -159,6 +159,7 @@ a {
     gap: 20px;
     overflow: hidden;
     background-color: #333333;
+    margin-bottom: 24px;
 }
 
 .section-title {

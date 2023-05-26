@@ -1,5 +1,13 @@
 from django.db import models
 
+
+class Vehicle_choices(models.TextChoices):
+    BRAND = 'brand'
+    VIN = 'vin'
+    PLATE = 'plate'
+    YEAR = 'year'
+
+
 class Vehicles(models.Model):
     brand = models.CharField(
         max_length=30,
@@ -34,6 +42,9 @@ class Vehicles(models.Model):
     
     def __str__(self):
         return self.brand
+    
+    def get_criteria():
+        return ('brand', 'model', 'vin', 'plate', 'odometer', 'year')
     
 class Service(models.Model):
     odometer = models.CharField(

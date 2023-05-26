@@ -21,7 +21,7 @@
             <h3 class="article-title">{{ s.description }}</h3>
             <p>{{ s.odometer }}</p>
             <p>{{ s.date }}</p>
-            <p>{{ s.price }}</p>
+            <p><strong>{{ s.price|floatformat:2 }} lv</strong></p>
         </article>
         {% endfor %}
     </div>
