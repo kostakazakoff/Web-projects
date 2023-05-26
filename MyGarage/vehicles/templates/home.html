@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% load tags %}
+{% load filters %}
+
+{% block page_title %}Garage{% endblock %}
+
+{% block content %}
+{% app_nav 'service' %}
+<header class="section-title">
+    <h2>{{ title|upper }}</h2>
+</header>
+<main>
+    <div class="section-flex ">
+        {% if vehicles %}
+        {% for v in vehicles %}
+        <article class="article" id="{{v.id}}">
+            <h3>{{v.brand}}</h3>
+            <p>{{v.model}}</p>
+            <p>{{v.vin}}</p>
+            <p>{{v.plate}}</p>
+            <p>{{v.odometer}}</p>
+            <p>{{v.year}}</p>
+            <div class="btns-container">
+                <a class="btn primary-btn" href="{% url 'service' v.id %}">Service history</a>
+            </div>
+        </article>
+        {% endfor %}
+        {% endif %}
+    </div>
+</main>
+{% endblock %}
