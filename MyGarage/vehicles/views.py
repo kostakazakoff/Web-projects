@@ -1,6 +1,4 @@
 from django.shortcuts import render
-# from django.http import HttpResponse
-# from django.http import JsonResponse
 from vehicles.models import Vehicles, Service
 from datetime import datetime
 
@@ -18,20 +16,20 @@ def home(request, *args, **kwargs):
 
 def service(request, *args, **kwargs):
     vehicle_service = [x for x in Service.objects.all().order_by('date')]
-    vehicle = 'All vehicles'
+    brand = 'All vehicles'
 
     print(args)
     print(kwargs)
 
     if kwargs:
         v_id = kwargs['vehicle_id']
-        vehicle = next(filter(lambda c: c.id == v_id, Vehicles.objects.all())).brand
+        brand = Vehicles.objects.get(id=v_id).brand
         vehicle_service = [x for x in Service.objects.all().order_by('date') if x.vehicle_id == v_id]
 
     context = {
         'service': vehicle_service,
         'title': 'Service History',
-        'vehicle': vehicle,
+        'brand': brand,
         'time': datetime.now()
         }
 

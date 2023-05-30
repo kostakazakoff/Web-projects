@@ -8,14 +8,14 @@
 {% app_nav 'home' %}
 
 <header class="section-title">
-    <h2>{{ title }}: {{ vehicle }}</h2>
+    <h2>{{ title }}: {{ brand }}</h2>
     <p>{{ time|data_style }}</p>
 </header>
 <main>
     <div class="section-flex ">
         {% for s in service %}
         <article class="article" id="{{ s.vehicle.id }}">
-            {% if vehicle == 'All vehicles' %}
+            {% if not brand %}
             <h4 class="brand">{{ s.vehicle.brand }}</h4>
             {% endif %}
             <h3 class="article-title">{{ s.description }}</h3>
