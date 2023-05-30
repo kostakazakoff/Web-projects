@@ -4,11 +4,12 @@ from datetime import datetime
 
 
 def home(request, *args, **kwargs):
-    all_vehicles = Vehicles.objects.all()
     search_str = request.GET.get('header__search_field')
-
+    
     if search_str:
-        all_vehicles = [v for v in all_vehicles if search_str.lower() in v.brand.lower()]
+        all_vehicles = Vehicles.objects.filter(brand__icontains=search_str)
+    else:
+        all_vehicles = Vehicles.objects.all()
         
     context = {'vehicles': all_vehicles, 'title': 'Garage', 'criteria': Vehicles.get_criteria()}
     return render(request, 'home.html', context)
@@ -24,7 +25,7 @@ def service(request, *args, **kwargs):
     if kwargs:
         v_id = kwargs['vehicle_id']
         brand = Vehicles.objects.get(id=v_id).brand
-        vehicle_service = [x for x in Service.objects.all().order_by('date') if x.vehicle_id == v_id]
+        vehicle_service = Service.objects.all().filter(vehicle=v_id).order_by('date')
 
     context = {
         'service': vehicle_service,
