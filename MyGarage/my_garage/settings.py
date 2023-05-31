@@ -43,6 +43,8 @@ INSTALLED_APPS = [
 
     # My apps
     'vehicles',
+    'accounts',
+    'reminders',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +123,7 @@ STATIC_URL = '/static/'
 
 # Location on file system
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'my_garage/staticfiles'),
+    os.path.join(BASE_DIR, 'staticfiles'),
 )
 
 # Default primary key field type

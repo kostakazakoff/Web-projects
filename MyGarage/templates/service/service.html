@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+{% load tags %}
+{% load filters %}
+
+{% block page_title %}Service history{% endblock %}
+{% block content %}
+{% app_nav 'garage' %}
+<header class="section-title">
+    <h2>Service history: {{ title }}</h2>
+    <p>{{ time|data_style }}</p>
+</header>
+<main>
+    <div class="section-flex ">
+        {% for s in service %}
+        <article class="article" id="{{ s.vehicle.id }}">
+            {% if title == 'All vehicles' %}
+            <h4 class="article-title">{{ s.vehicle.brand }} {{ s.vehicle.model }}</h4>
+            {% endif %}
+            <p>Description: {{ s.description }}</p>
+            <p>Notes: {{ s.notes }}</p>
+            <p>Odometer: {{ s.odometer }}</p>
+            <p>Date: {{ s.date }}</p>
+            <p><strong>Price: {{ s.price|floatformat:2 }} lv</strong></p>
+        </article>
+        {% endfor %}
+    </div>
+
+</main>
+{% endblock %}

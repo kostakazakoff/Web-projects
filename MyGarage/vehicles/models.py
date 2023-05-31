@@ -29,8 +29,7 @@ class Vehicles(models.Model):
         null=False,
         blank=False
         )
-    odometer = models.CharField(
-        max_length=6,
+    odometer = models.IntegerField(
         null=False,
         blank=False
         )
@@ -47,8 +46,7 @@ class Vehicles(models.Model):
         return ('brand', 'model', 'vin', 'plate', 'odometer', 'year')
     
 class Service(models.Model):
-    odometer = models.CharField(
-        max_length=6,
+    odometer = models.IntegerField(
         null=False,
         blank=False
         )
@@ -82,6 +80,14 @@ class Service(models.Model):
         on_delete=models.CASCADE,
         null=False,
         blank=False
+    )
+    date_deadline = models.DateField(
+        blank=True,
+        null=True,
+    )
+    odometer_deadline = models.IntegerField(
+        null=True,
+        blank=True
     )
 
     def __str__(self):

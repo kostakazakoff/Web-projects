@@ -14,12 +14,11 @@
         {% if vehicles %}
         {% for v in vehicles %}
         <article class="article" id="{{v.id}}">
-            <h3>{{v.brand}}</h3>
-            <p>{{v.model}}</p>
-            <p>{{v.vin}}</p>
-            <p>{{v.plate}}</p>
-            <p>{{v.odometer}}</p>
-            <p>{{v.year}}</p>
+            <h3 class="article-title">{{v.brand}} {{v.model}}</h3>
+            <p>VIN: {{v.vin}}</p>
+            <p>Plate: {{v.plate}}</p>
+            <p>Odometer: {{v.odometer}}</p>
+            <p>Year of manufacture: {{v.year}}</p>
             <div class="btns-container">
                 <a class="btn primary-btn" href="{% url 'service' v.id %}">Service history</a>
             </div>
