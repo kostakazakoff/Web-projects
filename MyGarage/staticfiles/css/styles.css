@@ -40,7 +40,7 @@ button {
 .primary-btn:hover {
     background-color: #A3FF5D;
     border-color: #A3FF5D;
-    color: #333333;
+    color: black;
 }
 
 .danger-btn {
@@ -49,7 +49,7 @@ button {
 
 .danger-btn:hover {
     background-color: #E69C24;
-    color: #E1E2E9;
+    color: black;
 }
 
 ::-webkit-scrollbar {
@@ -197,6 +197,7 @@ a {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 12px;
+    text-transform: uppercase;
 }
 
 .expand-container {
