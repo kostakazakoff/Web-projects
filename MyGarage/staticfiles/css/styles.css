@@ -6,12 +6,12 @@ html {
 }
 
 body {
-    min-width: 420px;
+    min-width: 800px;
     font-size: 14px;
     overflow: scroll;
     background-color: #333333;
     color: #E1E2E9;
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
 }
@@ -24,12 +24,12 @@ button {
 .btns-container {
     display: flex;
     margin-top: 24px;
-    gap: 24px;
+    gap: 12px;
 }
 
 .btn {
     cursor: pointer;
-    padding: 4px 40px;
+    padding: 4px 28px;
     border-radius: 4px;
 }
 
@@ -101,6 +101,10 @@ a {
     margin-right: auto;
 }
 
+.nav__item {
+    text-transform: uppercase;
+}
+
 .nav__item:hover {
     color: #A3FF5D;
     cursor: pointer;
@@ -166,7 +170,6 @@ a {
 .section-title {
     flex-basis: 100%;
     text-align: center;
-    /* text-transform: uppercase; */
     letter-spacing: 0.1rem;
     color: #E69C24;
     margin: 24px 0;

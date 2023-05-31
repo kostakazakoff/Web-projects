@@ -51,14 +51,7 @@ class Vehicles(models.Model):
         null=False,
         default=0
     )
-    
-    slug = models.SlugField(
-        unique=False,
-        blank=False,
-        null=False,
-        default='Slug',
-    )
-    
+ 
     def __str__(self):
         return self.brand
     

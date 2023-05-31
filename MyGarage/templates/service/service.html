@@ -1,16 +1,19 @@
 {% extends 'base/base.html' %}
 <!-- {% load tags %} -->
 {% load filters %}
-{% block page_title %}Service history{% endblock %}
+{% block page_title %}Service history: {{ title }}{% endblock %}
 {% block nav %}
 <li>
-    <a href="{% url 'garage' %}">Back to GARAGE</a>
+    <a href="{% url 'garage' %}" class="nav__item">Back to GARAGE</a>
+</li>
+<li>
+    <a href="{% url 'add service' %}" class="nav__item">Add service</a>
 </li>
 {% endblock %}
 {% block content %}
 
 <header class="section-title">
-    <h2>Service history: {{ title }}</h2>
+    <h2>Service history: {{ title }} {{ plate }}</h2>
     <p>{{ time|data_style }}</p>
 </header>
 <main>
@@ -26,6 +29,10 @@
             <p>Date: {{ s.date }}</p>
             <p>Autoservice: {{ s.autoservice }}</p>
             <p><strong>Price: {{ s.price|floatformat:2 }} lv</strong></p>
+            <div class="btns-container">
+                <a class="btn primary-btn" href="{% url 'edit service' s.id %}">Edit</a>
+                <a class="btn danger-btn" href="{% url 'delete service' s.id %}">Delete</a>
+            </div>
         </article>
         {% endfor %}
     </div>

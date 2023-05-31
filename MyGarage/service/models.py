@@ -55,7 +55,7 @@ class Service(models.Model):
         return self.description
     
     def get_absolute_url(self):
-        return reverse('service details', kwargs={'pk': self.pk})
+        return reverse('service details', kwargs={'pk': int(self.pk)})
     
     @property
     def filter_criteries():

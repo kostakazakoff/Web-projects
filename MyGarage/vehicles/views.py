@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from vehicles.models import Vehicles
+from django.shortcuts import get_object_or_404
 
 
 def garage(request, *args, **kwargs):
@@ -14,3 +15,16 @@ def garage(request, *args, **kwargs):
         
     context = {'vehicles': all_vehicles, 'title': 'Garage'}
     return render(request, 'garage/garage.html', context)
+
+def add_vehicle(request):
+    return render(request, 'garage/add-vehicle.html')
+
+def edit_vehicle(request, id):
+    vehicle = get_object_or_404(Vehicles, pk=id)
+    context = {'vehicle': vehicle}
+    return render(request, 'garage/edit-vehicle.html', context)
+
+def delete_vehicle(request, id):
+    vehicle = get_object_or_404(Vehicles, pk=id)
+    context = {'vehicle': vehicle}
+    return render(request, 'garage/delete-vehicle.html', context)
