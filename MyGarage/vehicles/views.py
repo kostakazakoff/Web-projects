@@ -23,19 +23,19 @@ def service(request, *args, **kwargs):
 
     if kwargs:
         v_id = kwargs['vehicle_id']
-        vehicle_service = Service.objects.filter(vehicle=v_id).order_by('date')
+        vehicle_service = Service.objects.filter(vehicle=v_id)
         title = vehicle_service.first().vehicle.brand
 
     if search_str:
-        vehicle_service = Service.objects.filter(vehicle__brand__icontains=search_str).order_by('date') \
-        or Service.objects.filter(vehicle__vin__contains=search_str).order_by('date') \
-        or Service.objects.filter(vehicle__plate__icontains=search_str).order_by('date')
+        vehicle_service = Service.objects.filter(vehicle__brand__icontains=search_str) \
+        or Service.objects.filter(vehicle__vin__contains=search_str) \
+        or Service.objects.filter(vehicle__plate__icontains=search_str)
         if vehicle_service:
             print(f'Vehicle service: {vehicle_service}')
             title = vehicle_service.first().vehicle.brand
 
     if not kwargs and not search_str:
-        vehicle_service = [x for x in Service.objects.all().order_by('date')]
+        vehicle_service = [x for x in Service.objects.all()]
     
     context = {
         'service': vehicle_service,

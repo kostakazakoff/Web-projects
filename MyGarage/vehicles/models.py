@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Vehicle_choices(models.TextChoices):
@@ -9,6 +10,9 @@ class Vehicle_choices(models.TextChoices):
 
 
 class Vehicles(models.Model):
+    class Meta():
+        ordering = ('-date_of_purchase',)
+
     brand = models.CharField(
         max_length=30,
         null=False,
@@ -38,14 +42,31 @@ class Vehicles(models.Model):
         null=False,
         blank=False
         )
+    date_of_purchase = models.DateField(
+        blank=True,
+        null=True
+    )
+    price = models.IntegerField(
+        blank=False,
+        null=False,
+        default=0
+    )
     
     def __str__(self):
         return self.brand
     
-    def get_criteria():
-        return ('brand', 'model', 'vin', 'plate', 'odometer', 'year')
+    def get_absolute_url(self):
+        return reverse('vehicle details', kwargs={'pk': self.pk})
+    
+    @property
+    def filter_criteries():
+        return ('brand', 'model', 'vin', 'plate', 'odometer', 'year', 'date_of_purchase', 'price')
+    
     
 class Service(models.Model):
+    class Meta():
+        ordering = ('-date',)
+
     odometer = models.IntegerField(
         null=False,
         blank=False
