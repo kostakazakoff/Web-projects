@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +12,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
 </head>
+
+<nav class="header">
+    <ul role="list" class="nav">
+        {% block nav %}{% endblock %}
+    </ul>
+    <div class="header__search">
+        <form action="">
+            <input type="text" name="header__search_field" id="header__search_field">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
 <body>
     {% block content %}{% endblock %}
 </body>
+
 </html>

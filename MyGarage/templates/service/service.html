@@ -1,10 +1,14 @@
 {% extends 'base/base.html' %}
-{% load tags %}
+<!-- {% load tags %} -->
 {% load filters %}
-
 {% block page_title %}Service history{% endblock %}
+{% block nav %}
+<li>
+    <a href="{% url 'garage' %}">Back to GARAGE</a>
+</li>
+{% endblock %}
 {% block content %}
-{% app_nav 'garage' %}
+
 <header class="section-title">
     <h2>Service history: {{ title }}</h2>
     <p>{{ time|data_style }}</p>
@@ -20,6 +24,7 @@
             <p>Notes: {{ s.notes }}</p>
             <p>Odometer: {{ s.odometer }}</p>
             <p>Date: {{ s.date }}</p>
+            <p>Autoservice: {{ s.autoservice }}</p>
             <p><strong>Price: {{ s.price|floatformat:2 }} lv</strong></p>
         </article>
         {% endfor %}

@@ -1,11 +1,11 @@
 {% extends 'base/base.html' %}
-{% load tags %}
+<!-- {% load tags %} -->
 {% load filters %}
-
 {% block page_title %}Garage{% endblock %}
-
+{% block nav %}
+    
+{% endblock %}
 {% block content %}
-{% app_nav 'service' %}
 <header class="section-title">
     <h2>{{ title|upper }}</h2>
 </header>
@@ -22,7 +22,7 @@
             <p>Purchase date: {{v.date_of_purchase}}</p>
             <p>Price: {{v.price}}</p>
             <div class="btns-container">
-                <a class="btn primary-btn" href="{% url 'service' v.id %}">Service history</a>
+                <a class="btn primary-btn" href="{% url 'vehicle service' v.id %}">Service history</a>
             </div>
         </article>
         {% endfor %}
