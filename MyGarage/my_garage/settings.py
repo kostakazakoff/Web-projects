@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'service',
     'accounts',
     'reminders',
+    'photos',
 ]
 
 MIDDLEWARE = [
