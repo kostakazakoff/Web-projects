@@ -1,16 +1,20 @@
 {% extends 'base/base.html' %}
-<!-- {% load tags %} -->
+{% load tags %}
 {% load filters %}
-{% block page_title %}Garage{% endblock %}
-{% block nav %}
-    <li>
-        <a href="{% url 'add vehicle' %}" class="nav__item">Add vehicle</a>
-    </li>
+
+{% block page_title %}
+Garage
 {% endblock %}
+
+{% block nav %}
+{% app_nav 'add vehicle' %}
+{% endblock %}
+
 {% block content %}
 <header class="section-title">
     <h2>{{ title|upper }}</h2>
 </header>
+
 <main>
     <div class="section-flex ">
         {% if vehicles %}

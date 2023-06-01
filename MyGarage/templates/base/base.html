@@ -10,19 +10,10 @@
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-
 </head>
 
 <nav class="header">
-    <ul role="list" class="nav">
-        {% block nav %}{% endblock %}
-    </ul>
-    <div class="header__search">
-        <form action="">
-            <input type="text" name="header__search_field" id="header__search_field">
-            <button type="submit">Search</button>
-        </form>
-    </div>
+    {% block nav %}{% endblock %}
 </nav>
 
 <body>

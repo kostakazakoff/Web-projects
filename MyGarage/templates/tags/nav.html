@@ -1,0 +1,13 @@
+    <ul role="list" class="nav">
+        {% for url_name in url_names %}
+            <li>
+                <a href="{% url url_name %}" class="nav__item">{{ url_name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="header__search">
+        <form action="">
+            <input type="text" name="header__search_field" id="header__search_field">
+            <button type="submit">Search</button>
+        </form>
+    </div>
