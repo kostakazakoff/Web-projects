@@ -1,20 +1,21 @@
 {% extends 'base/base.html' %}
-<!-- {% load tags %} -->
 {% load filters %}
 {% block page_title %}Service history: {{ title }}{% endblock %}
 {% block nav %}
+
 <li>
     <a href="{% url 'garage' %}" class="nav__item">Back to GARAGE</a>
 </li>
 <li>
     <a href="{% url 'add service' %}" class="nav__item">Add service</a>
 </li>
+
 {% endblock %}
 {% block content %}
 
 <header class="section-title">
     <h2>Service history: {{ title }} {{ plate }}</h2>
-    <p>{{ time|data_style }}</p>
+    <p>{{ time|date_style }}</p>
 </header>
 <main>
     <div class="section-flex ">
