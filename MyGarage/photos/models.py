@@ -12,11 +12,11 @@ class Photo(models.Model):
         blank=True,
     )
     image = models.ImageField(
-        upload_to='mediafiles/vehicle_photos/',
+        # upload_to='mediafiles/',
         validators=(validate_img_size_up_to_1mb,),
         null=False,
         blank=True,
     )
 
     def __str__(self):
-        return self.name
+        return f'Name={self.name}'

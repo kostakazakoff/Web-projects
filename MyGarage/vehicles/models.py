@@ -61,12 +61,12 @@ class Vehicles(models.Model):
         blank=True,
     )
 
-    # Many To Many relations
-    photos = models.ManyToManyField(
+    photo = models.OneToOneField(
         Photo,
-        null=False,
-        blank=False,
-    )
+        on_delete=models.RESTRICT,
+        null=True,
+        blank=True,
+        )
 
     # Auto generate slug
     def save(self, *args, **kwargs):

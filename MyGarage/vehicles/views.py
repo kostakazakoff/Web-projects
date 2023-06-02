@@ -13,7 +13,10 @@ def garage(request, *args, **kwargs):
     else:
         all_vehicles = Vehicles.objects.all()
         
-    context = {'vehicles': all_vehicles, 'title': 'Garage'}
+    context = {
+        'vehicles': all_vehicles,
+        'title': 'Garage'
+        }
     return render(request, 'garage/garage.html', context)
 
 def add_vehicle(request):
