@@ -20,18 +20,24 @@ Garage
         {% if vehicles %}
         {% for v in vehicles %}
         <article class="article" id="{{v.id}}">
-            <h3 class="article-title">{{v.brand}} {{v.model}}</h3>
-            <p>VIN: {{v.vin}}</p>
-            <p>Plate: {{v.plate}}</p>
-            <p>Odometer: {{v.odometer}}</p>
-            <p>Year of manufacture: {{v.year}}</p>
-            <p>Purchase date: {{v.date_of_purchase}}</p>
-            <p>Price: {{v.price}}</p>
-            <div class="btns-container">
-                <a class="btn primary-btn" href="{% url 'vehicle service' v.id %}">Service history</a>
-                <a class="btn primary-btn" href="{% url 'edit vehicle' v.id %}">Edit</a>
-                <a class="btn danger-btn" href="{% url 'delete vehicle' v.id %}">Delete</a>
+            <div class="photo-container">
+                <!-- <img src="{{v.photo_url}}" alt="" class="photo"> -->
             </div>
+            <div class="info-container">
+                <h3 class="article-title">{{v.brand}} {{v.model}}</h3>
+                <p>VIN: {{v.vin}}</p>
+                <p>Plate: {{v.plate}}</p>
+                <p>Odometer: {{v.odometer}}</p>
+                <p>Year of manufacture: {{v.year}}</p>
+                <p>Purchase date: {{v.date_of_purchase}}</p>
+                <p>Price: {{v.price}}</p>
+                <div class="btns-container">
+                    <a class="btn primary-btn" href="{% url 'vehicle service' v.id %}">Service history</a>
+                    <a class="btn primary-btn" href="{% url 'edit vehicle' v.id %}">Edit</a>
+                    <a class="btn danger-btn" href="{% url 'delete vehicle' v.id %}">Delete</a>
+                </div>
+            </div>
+
         </article>
         {% endfor %}
         {% endif %}

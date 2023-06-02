@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 
 
 class Vehicle_choices(models.TextChoices):
@@ -51,10 +52,26 @@ class Vehicles(models.Model):
         null=False,
         default=0
     )
+    slug = models.SlugField(
+        unique=True,
+        null=False,
+        blank=True,
+    )
  
     def __str__(self):
         return self.brand
     
+
+    # Auto generate slug
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if not self.slug:
+            self.slug = slugify(f'{self.brand}-{self.plate}')
+
+        return super().save(*args, **kwargs)
+    
+
     def get_absolute_url(self):
         return reverse('vehicle details', kwargs={'pk': self.pk})
     

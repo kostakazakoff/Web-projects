@@ -36,12 +36,6 @@ class Service(models.Model):
         null=False,
         default=0
     )
-    vehicle = models.ForeignKey(
-        Vehicles,
-        on_delete=models.CASCADE,
-        null=False,
-        blank=False
-    )
     date_deadline = models.DateField(
         blank=True,
         null=True,
@@ -50,6 +44,13 @@ class Service(models.Model):
         null=True,
         blank=True
     )
+
+    # vehicle = models.ForeignKey(
+    #     Vehicles,
+    #     on_delete=models.CASCADE,
+    #     null=False,
+    #     blank=False
+    # )
 
     def __str__(self):
         return self.description

@@ -20,18 +20,20 @@ Service history: {{ title }}
     <div class="section-flex ">
         {% for s in service %}
         <article class="article" id="{{ s.vehicle.id }}">
-            {% if title == 'All vehicles' %}
-            <h4 class="article-title">{{ s.vehicle.brand }} {{ s.vehicle.model }}</h4>
-            {% endif %}
-            <p>Description: {{ s.description }}</p>
-            <p>Notes: {{ s.notes }}</p>
-            <p>Odometer: {{ s.odometer }}</p>
-            <p>Date: {{ s.date }}</p>
-            <p>Autoservice: {{ s.autoservice }}</p>
-            <p><strong>Price: {{ s.price|floatformat:2 }} lv</strong></p>
-            <div class="btns-container">
-                <a class="btn primary-btn" href="{% url 'edit service' s.id %}">Edit</a>
-                <a class="btn danger-btn" href="{% url 'delete service' s.id %}">Delete</a>
+            <div class="info-container">
+                {% if title == 'All vehicles' %}
+                <h4 class="article-title">{{ s.vehicle.brand }} {{ s.vehicle.model }}</h4>
+                {% endif %}
+                <p>Description: {{ s.description }}</p>
+                <p>Notes: {{ s.notes }}</p>
+                <p>Odometer: {{ s.odometer }}</p>
+                <p>Date: {{ s.date }}</p>
+                <p>Autoservice: {{ s.autoservice }}</p>
+                <p><strong>Price: {{ s.price|floatformat:2 }} lv</strong></p>
+                <div class="btns-container">
+                    <a class="btn primary-btn" href="{% url 'edit service' s.id %}">Edit</a>
+                    <a class="btn danger-btn" href="{% url 'delete service' s.id %}">Delete</a>
+                </div>
             </div>
         </article>
         {% endfor %}
