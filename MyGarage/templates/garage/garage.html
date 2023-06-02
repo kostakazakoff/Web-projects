@@ -21,7 +21,7 @@ Garage
         {% for v in vehicles %}
         <article class="article" id="{{v.id}}">
             <div class="photo-container">
-                <!-- <img src="{{v.photo_url}}" alt="" class="photo"> -->
+                <img src="{{v.photos}}" alt="" class="photo">
             </div>
             <div class="info-container">
                 <h3 class="article-title">{{v.brand}} {{v.model}}</h3>
