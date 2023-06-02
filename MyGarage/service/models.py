@@ -1,3 +1,5 @@
+# Service
+
 from django.db import models
 from vehicles.models import Vehicles
 from django.urls import reverse
@@ -45,6 +47,7 @@ class Service(models.Model):
         blank=True
     )
 
+    # One To Many relations
     vehicle = models.ForeignKey(
         Vehicles,
         on_delete=models.CASCADE,

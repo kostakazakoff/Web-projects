@@ -15,10 +15,6 @@ class Photo(models.Model):
         blank=True,
         default='images/default.jpg',
     )
-    # tagged_vehicle = models.ManyToManyField(
-    #     Vehicles,
-    #     null=True,
-    # )
 
     def __str__(self):
         return self.name

@@ -1,3 +1,5 @@
+# Vehicles
+
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -57,6 +59,8 @@ class Vehicles(models.Model):
         null=False,
         blank=True,
     )
+
+    
  
     def __str__(self):
         return self.brand
