@@ -22,9 +22,7 @@ Garage
         <article class="article" id="{{v.id}}">
             <div class="photo-container">
                 {% if v.photo %}
-                <img src="{{v.photo.image}}" alt="{{v.photo.name}}" class="photo">
-                {% else %}
-                <img src="mediafiles/default.jpg" alt="upload vehicle photo">
+                <img src="mediafiles/{{v.photo.image}}" alt="{{v.photo.name}}" class="photo">
                 {% endif %}
             </div>
             <div class="separator"></div>
