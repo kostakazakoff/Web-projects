@@ -3,6 +3,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from photos.models import Photo
 
 
 class Vehicle_choices(models.TextChoices):
@@ -60,7 +61,13 @@ class Vehicles(models.Model):
         blank=True,
     )
 
-    
+    # Many To Many relations
+    # photos = models.ManyToManyField(
+    #     Photo,
+    #     null=False,
+    #     related_name='photos',
+    #     default=1,
+    # )
  
     def __str__(self):
         return self.brand

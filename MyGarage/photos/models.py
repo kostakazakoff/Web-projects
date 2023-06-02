@@ -1,5 +1,4 @@
 from django.db import models
-from vehicles.models import Vehicles
 
 class Photo(models.Model):
     name = models.CharField(
@@ -11,9 +10,9 @@ class Photo(models.Model):
         blank=True,
     )
     image = models.ImageField(
+        upload_to='mediafiles/vehicle_photos/',
         null=False,
         blank=True,
-        default='images/default.jpg',
     )
 
     def __str__(self):
