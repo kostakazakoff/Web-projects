@@ -45,12 +45,12 @@ class Service(models.Model):
         blank=True
     )
 
-    # vehicle = models.ForeignKey(
-    #     Vehicles,
-    #     on_delete=models.CASCADE,
-    #     null=False,
-    #     blank=False
-    # )
+    vehicle = models.ForeignKey(
+        Vehicles,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False
+    )
 
     def __str__(self):
         return self.description
