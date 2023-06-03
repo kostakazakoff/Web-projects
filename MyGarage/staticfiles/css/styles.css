@@ -199,7 +199,7 @@ a {
     flex-direction: column;
     align-content: center;
     gap: 4px;
-    padding: 40px;
+    padding: 28px 40px;
 }
 
 .photo {

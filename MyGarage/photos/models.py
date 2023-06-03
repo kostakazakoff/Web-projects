@@ -1,8 +1,14 @@
 from django.db import models
-from photos.validators import validate_img_size_up_to_1mb
-
+from my_garage.core.utils import mbytes_to_bytes
+from django.core.exceptions import ValidationError
 
 class Photo(models.Model):
+    MAX_IMG_SIZE = 1.0
+
+    def validate_max_img_size(self):
+        if self.file.size > mbytes_to_bytes(Photo.MAX_IMG_SIZE):
+            raise ValidationError(f'Max file size is {Photo.MAX_IMG_SIZE}MB')
+        
     name = models.CharField(
         max_length=30
     )
@@ -13,7 +19,7 @@ class Photo(models.Model):
     )
     image = models.ImageField(
         # upload_to='mediafiles/',
-        validators=(validate_img_size_up_to_1mb,),
+        validators=(validate_max_img_size,),
         null=False,
         blank=True,
     )
