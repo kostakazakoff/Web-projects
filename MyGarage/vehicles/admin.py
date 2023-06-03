@@ -3,4 +3,4 @@ from vehicles.models import Vehicles
 
 @admin.register(Vehicles)
 class VehiclesAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('brand', 'id')

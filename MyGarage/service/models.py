@@ -52,7 +52,8 @@ class Service(models.Model):
         Vehicles,
         on_delete=models.CASCADE,
         null=False,
-        blank=False
+        blank=False,
+        related_name='vehicle_service',
     )
 
     def __str__(self):

@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 
 def garage(request, *args, **kwargs):
     search_str = request.GET.get('header__search_field')
+    service_field = []
     
     if search_str:
         all_vehicles = Vehicles.objects.filter(brand__icontains=search_str) \
@@ -12,10 +13,24 @@ def garage(request, *args, **kwargs):
         or Vehicles.objects.filter(plate__icontains=search_str)
     else:
         all_vehicles = Vehicles.objects.all()
+
+    # TODO: may insert select menu in vehicle article
+    for vehicle in all_vehicles:
+        if vehicle.vehicle_service.count() > 0:
+            for service in vehicle.vehicle_service.all():
+                service_field.append(
+                    {'service_id': service.id,\
+                     'vehicle_id': service.vehicle.id,\
+                     'description': service.description,\
+                     'date': service.date.strftime('%Y-%m-%d')}
+                    )
+    print(service_field)
+    # ------------------------------------------------
         
     context = {
         'vehicles': all_vehicles,
-        'title': 'Garage'
+        'title': 'Garage',
+        'vehicles_service': service_field
         }
     return render(request, 'garage/garage.html', context)
 
