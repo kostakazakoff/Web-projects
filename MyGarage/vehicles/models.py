@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from photos.models import Photo
+from django.core.validators import MinLengthValidator
 
 
 class Vehicle_choices(models.TextChoices):
@@ -29,8 +30,10 @@ class Vehicles(models.Model):
     )
     vin = models.CharField(
         max_length=17,
+        validators=[MinLengthValidator(17)],
         null=True,
-        blank=True
+        blank=True,
+        unique=True,
     )
     plate = models.CharField(
         max_length=10,
@@ -43,6 +46,7 @@ class Vehicles(models.Model):
     )
     year = models.CharField(
         max_length=4,
+        validators=[MinLengthValidator(4)],
         null=False,
         blank=False
     )
