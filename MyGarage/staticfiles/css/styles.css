@@ -33,14 +33,20 @@ button {
     border-radius: 4px;
 }
 
+.btn:hover {
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
+    transform: translate(-2px, -2px);
+    transition: all 200ms ease-in-out;
+}
+
 .primary-btn {
     border: 1px solid #E1E2E9;
 }
 
 .primary-btn:hover {
-    background-color: #A3FF5D;
+    background-color: black;
     border-color: #A3FF5D;
-    color: black;
+    color: #E1E2E9;
 }
 
 .danger-btn {
@@ -84,9 +90,10 @@ a {
     margin-left: auto;
 }
 
-#header__search_field {
+.nav_input_field {
     background-color: #333333;
     color: #E1E2E9;
+    padding: 4px 12px;
 }
 
 .header__search:hover {
