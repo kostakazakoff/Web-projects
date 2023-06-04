@@ -7,6 +7,7 @@ def vehicle_service_history(request, pk):
     plate = ''
     search_str = request.GET.get('header__search_field')
     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
+    placeholder = 'Autoservice, Description or Odometer min'
 
     vehicle_service = Service.objects.filter(vehicle=pk)
     if vehicle_service:
@@ -17,7 +18,8 @@ def vehicle_service_history(request, pk):
         nav_search_btn_content = 'fa-solid fa-arrows-rotate'
         vehicle_service = vehicle_service and \
             (Service.objects.filter(autoservice__icontains=search_str) or \
-            Service.objects.filter(description__icontains=search_str))
+            Service.objects.filter(description__icontains=search_str)) or \
+            Service.objects.filter(odometer__gte=search_str)
         
         if vehicle_service:
             title = vehicle_service.first().vehicle.brand
@@ -29,7 +31,7 @@ def vehicle_service_history(request, pk):
         'time': datetime.now(),
         'plate': plate,
         'nav_search_btn_content': nav_search_btn_content,
-        'placeholder': 'Autoservice or Description'
+        'placeholder': placeholder
         }
 
     return render(request, 'service/service.html', context)

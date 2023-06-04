@@ -7,14 +7,15 @@ def garage(request, *args, **kwargs):
     search_str = request.GET.get('header__search_field')
     service_field = []
     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
-    placeholder = 'Brand, VIN or Plate'
+    placeholder = 'Brand, VIN, Plate or Odometer min'
     header_icon_class = 'fa-solid fa-car'
 
     if search_str:
         nav_search_btn_content = 'fa-solid fa-arrows-rotate'
         all_vehicles = Vehicles.objects.filter(brand__icontains=search_str) or\
         Vehicles.objects.filter(vin__contains=search_str) or\
-        Vehicles.objects.filter(plate__icontains=search_str)
+        Vehicles.objects.filter(plate__icontains=search_str) or \
+        Vehicles.objects.filter(odometer__gte=search_str)
     else:
         all_vehicles = Vehicles.objects.all()
 
