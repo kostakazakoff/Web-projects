@@ -7,7 +7,15 @@ Service history: {{ title }}
 {% endblock %}
 
 {% block nav %}
-{% app_nav 'garage' 'add service' %}
+    {% app_nav 'garage' 'add service' %}
+    <div class="header__search">
+        <form action="" class="btns-container">
+            <input type="text" name="header__search_field" id="header__search_field" class="nav_input_field" placeholder="Search by {{ placeholder }}">
+            <button type="submit">
+                <i class="{{ nav_search_btn_content }}"></i>
+            </button>
+        </form>
+    </div>
 {% endblock %}
 
 {% block content %}

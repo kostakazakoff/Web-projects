@@ -6,8 +6,10 @@ from django.shortcuts import get_object_or_404
 def garage(request, *args, **kwargs):
     search_str = request.GET.get('header__search_field')
     service_field = []
+    nav_search_btn_content = 'fa-solid fa-magnifying-glass'
 
     if search_str:
+        nav_search_btn_content = 'fa-solid fa-arrows-rotate'
         all_vehicles = Vehicles.objects.filter(brand__icontains=search_str) or\
         Vehicles.objects.filter(vin__contains=search_str) or\
         Vehicles.objects.filter(plate__icontains=search_str)
@@ -31,7 +33,8 @@ def garage(request, *args, **kwargs):
         'vehicles': all_vehicles,
         'title': 'Garage',
         'vehicles_service': service_field,
-        'criteria': 'Brand, VIN or Plate'
+        'nav_search_btn_content': nav_search_btn_content,
+        'placeholder': 'Brand, VIN or Plate'
     }
     return render(request, 'garage/garage.html', context)
 
