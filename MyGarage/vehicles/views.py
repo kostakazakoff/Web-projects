@@ -7,6 +7,8 @@ def garage(request, *args, **kwargs):
     search_str = request.GET.get('header__search_field')
     service_field = []
     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
+    placeholder = 'Brand, VIN or Plate'
+    header_icon_class = 'fa-solid fa-car'
 
     if search_str:
         nav_search_btn_content = 'fa-solid fa-arrows-rotate'
@@ -26,7 +28,6 @@ def garage(request, *args, **kwargs):
                      'description': service.description,
                      'date': service.date.strftime('%Y-%m-%d')}
                 )
-    # print(service_field)
     # ------------------------------------------------
 
     context = {
@@ -34,10 +35,10 @@ def garage(request, *args, **kwargs):
         'title': 'Garage',
         'vehicles_service': service_field,
         'nav_search_btn_content': nav_search_btn_content,
-        'placeholder': 'Brand, VIN or Plate'
+        'placeholder': placeholder,
+        'header_icon_class': header_icon_class
     }
     return render(request, 'garage/garage.html', context)
-
 
 def add_vehicle(request):
     return render(request, 'garage/add-vehicle.html')

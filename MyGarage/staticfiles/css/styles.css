@@ -44,7 +44,7 @@ button {
 }
 
 .primary-btn:hover {
-    background-color: black;
+    background-color: #333333;
     border-color: #A3FF5D;
     color: #E1E2E9;
 }
@@ -225,6 +225,10 @@ a {
 
 .article:hover {
     border-color: #E69C24;
+}
+
+.article:hover .article-title {
+    color: #E69C24
 }
 
 .article-title {
