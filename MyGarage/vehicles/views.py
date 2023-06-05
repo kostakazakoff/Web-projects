@@ -7,7 +7,7 @@ def garage(request, *args, **kwargs):
     search_str = request.GET.get('header__search_field')
     service_field = []
     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
-    placeholder = 'Brand, VIN, Plate or Odometer min'
+    placeholder = 'Brand, VIN, Plate or Odometer'
     header_icon_class = 'fa-solid fa-car'
 
     if search_str:

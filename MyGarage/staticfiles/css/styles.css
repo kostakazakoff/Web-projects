@@ -198,11 +198,38 @@ a {
     position: relative;
 }
 
+.article-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.article:hover {
+    border-color: #E69C24;
+}
+
+.article:hover .article-title {
+    color: #E69C24
+}
+
+.article:hover .photo {
+    opacity: 1;
+    transition: opacity 300ms ease;
+}
+
 .photo-container {
     width: 40%;
     overflow: hidden;
     position: relative;
     box-shadow: 8px 0 12px rgba(0, 0, 0, 0.3);
+}
+
+.photo {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.5;
 }
 
 .info-container {
@@ -214,30 +241,9 @@ a {
     padding: 28px 40px;
 }
 
-.photo {
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-
 .params {
     border: none;
     padding: 0;
-}
-
-.article:hover {
-    border-color: #E69C24;
-}
-
-.article:hover .article-title {
-    color: #E69C24
-}
-
-.article-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 12px;
-    text-transform: uppercase;
 }
 
 .expand-container {

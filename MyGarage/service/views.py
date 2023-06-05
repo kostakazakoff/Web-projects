@@ -7,7 +7,7 @@ def vehicle_service_history(request, pk):
     plate = ''
     search_str = request.GET.get('header__search_field')
     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
-    placeholder = 'Autoservice, Description or Odometer min'
+    placeholder = 'Autoservice, Description or Odometer'
 
     vehicle_service = Service.objects.filter(vehicle=pk)
     if vehicle_service:
