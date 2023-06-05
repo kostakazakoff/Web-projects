@@ -53,8 +53,6 @@ def delete_service(request, service_id):
     if request.method == 'POST':
         if request.POST.get('delete-service'):
             service.delete()
-            return redirect('vehicle service', pk=7)
-        else:
-            return redirect('vehicle service', pk=7)
+        return redirect('vehicle service', pk=7)
 
     return render(request, 'service/delete-service.html')

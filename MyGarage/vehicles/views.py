@@ -60,9 +60,6 @@ def delete_vehicle(request, id):
     if request.method == 'POST':
         if request.POST.get('delete-vehicle'):
             vehicle.delete()
-            return redirect('garage')
-        else:
-            print('Cancel')
-            return redirect('garage')
+        return redirect('garage')
         
     return render(request, 'garage/delete-vehicle.html', context)
