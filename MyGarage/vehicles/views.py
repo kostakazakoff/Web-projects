@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from vehicles.models import Vehicles
-from django.shortcuts import get_object_or_404
 
 
 def garage(request, *args, **kwargs):

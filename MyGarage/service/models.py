@@ -20,10 +20,10 @@ class Service(models.Model):
     description = models.CharField(
         blank=False,
         null=False,
-        max_length=40
+        max_length=100
     )
-    notes = models.CharField(
-        max_length=200,
+    notes = models.TextField(
+        # max_length=200,
         null=True,
         blank=True
         )

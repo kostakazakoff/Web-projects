@@ -28,6 +28,10 @@ button {
     gap: 12px;
 }
 
+.top-margin {
+    margin-top: 24px;
+}
+
 .btn {
     cursor: pointer;
     padding: 4px 28px;
@@ -190,7 +194,7 @@ a {
 
 .article {
     width: 100%;
-    min-height: 320px;
+    min-height: 300px;
     border: 1px solid #E1E2E9;
     border-radius: 6px;
     display: flex;
@@ -240,6 +244,10 @@ a {
     align-content: center;
     gap: 4px;
     padding: 28px 40px;
+}
+
+.full-width {
+    width: 100%;
 }
 
 .params {

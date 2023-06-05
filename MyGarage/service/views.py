@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from service.models import Service
 from datetime import datetime
 
@@ -38,11 +38,23 @@ def vehicle_service_history(request, pk):
 
     return render(request, 'service/service.html', context)
 
+
 def add_service(request):
     return render(request, 'service/add-service.html')
+
 
 def edit_service(request, service_id):
     return render(request, 'service/edit-service.html')
 
+
 def delete_service(request, service_id):
+    service = get_object_or_404(Service, pk=service_id)
+
+    if request.method == 'POST':
+        if request.POST.get('delete-service'):
+            service.delete()
+            return redirect('vehicle service', pk=7)
+        else:
+            return redirect('vehicle service', pk=7)
+
     return render(request, 'service/delete-service.html')

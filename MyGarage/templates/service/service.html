@@ -28,7 +28,7 @@ Service history: {{ title }}
     <div class="section-flex ">
         {% for s in service %}
         <article class="article" id="service-{{ s.id }}">
-            <div class="info-container">
+            <div class="info-container full-width">
                 {% if title == 'All vehicles' %}
                 <h4 class="article-title">{{ s.vehicle.brand }} {{ s.vehicle.model }}</h4>
                 {% endif %}
@@ -38,7 +38,7 @@ Service history: {{ title }}
                 <p>Date: {{ s.date }}</p>
                 <p>Autoservice: {{ s.autoservice }}</p>
                 <p><strong>Price: {{ s.price|floatformat:2 }} lv</strong></p>
-                <div class="btns-container">
+                <div class="btns-container top-margin">
                     <a class="btn primary-btn" href="{% url 'edit service' s.id %}">Edit</a>
                     <a class="btn danger-btn" href="{% url 'delete service' s.id %}">Delete</a>
                 </div>
