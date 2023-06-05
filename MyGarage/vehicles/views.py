@@ -1,21 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from vehicles.models import Vehicles
 from django.shortcuts import get_object_or_404
 
 
 def garage(request, *args, **kwargs):
-    search_str = request.GET.get('header__search_field')
+    search_input = request.GET.get('header__search_field')
     service_field = []
     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
     placeholder = 'Brand, VIN, Plate or Odometer'
     header_icon_class = 'fa-solid fa-car'
 
-    if search_str:
+    if search_input:
         nav_search_btn_content = 'fa-solid fa-arrows-rotate'
-        all_vehicles = Vehicles.objects.filter(brand__icontains=search_str) or\
-        Vehicles.objects.filter(vin__contains=search_str) or\
-        Vehicles.objects.filter(plate__icontains=search_str) or \
-        Vehicles.objects.filter(odometer__gte=search_str)
+        if search_input.isdigit():
+            all_vehicles = Vehicles.objects.filter(odometer__gte=search_input)
+        else: 
+            all_vehicles = Vehicles.objects.filter(brand__icontains=search_input) or\
+            Vehicles.objects.filter(vin__contains=search_input) or\
+            Vehicles.objects.filter(plate__icontains=search_input)
+        
     else:
         all_vehicles = Vehicles.objects.all()
 
@@ -53,5 +56,14 @@ def edit_vehicle(request, id):
 
 def delete_vehicle(request, id):
     vehicle = get_object_or_404(Vehicles, pk=id)
-    context = {'vehicle': vehicle}
+    context = {'brand': vehicle.brand}
+
+    if request.method == 'POST':
+        if request.POST.get('delete-vehicle'):
+            vehicle.delete()
+            return redirect('garage')
+        else:
+            print('Cancel')
+            return redirect('garage')
+        
     return render(request, 'garage/delete-vehicle.html', context)

@@ -1,1 +1,24 @@
-Delete vehicle {{vehicle.brand}}
+{% extends 'base/base.html' %}
+{% load tags %}
+
+{% block page_title %}
+Delete {{vehicle.brand}}
+{% endblock %}
+
+{% block nav %}
+{% app_nav 'garage' %}
+{% endblock %}
+
+{% block content %}
+<header class="section-title">
+    <form action="" method="post" class="centered-form">
+        {% csrf_token %}
+        <h2 class="article-title">Are you sure you want to delete {{ brand }}?</h2>
+        <div class="btns-container flex-centered">
+            <button type="submit" class="btn danger-btn" name="delete-vehicle" value=True>Delete</button>
+            <button type="submit" class="btn primary-btn" name="cancel-delete-vehicle" value=False>Cancel</button>
+        </div>
+    </form>
+
+</header>
+{% endblock %}

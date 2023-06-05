@@ -5,7 +5,7 @@ from datetime import datetime
 def vehicle_service_history(request, pk):
     title = 'No service history'
     plate = ''
-    search_str = request.GET.get('header__search_field')
+    search_input = request.GET.get('header__search_field')
     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
     placeholder = 'Autoservice, Description or Odometer'
 
@@ -14,12 +14,14 @@ def vehicle_service_history(request, pk):
         title = vehicle_service.first().vehicle.brand
         plate = vehicle_service.first().vehicle.plate
 
-    if search_str:
+    if search_input:
         nav_search_btn_content = 'fa-solid fa-arrows-rotate'
-        vehicle_service = vehicle_service and \
-            (Service.objects.filter(autoservice__icontains=search_str) or \
-            Service.objects.filter(description__icontains=search_str)) or \
-            Service.objects.filter(odometer__gte=search_str)
+        if search_input.isdigit():
+            vehicle_service = Service.objects.filter(odometer__gte=search_input)
+        else:
+            vehicle_service = vehicle_service and \
+                (Service.objects.filter(autoservice__icontains=search_input) or \
+                Service.objects.filter(description__icontains=search_input))
         
         if vehicle_service:
             title = vehicle_service.first().vehicle.brand
