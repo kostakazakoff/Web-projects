@@ -1,1 +1,28 @@
-Add photo
+{% extends 'base/base.html' %}
+{% load tags %}
+{% load static %}
+
+{% block page_title%}
+Add vehicle
+{% endblock %}
+
+{% block nav %}
+{% app_nav 'garage' %}
+{% endblock %}
+
+{% block content %}
+<header class="section-title">
+    <h2>{{ title|upper }}</h2>
+</header>
+
+
+<form method="post" class="article">
+    {% csrf_token %}
+    <div class="info-container"></div>
+
+    <div class="btns-container top-margin">
+        <button type="submit" class="btn primary-btn" name="add-photo">Save</button>
+        <a href="{% url 'add vehicle'%}" class="btn primary-btn">Cancel</a>
+    </div>
+</form>
+{% endblock %}

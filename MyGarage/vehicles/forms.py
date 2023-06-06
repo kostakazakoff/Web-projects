@@ -4,7 +4,7 @@ from .models import Vehicles, Photo
 
 
 class CreateVehicleForm(ModelForm):
-    PHOTO_CHOICES = [(p.id, p.name) for p in Photo.objects.all()]
+    PHOTO_CHOICES = [(None, '')] + [(p.id, p.name) for p in Photo.objects.all()]
 
     class Meta:
         model = Vehicles

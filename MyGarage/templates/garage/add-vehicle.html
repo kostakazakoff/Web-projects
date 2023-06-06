@@ -11,6 +11,10 @@ Add vehicle
 {% endblock %}
 
 {% block content %}
+<header class="section-title">
+    <h2>{{ title|upper }}</h2>
+</header>
+
 <form method="post" class="article">
     {% csrf_token %}
 
@@ -31,7 +35,7 @@ Add vehicle
         {% endfor %}
         <div class="btns-container top-margin">
             <button type="submit" class="btn primary-btn" name="add-vehicle">Save</button>
-            <button type="submit" class="btn primary-btn" name="cancel-add-vehicle">Cancel</button>
+            <a href="{% url 'garage' %}" class="btn primary-btn">Cancel</a>
         </div>
     </div>
 

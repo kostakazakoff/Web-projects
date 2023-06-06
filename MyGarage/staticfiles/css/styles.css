@@ -105,6 +105,29 @@ a {
     border-radius: 4px;
 }
 
+.input_field:focus {
+    background-color: #333333;
+    color: #E1E2E9;
+}
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #E1E2E9;
+  -webkit-box-shadow: 0 0 0px 1000px #333333 inset;
+  transition: all 300ms ease-in-out 0s;
+}
+
+
+
+
 .header__search:hover {
     color: #A3FF5D;
 }
@@ -193,7 +216,7 @@ a {
 
 .article {
     width: 100%;
-    min-height: 300px;
+    /* min-height: 300px; */
     border: 1px solid #E1E2E9;
     border-radius: 6px;
     display: flex;

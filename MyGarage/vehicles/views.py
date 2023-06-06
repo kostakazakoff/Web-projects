@@ -46,7 +46,7 @@ def garage(request, *args, **kwargs):
     }
     return render(request, 'garage/garage.html', context)
 
-def add_vehicle(request, *args, **kwargs):
+def add_vehicle(request):
     if request.method == 'POST':
         form = CreateVehicleForm(request.POST)
         if form.is_valid():
@@ -54,8 +54,8 @@ def add_vehicle(request, *args, **kwargs):
             return redirect('garage')
     else:
         form = CreateVehicleForm()
-        
-    context = {'form': form}
+
+    context = {'form': form, 'title': 'Add vehicle'}
     return render(request, 'garage/add-vehicle.html', context)
 
 
