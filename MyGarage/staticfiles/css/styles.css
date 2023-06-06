@@ -95,9 +95,8 @@ a {
     margin-left: auto;
 }
 
-.nav_input_field {
+.input_field {
     width: 300px;
-    /* background-color: #333333; */
     background: rgb(51, 51, 51);
     background: linear-gradient(0deg, rgba(51, 51, 51, 1) 60%, rgba(20, 20, 20, 1) 100%);
     color: #E1E2E9;
@@ -327,4 +326,20 @@ a {
 
 .flex-centered {
     justify-content: center;
+}
+
+.form-flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.flex-row {
+    display: flex;
+    justify-content: space-between
+}
+
+.form-input-field {
+    
 }

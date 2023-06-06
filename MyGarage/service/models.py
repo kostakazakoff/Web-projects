@@ -9,7 +9,7 @@ class Service(models.Model):
     class Meta():
         ordering = ('-date',)
 
-    odometer = models.IntegerField(
+    odometer = models.PositiveIntegerField(
         null=False,
         blank=False
         )
@@ -42,7 +42,7 @@ class Service(models.Model):
         blank=True,
         null=True,
     )
-    odometer_deadline = models.IntegerField(
+    odometer_deadline = models.PositiveIntegerField(
         null=True,
         blank=True
     )

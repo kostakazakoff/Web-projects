@@ -4,7 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from photos.models import Photo
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 
 
 class Vehicle_choices(models.TextChoices):
@@ -40,13 +40,12 @@ class Vehicles(models.Model):
         null=False,
         blank=False
     )
-    odometer = models.IntegerField(
+    odometer = models.PositiveIntegerField(
         null=False,
         blank=False
     )
-    year = models.CharField(
-        max_length=4,
-        validators=[MinLengthValidator(4)],
+    year = models.PositiveIntegerField(
+        validators=[MinLengthValidator(4), MaxLengthValidator(4)],
         null=False,
         blank=False
     )
@@ -54,11 +53,12 @@ class Vehicles(models.Model):
         blank=True,
         null=True
     )
-    price = models.IntegerField(
+    price = models.PositiveIntegerField(
         blank=False,
         null=False,
         default=0
     )
+    # TODO: slug validator
     slug = models.SlugField(
         unique=True,
         null=False,
