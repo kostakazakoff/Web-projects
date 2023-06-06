@@ -13,11 +13,15 @@ Add vehicle
 {% block content %}
 <form method="post" class="article">
     {% csrf_token %}
+
     <div class="photo-container">
         {% if not form.image %}
-        <a href="{% url 'add photo' %}"><img src={% static 'images/default.jpg' %} alt="Add some image" class="photo"></a>
+        <a href="{% url 'add photo' %}">
+            <img src={% static 'images/default.jpg' %} alt="Add some image" class="photo">
+        </a>
         {% endif %}
     </div>
+
     <div class="info-container">
         {% for field in form %}
         <div class="flex-row">
@@ -25,10 +29,11 @@ Add vehicle
             {{field}}
         </div>
         {% endfor %}
-        <div class="btns-container">
+        <div class="btns-container top-margin">
             <button type="submit" class="btn primary-btn" name="add-vehicle">Save</button>
             <button type="submit" class="btn primary-btn" name="cancel-add-vehicle">Cancel</button>
         </div>
     </div>
+
 </form>
 {% endblock %}
