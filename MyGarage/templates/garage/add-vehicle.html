@@ -21,15 +21,18 @@ Add vehicle
     <div class="photo-container">
         {% if not form.image %}
         <a href="{% url 'add photo' %}">
-            <img src={% static 'images/default.jpg' %} alt="Add some image" class="photo">
+            <img src={% static 'images/default.jpeg' %} alt="" class="photo">
         </a>
         {% endif %}
     </div>
 
     <div class="info-container">
         {% for field in form %}
+        {% if field.errors %}
+        <p class="errors">{{field.errors}}</p>
+        {% endif %}
         <div class="flex-row">
-            <label for="id_{{field.name}}">{{field.label}}</label>
+            <label for="{{field.id_for_label}}">{{field.label}}</label>
             {{field}}
         </div>
         {% endfor %}

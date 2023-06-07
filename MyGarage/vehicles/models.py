@@ -1,9 +1,9 @@
 # Vehicles
-
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from django.core.validators import MinLengthValidator, MaxLengthValidator
+from my_garage.core.validators import value_is_17_chars, year_is_valid
 
 
 class Vehicle_choices(models.TextChoices):
@@ -29,7 +29,7 @@ class Vehicles(models.Model):
     )
     vin = models.CharField(
         max_length=17,
-        validators=[MinLengthValidator(17)],
+        validators=[value_is_17_chars],
         null=True,
         blank=True,
         unique=True,
@@ -46,7 +46,7 @@ class Vehicles(models.Model):
     )
     year = models.CharField(
         max_length=4,
-        validators=[MinLengthValidator(4), MaxLengthValidator(4)],
+        validators=[year_is_valid],
         null=False,
         blank=False
     )
@@ -77,6 +77,7 @@ class Vehicles(models.Model):
 
     def get_absolute_url(self):
         return reverse('vehicle details', kwargs={'pk': self.pk})
+
 
     @property
     def filter_criteries():
