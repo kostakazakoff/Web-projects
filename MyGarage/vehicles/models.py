@@ -3,7 +3,6 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from photos.models import Photo
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 
 
@@ -38,13 +37,15 @@ class Vehicles(models.Model):
     plate = models.CharField(
         max_length=10,
         null=False,
-        blank=False
+        blank=False,
+        unique=True,
     )
     odometer = models.PositiveIntegerField(
         null=False,
         blank=False
     )
-    year = models.PositiveIntegerField(
+    year = models.CharField(
+        max_length=4,
         validators=[MinLengthValidator(4), MaxLengthValidator(4)],
         null=False,
         blank=False
@@ -64,13 +65,6 @@ class Vehicles(models.Model):
         null=False,
         blank=True,
     )
-
-    photo = models.OneToOneField(
-        Photo,
-        on_delete=models.RESTRICT,
-        null=True,
-        blank=True,
-        )
 
     # Auto generate slug
     def save(self, *args, **kwargs):

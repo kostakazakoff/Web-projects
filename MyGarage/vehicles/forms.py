@@ -1,11 +1,9 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Vehicles, Photo
+from .models import Vehicles
 
 
 class CreateVehicleForm(ModelForm):
-    PHOTO_CHOICES = [(None, '')] + [(p.id, p.name) for p in Photo.objects.all()]
-
     class Meta:
         model = Vehicles
         fields = (
@@ -17,7 +15,6 @@ class CreateVehicleForm(ModelForm):
             'year',
             'date_of_purchase',
             'price',
-            'slug',
         )
 
     brand = forms.CharField(
@@ -61,14 +58,8 @@ class CreateVehicleForm(ModelForm):
             attrs={'class': 'input_field'}
         )
     )
-    slug = forms.SlugField(
-        widget=forms.TextInput(
-            attrs={'class': 'input_field'}
-        )
-    )
-    photo = forms.ChoiceField(
-        choices=PHOTO_CHOICES,
-        widget=forms.Select(
-            attrs={'class': 'input_field'}
-        )
-    )
+    # slug = forms.SlugField(
+    #     widget=forms.TextInput(
+    #         attrs={'class': 'input_field'}
+    #     )
+    # )
