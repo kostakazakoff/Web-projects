@@ -29,8 +29,8 @@ Garage
         {% for v in vehicles %}
         <article class="article" id="vehicle-{{v.id}}">
             <div class="photo-container">
-                {% if v.photo %}
-                <img src="mediafiles/{{v.photo.image}}" alt="{{v.photo.name}}" class="photo">
+                {% if v.default_image %}
+                <img src="{{v.default_image}}" alt="">
                 {% endif %}
             </div>
             <div class="info-container">

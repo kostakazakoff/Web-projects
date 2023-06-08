@@ -19,10 +19,8 @@ Add vehicle
     {% csrf_token %}
 
     <div class="photo-container">
-        {% if not form.image %}
-        <a href="{% url 'add photo' %}">
-            <img src={% static 'images/default.jpeg' %} alt="" class="photo">
-        </a>
+        {% if form.default_image %}
+        <img src="{{form.default_image}}" alt="" class="photo">
         {% endif %}
     </div>
 

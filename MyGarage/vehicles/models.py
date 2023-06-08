@@ -59,12 +59,18 @@ class Vehicles(models.Model):
         null=False,
         default=0
     )
+    default_image = models.URLField(
+        blank=True,
+        null=True,
+    )
+    
     # TODO: slug validator
     slug = models.SlugField(
         unique=True,
         null=False,
         blank=True,
     )
+
 
     # Auto generate slug
     def save(self, *args, **kwargs):

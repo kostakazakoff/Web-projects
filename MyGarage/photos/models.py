@@ -14,15 +14,16 @@ class Photo(models.Model):
         max_length=30
     )
     image = models.ImageField(
-        # upload_to='mediafiles/',
+        upload_to='images',
         validators=(validate_max_img_size,),
         null=False,
         blank=True,
     )
-    vehicle = models.OneToOneField(
+    vehicle = models.ForeignKey(
         Vehicles,
         on_delete=models.CASCADE,
-        primary_key=True,
+        null=False,
+        blank=False,
         )
 
     def __str__(self):
