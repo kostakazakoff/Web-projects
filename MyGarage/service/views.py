@@ -1,9 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from service.models import Service
+from vehicles.models import Vehicles
 from datetime import datetime
+from .forms import AddServiceForm
+
 
 def vehicle_service_history(request, pk):
-    title = 'No service history'
+    vehicle = Vehicles.objects.get(pk=pk)
+    title = f'{vehicle.brand} {vehicle.plate} | Odometer: {vehicle.odometer}'
     plate = ''
     search_input = request.GET.get('header__search_field')
     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
@@ -11,7 +15,6 @@ def vehicle_service_history(request, pk):
 
     vehicle_service = Service.objects.filter(vehicle=pk)
     if vehicle_service:
-        title = vehicle_service.first().vehicle.brand
         plate = vehicle_service.first().vehicle.plate
 
     if search_input:
@@ -24,7 +27,6 @@ def vehicle_service_history(request, pk):
                 Service.objects.filter(description__icontains=search_input))
         
         if vehicle_service:
-            title = vehicle_service.first().vehicle.brand
             plate = vehicle_service.first().vehicle.plate
     
     context = {
@@ -33,26 +35,57 @@ def vehicle_service_history(request, pk):
         'time': datetime.now(),
         'plate': plate,
         'nav_search_btn_content': nav_search_btn_content,
-        'placeholder': placeholder
+        'placeholder': placeholder,
+        'pk': pk,
         }
 
     return render(request, 'service/service.html', context)
 
 
-def add_service(request):
-    return render(request, 'service/add-service.html')
+def add_service(request, pk):
+    vehicle = Vehicles.objects.get(pk=pk)
+    form = AddServiceForm(request.POST or None, \
+                          initial={'vehicle': pk, 'date': datetime.now(), 'odometer': vehicle.odometer})
+    
+
+    if form.is_valid():
+        form.save()
+        return redirect('vehicle service', pk=pk)
+
+    context = {
+        'title': 'Add service',
+        'pk': pk,
+        'time': datetime.now(),
+        'form': form,
+        'vehicle': vehicle,
+    }
+    return render(request, 'service/add-service.html', context)
 
 
 def edit_service(request, service_id):
-    return render(request, 'service/edit-service.html')
+    value = request.POST.get('submit')
+    service = get_object_or_404(Service, pk=service_id)
+    vehicle = service.vehicle
+    title = 'Edit service'
+    form = AddServiceForm(request.POST or None, instance=service)
+
+    if request.method == 'POST':
+        if value == 'save' and form.is_valid():
+            form.save()
+        return redirect('vehicle service', pk=vehicle.id)
+
+    context = {'form': form, 'time': datetime.now(), 'title': title, 'vehicle': vehicle}
+
+    return render(request, 'service/edit-service.html', context=context)
 
 
 def delete_service(request, service_id):
     service = get_object_or_404(Service, pk=service_id)
+    vehicle = service.vehicle
 
     if request.method == 'POST':
         if request.POST.get('delete-service'):
             service.delete()
-        return redirect('vehicle service', pk=7)
+        return redirect('vehicle service', pk=vehicle.id)
 
     return render(request, 'service/delete-service.html')

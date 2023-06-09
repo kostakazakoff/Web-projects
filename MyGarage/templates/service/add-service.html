@@ -1,1 +1,39 @@
-Add service
+{% extends 'base/base.html' %}
+{% load filters %}
+{% load tags %}
+
+{% block page_title %}
+Service history: {{ title }}
+{% endblock %}
+
+{% block nav %}
+{% app_nav 'garage' %}
+{% endblock %}
+
+{% block content %}
+<header class="section-title">
+    <h2>{{ title }}: {{ vehicle.brand }} {{ vehicle.plate }} | Odometer: {{ vehicle.odometer }}</h2>
+    <p>{{ time|date_style }}</p>
+</header>
+
+<main>
+    <form method="post" class="article" id="service-{{ s.id }}">
+        {% csrf_token %}
+        <div class="info-container full-width">
+            {% for field in form %}
+            {% if field.errors %}
+            <p class="errors">{{field.errors}}</p>
+            {% endif %}
+            <div class="flex-row">
+                <label for="{{field.id_for_label}}">{{field.label}}</label>
+                {{field}}
+            </div>
+            {% endfor %}
+            <div class="btns-container top-margin">
+                <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
+                <a class="btn danger-btn" href="{% url 'vehicle service' pk %}">Cancel</a>
+            </div>
+        </div>
+    </form>
+</main>
+{% endblock %}

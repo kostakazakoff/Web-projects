@@ -95,7 +95,7 @@ a {
     margin-left: auto;
 }
 
-.input_field, .flex-row > input {
+.input_field, .flex-row > input, textarea, select {
     width: 300px;
     background: rgb(51, 51, 51);
     background: linear-gradient(0deg, rgba(51, 51, 51, 1) 60%, rgba(20, 20, 20, 1) 100%);
@@ -104,6 +104,7 @@ a {
     border: 1px solid #E1E2E9;
     border-radius: 4px;
 }
+
 
 .input_field:focus {
     background-color: #333333;
@@ -364,6 +365,11 @@ select:-webkit-autofill:focus {
     gap: 24px;
 }
 
+.full-width > .flex-row > input, textarea, select {
+    MAX-width: 800px;
+    flex-grow: 1;
+}
+
 .errorlist {
     color: #E69C24;
     text-align: right;
@@ -376,6 +382,13 @@ select:-webkit-autofill:focus {
     position: absolute;
     object-fit: cover;
     font-size: 10rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.over_photo {
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

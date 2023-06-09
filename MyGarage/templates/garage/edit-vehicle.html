@@ -6,7 +6,7 @@ Edit vehicle
 {% endblock %}
 
 {% block nav %}
-{% app_nav 'garage' 'add vehicle' %}
+{% app_nav 'garage' %}
 {% endblock %}
 
 {% block content %}
@@ -37,7 +37,8 @@ Edit vehicle
         </div>
         {% endfor %}
         <div class="btns-container top-margin">
-            <button type="submit" class="btn primary-btn" name="add-vehicle">Save</button>
+            <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
+            <button type="submit" class="btn primary-btn" name="submit" value="upload">Upload photo</button>
             <a href="{% url 'garage' %}" class="btn primary-btn">Cancel</a>
         </div>
     </div>

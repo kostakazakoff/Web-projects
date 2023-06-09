@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from vehicles.models import Vehicles
 from .forms import CreateVehicleForm
 
+# TODO: Add dictionaries - currency, language, theme
 
 def garage(request, *args, **kwargs):
     search_input = request.GET.get('header__search_field')
@@ -47,10 +48,14 @@ def garage(request, *args, **kwargs):
 
 
 def add_vehicle(request):
-    form = CreateVehicleForm(request.POST or None)
+    form = CreateVehicleForm(request.POST or None, initial={'default_image': None})
     
-    if form.is_valid():
+    if request.POST.get('submit') == 'save' and form.is_valid():
         form.save()
+        return redirect('garage')
+    
+    if request.POST.get('submit') == 'upload':
+        # TODO: upload photo
         return redirect('garage')
 
     context = {'form': form, 'title': 'Add vehicle'}
@@ -60,11 +65,15 @@ def add_vehicle(request):
 def edit_vehicle(request, id):
     vehicle = get_object_or_404(Vehicles, pk=id)
     form = CreateVehicleForm(request.POST or None, instance=vehicle)
+    print(request.POST.get('submit'))
 
-    if form.is_valid():
+    if request.POST.get('submit') == 'save' and form.is_valid():
         form.save()
         return redirect('garage')
 
+    if request.POST.get('submit') == 'upload':
+        # TODO: upload photo
+        return redirect('garage')
 
     context = {'form': form, 'vehicle': vehicle, 'title': 'Edit vehicle'}
     return render(request, 'garage/edit-vehicle.html', context)

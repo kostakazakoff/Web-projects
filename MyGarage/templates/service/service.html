@@ -7,20 +7,28 @@ Service history: {{ title }}
 {% endblock %}
 
 {% block nav %}
-    {% app_nav 'garage' 'add service' %}
-    <div class="header__search">
-        <form action="" class="btns-container">
-            <input type="text" name="header__search_field" id="header__search_field" class="input_field" placeholder="{{ placeholder }}">
-            <button type="submit">
-                <i class="{{ nav_search_btn_content }}"></i>
-            </button>
-        </form>
-    </div>
+<ul role="list" class="nav">
+    <li>
+        <a href="{% url 'garage' %}" class="nav__item">Back to Garage</a>
+    </li>
+    <li>
+        <a href="{% url 'add service' pk %}" class="nav__item">Add service</a>
+    </li>
+</ul>
+<div class="header__search">
+    <form action="" class="btns-container">
+        <input type="text" name="header__search_field" id="header__search_field" class="input_field"
+            placeholder="{{ placeholder }}">
+        <button type="submit">
+            <i class="{{ nav_search_btn_content }}"></i>
+        </button>
+    </form>
+</div>
 {% endblock %}
 
 {% block content %}
 <header class="section-title">
-    <h2>Service history: {{ title }} {{ plate }}</h2>
+    <h2>Service history: {{ title }} </h2>
     <p>{{ time|date_style }}</p>
 </header>
 
