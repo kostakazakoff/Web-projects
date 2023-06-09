@@ -1,6 +1,5 @@
 {% extends 'base/base.html' %}
 {% load tags %}
-{% load filters %}
 
 {% block page_title %}
 Garage
@@ -31,6 +30,10 @@ Garage
             <div class="photo-container">
                 {% if v.default_image %}
                 <img src="{{v.default_image}}" alt="">
+                {% elif v.uploaded_photos.exists %}
+                <img src="{{ v.uploaded_photos.first.image.url }}" alt="">
+                {% else %}
+                <i class="fa-solid fa-file-image"></i>
                 {% endif %}
             </div>
             <div class="info-container">

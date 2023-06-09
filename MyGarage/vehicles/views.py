@@ -1,5 +1,4 @@
 # Vehicles
-
 from django.shortcuts import render, redirect, get_object_or_404
 from vehicles.models import Vehicles
 from .forms import CreateVehicleForm
@@ -60,7 +59,14 @@ def add_vehicle(request):
 
 def edit_vehicle(request, id):
     vehicle = get_object_or_404(Vehicles, pk=id)
-    context = {'vehicle': vehicle}
+    form = CreateVehicleForm(request.POST or None, instance=vehicle)
+
+    if form.is_valid():
+        form.save()
+        return redirect('garage')
+
+
+    context = {'form': form, 'vehicle': vehicle, 'title': 'Edit vehicle'}
     return render(request, 'garage/edit-vehicle.html', context)
 
 

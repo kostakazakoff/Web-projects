@@ -121,7 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 # Base location in the browser
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 # Location on file system
 STATICFILES_DIRS = (

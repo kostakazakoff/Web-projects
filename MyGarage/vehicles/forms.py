@@ -8,3 +8,4 @@ class CreateVehicleForm(ModelForm):
     class Meta:
         model = Vehicles
         exclude = ['slug']
+

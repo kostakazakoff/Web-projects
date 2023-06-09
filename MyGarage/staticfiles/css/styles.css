@@ -245,7 +245,7 @@ select:-webkit-autofill:focus {
 }
 
 .photo-container {
-    width: 50%;
+    width: 45%;
     overflow: hidden;
     position: relative;
     box-shadow: 8px 0 12px rgba(0, 0, 0, 0.3);
@@ -253,13 +253,14 @@ select:-webkit-autofill:focus {
 
 .photo, .photo-container > img {
     height: 100%;
+    aspect-ratio: 9/4;
     object-fit: cover;
     object-position: center;
     opacity: 0.7;
 }
 
 .info-container {
-    width: 50%;
+    width: auto;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -359,7 +360,8 @@ select:-webkit-autofill:focus {
 
 .flex-row {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+    gap: 24px;
 }
 
 .errorlist {
@@ -368,4 +370,13 @@ select:-webkit-autofill:focus {
     font-size: 0.7em;
     list-style-type: none;
     margin-block-end: 0;
+}
+
+.fa-file-image {
+    position: absolute;
+    object-fit: cover;
+    font-size: 10rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

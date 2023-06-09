@@ -19,9 +19,13 @@ Add vehicle
     {% csrf_token %}
 
     <div class="photo-container">
-        {% if form.default_image %}
-        <img src="{{form.default_image}}" alt="" class="photo">
-        {% endif %}
+        <!-- {% if v.default_image %}
+        <img src="{{vehicle.default_image}}" alt="">
+        {% elif vehicle.uploaded_photos.exists %}
+        <img src="{{ vehicle.uploaded_photos.first.image.url }}" alt="">
+        {% else %}
+        <i class="fa-solid fa-file-image"></i>
+        {% endif %} -->
     </div>
 
     <div class="info-container">

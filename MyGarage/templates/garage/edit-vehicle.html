@@ -1,1 +1,45 @@
-Edit vehicle {{vehicle.brand}}
+{% extends 'base/base.html' %}
+{% load tags %}
+
+{% block page_title %}
+Edit vehicle
+{% endblock %}
+
+{% block nav %}
+{% app_nav 'garage' 'add vehicle' %}
+{% endblock %}
+
+{% block content %}
+<header class="section-title">
+    <h2>{{ title|upper }}</h2>
+</header>
+<form method="post" class="article">
+    {% csrf_token %}
+
+    <div class="photo-container">
+        {% if vehicle.default_image %}
+        <img src="{{vehicle.default_image}}" alt="">
+        {% elif vehicle.uploaded_photos.exists %}
+        <img src="{{ vehicle.uploaded_photos.first.image.url }}" alt="">
+        {% else %}
+        <i class="fa-solid fa-file-image"></i>
+        {% endif %}
+    </div>
+
+    <div class="info-container">
+        {% for field in form %}
+        {% if field.errors %}
+        <p class="errors">{{field.errors}}</p>
+        {% endif %}
+        <div class="flex-row">
+            <label for="{{field.id_for_label}}">{{field.label}}</label>
+            {{field}}
+        </div>
+        {% endfor %}
+        <div class="btns-container top-margin">
+            <button type="submit" class="btn primary-btn" name="add-vehicle">Save</button>
+            <a href="{% url 'garage' %}" class="btn primary-btn">Cancel</a>
+        </div>
+    </div>
+</form>
+{% endblock %}
