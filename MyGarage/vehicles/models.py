@@ -6,7 +6,7 @@ from django.core.validators import MinLengthValidator, MaxLengthValidator
 from my_garage.core.validators import value_is_17_chars, year_is_valid
 
 
-class Vehicle_choices(models.TextChoices):
+class VehicleChoices(models.TextChoices):
     BRAND = 'brand'
     VIN = 'vin'
     PLATE = 'plate'
@@ -14,7 +14,7 @@ class Vehicle_choices(models.TextChoices):
 
 
 class Vehicles(models.Model):
-    class Meta():
+    class Meta:
         ordering = ('-date_of_purchase',)
 
     brand = models.CharField(
@@ -71,7 +71,6 @@ class Vehicles(models.Model):
         blank=True,
     )
 
-
     # Auto generate slug
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -83,11 +82,6 @@ class Vehicles(models.Model):
 
     def get_absolute_url(self):
         return reverse('vehicle details', kwargs={'pk': self.pk})
-
-
-    @property
-    def filter_criteries():
-        return ('brand', 'model', 'vin', 'plate', 'odometer', 'year', 'date_of_purchase', 'price')
 
     def __str__(self):
         return self.brand

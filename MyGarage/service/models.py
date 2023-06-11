@@ -1,6 +1,6 @@
 # Service
-# TODO: Add validators
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from vehicles.models import Vehicles
 from django.urls import reverse
@@ -45,10 +45,10 @@ class Service(models.Model):
     )
     odometer_deadline = models.PositiveIntegerField(
         null=True,
-        blank=True
+        blank=True,
     )
 
-    # One To Many relations
+    # One-To-Many relations
     vehicle = models.ForeignKey(
         Vehicles,
         on_delete=models.CASCADE,
@@ -62,7 +62,3 @@ class Service(models.Model):
     
     def get_absolute_url(self):
         return reverse('service details', kwargs={'pk': int(self.pk)})
-    
-    @property
-    def filter_criteries():
-        return ('odometer', 'date', 'description', 'notes', 'autoservice', 'price', 'date_deadline', 'odometer_deadline')

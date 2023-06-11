@@ -3,9 +3,11 @@ from my_garage.core.utils import mbytes_to_bytes
 from django.core.exceptions import ValidationError
 from vehicles.models import Vehicles
 
+
 class Photo(models.Model):
     MAX_IMG_SIZE = 1.0
 
+    # TODO: check 'self.file.size'...
     def validate_max_img_size(self):
         if self.file.size > mbytes_to_bytes(Photo.MAX_IMG_SIZE):
             raise ValidationError(f'Max file size is {Photo.MAX_IMG_SIZE}MB')

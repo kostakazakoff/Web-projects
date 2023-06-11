@@ -106,6 +106,12 @@ a {
 }
 
 
+textarea {
+    height: 8rem;
+    resize: none;
+}
+
+
 .input_field:focus {
     background-color: #333333;
     color: #E1E2E9;
@@ -123,8 +129,15 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   /* border: 1px solid #A3FF5D; */
   -webkit-text-fill-color: #E1E2E9;
-  -webkit-box-shadow: 0 0 0px 1000px #333333 inset;
+  -webkit-box-shadow: 0 0 0 1000px #333333 inset;
   transition: all 300ms ease-in-out 0s;
+}
+
+
+select {
+    appearance: none;
+    background-color: #333333;
+    text-indent: inherit;
 }
 
 

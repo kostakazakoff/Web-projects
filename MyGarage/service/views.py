@@ -44,8 +44,12 @@ def vehicle_service_history(request, pk):
 
 def add_service(request, pk):
     vehicle = Vehicles.objects.get(pk=pk)
-    form = AddServiceForm(request.POST or None, \
-                          initial={'vehicle': pk, 'date': datetime.now(), 'odometer': vehicle.odometer})
+    form = AddServiceForm(request.POST or None,
+                          initial={
+                              'vehicle': pk,
+                              'date': datetime.now(),
+                              'odometer': vehicle.odometer
+                          })
     
 
     if form.is_valid():
@@ -63,14 +67,14 @@ def add_service(request, pk):
 
 
 def edit_service(request, service_id):
-    value = request.POST.get('submit')
+    btn_value = request.POST.get('submit')
     service = get_object_or_404(Service, pk=service_id)
     vehicle = service.vehicle
     title = 'Edit service'
     form = AddServiceForm(request.POST or None, instance=service)
 
     if request.method == 'POST':
-        if value == 'save' and form.is_valid():
+        if btn_value == 'save' and form.is_valid():
             form.save()
         return redirect('vehicle service', pk=vehicle.id)
 
