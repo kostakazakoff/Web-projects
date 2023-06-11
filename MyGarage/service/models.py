@@ -12,7 +12,7 @@ class Service(models.Model):
 
     odometer = models.PositiveIntegerField(
         null=False,
-        blank=False
+        blank=False,
         )
     date = models.DateField(
         blank=False,
@@ -21,23 +21,22 @@ class Service(models.Model):
     description = models.CharField(
         blank=False,
         null=False,
-        max_length=100
+        max_length=100,
     )
     notes = models.TextField(
-        # max_length=200,
         null=True,
-        blank=True
+        blank=True,
         )
     autoservice = models.CharField(
         max_length=50,
         null=True,
-        blank=True
+        blank=True,
     )
     price = models.DecimalField(
         decimal_places=2,
         max_digits=10,
         null=False,
-        default=0
+        default=0,
     )
     date_deadline = models.DateField(
         blank=True,

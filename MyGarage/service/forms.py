@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm, forms
+from django.forms import ModelForm
 from .models import Service
-from vehicles.models import Vehicles
+# from vehicles.models import Vehicles
 
 
 class AddServiceForm(ModelForm):
@@ -10,6 +10,8 @@ class AddServiceForm(ModelForm):
         fields = '__all__'
 
     def clean_odometer_deadline(self):
+        d = self.cleaned_data
+        print(d)
         deadline = self.cleaned_data['odometer_deadline']
         current = self.cleaned_data['odometer']
 
@@ -28,3 +30,8 @@ class AddServiceForm(ModelForm):
                 raise ValidationError(f'Deadline date must be after {date_of_service}')
 
         return deadline
+    
+    def clean_date(self):
+        date = self.cleaned_data.get('date')
+    
+        return date
