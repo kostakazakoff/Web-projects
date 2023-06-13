@@ -28,10 +28,8 @@ Garage
         {% for v in vehicles %}
         <article class="article" id="vehicle-{{v.id}}">
             <div class="photo-container">
-                {% if v.default_image %}
-                <img src="{{v.default_image}}" alt="">
-                {% elif v.uploaded_photos.exists %}
-                <img src="{{ v.uploaded_photos.first.image.url }}" alt="">
+                {% if v.photo %}
+                <img src="media/{{ v.photo }}" alt="">
                 {% else %}
                 <i class="fa-solid fa-file-image"></i>
                 {% endif %}
@@ -44,15 +42,6 @@ Garage
                 <p>Year of manufacture: {{v.year}}</p>
                 <p>Purchase date: {{v.date_of_purchase}}</p>
                 <p>Price: {{v.price}} lv</p>
-                <!-- <div>
-                    <select name="vehicle services" id="" style="width: 100%">
-                        {% for service in vehicles_service %}
-                        {% if v.id == service.vehicle_id %}
-                        <option value="{{service.id}}">{{service.description}} | {{service.date}}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                </div> -->
                 <div class="btns-container  top-margin">
                     <a class="btn primary-btn" href="{% url 'vehicle service' v.id %}">Service history</a>
                     <a class="btn primary-btn" href="{% url 'edit vehicle' v.id %}">Edit</a>

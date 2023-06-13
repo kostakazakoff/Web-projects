@@ -15,17 +15,11 @@ Add vehicle
     <h2>{{ title|upper }}</h2>
 </header>
 
-<form method="post" class="article">
+<form method="post" class="article" enctype="multipart/form-data">
     {% csrf_token %}
 
     <div class="photo-container">
-        <!-- {% if v.default_image %}
-        <img src="{{vehicle.default_image}}" alt="">
-        {% elif vehicle.uploaded_photos.exists %}
-        <img src="{{ vehicle.uploaded_photos.first.image.url }}" alt="">
-        {% else %}
-        <i class="fa-solid fa-file-image"></i>
-        {% endif %} -->
+        <img src="" alt="" class="photo" id="img_preview">
     </div>
 
     <div class="info-container">
@@ -40,9 +34,11 @@ Add vehicle
         {% endfor %}
         <div class="btns-container top-margin">
             <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
-            <button type="button" class="btn primary-btn" name="submit" value="upload">Upload photo</button>
+            <!-- <a href="{% url 'add photo' %}" class="btn primary-btn">Upload photo</a> -->
+            <!-- TODO: back to same vehicle page -->
             <a href="{% url 'garage' %}" class="btn primary-btn">Cancel</a>
         </div>
     </div>
 </form>
+<script src="{% static 'js/img_preview.js' %}"></script>
 {% endblock %}

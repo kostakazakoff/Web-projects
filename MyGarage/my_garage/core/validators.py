@@ -1,5 +1,7 @@
 from my_garage.core.utils import mbytes_to_bytes
 from django.core.exceptions import ValidationError
+from urllib.parse import urlparse
+from django.core.validators import URLValidator
 
 
 def validate_img_size_up_to_1mb(image):
@@ -17,3 +19,10 @@ def value_is_17_chars(value):
 def year_is_valid(value):
     if len(value) != 4 or not value.isdigit():
         raise ValidationError('Year must be exactly 4 digit long!')
+
+
+def validate_url(value):
+    validate = URLValidator()
+    valid_url = validate(value)
+    if not valid_url:
+        raise ValidationError('Invalid URL')

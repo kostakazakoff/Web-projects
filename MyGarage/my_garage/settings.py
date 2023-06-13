@@ -121,7 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 # Base location in the browser
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Location on file system
 STATICFILES_DIRS = (
@@ -130,7 +130,7 @@ STATICFILES_DIRS = (
 
 # Media root
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
-MEDIA_URL = 'mediafiles/'
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

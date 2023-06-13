@@ -2,8 +2,8 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from django.core.validators import MinLengthValidator, MaxLengthValidator
-from my_garage.core.validators import value_is_17_chars, year_is_valid
+from django.core.validators import MinLengthValidator, MaxLengthValidator, URLValidator
+from my_garage.core.validators import value_is_17_chars, year_is_valid, validate_url
 
 
 class VehicleChoices(models.TextChoices):
@@ -15,7 +15,7 @@ class VehicleChoices(models.TextChoices):
 
 class Vehicles(models.Model):
     class Meta:
-        ordering = ('-date_of_purchase',)
+        ordering = ('-year',)
 
     brand = models.CharField(
         max_length=30,
@@ -59,7 +59,8 @@ class Vehicles(models.Model):
         null=False,
         default=0
     )
-    default_image = models.URLField(
+    photo = models.ImageField(
+        upload_to='images',
         blank=True,
         null=True,
     )
@@ -84,4 +85,4 @@ class Vehicles(models.Model):
         return reverse('vehicle details', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return self.brand
+        return f'{self.brand} {self.model}'

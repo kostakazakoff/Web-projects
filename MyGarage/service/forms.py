@@ -9,10 +9,6 @@ class AddServiceForm(forms.ModelForm):
     class Meta:
         model = Service
         fields = '__all__'
-
-    
-    def clean(self) -> Dict[str, Any]:
-        return super().clean()
         
 
     def clean(self):

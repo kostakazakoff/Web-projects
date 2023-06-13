@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load tags %}
+{% load static %}
 
 {% block page_title %}
 Edit vehicle
@@ -13,16 +14,15 @@ Edit vehicle
 <header class="section-title">
     <h2>{{ title|upper }}</h2>
 </header>
-<form method="post" class="article">
+# TODO : Input field style
+<form method="POST" class="article", enctype="multipart/form-data">
     {% csrf_token %}
 
     <div class="photo-container">
-        {% if vehicle.default_image %}
-        <img src="{{vehicle.default_image}}" alt="">
-        {% elif vehicle.uploaded_photos.exists %}
-        <img src="{{ vehicle.uploaded_photos.first.image.url }}" alt="">
+        {% if vehicle.photo %}
+        <img src="{{ vehicle.photo.url }}" class="photo" id="img_preview">
         {% else %}
-        <i class="fa-solid fa-file-image"></i>
+        <img src="" class="photo" id="img_preview">
         {% endif %}
     </div>
 
@@ -38,9 +38,10 @@ Edit vehicle
         {% endfor %}
         <div class="btns-container top-margin">
             <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
-            <button type="submit" class="btn primary-btn" name="submit" value="upload">Upload photo</button>
+            <!-- <button type="button" class="btn primary-btn" name="submit" value="upload">Upload photo</button> -->
             <a href="{% url 'garage' %}" class="btn primary-btn">Cancel</a>
         </div>
     </div>
 </form>
+<script src="{% static 'js/img_preview.js' %}"></script>
 {% endblock %}

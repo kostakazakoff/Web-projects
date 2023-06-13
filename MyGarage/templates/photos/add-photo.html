@@ -16,13 +16,15 @@ Add vehicle
 </header>
 
 
-<form method="post" class="article">
+<form method="post" class="article" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="info-container"></div>
-
     <div class="btns-container top-margin">
-        <button type="submit" class="btn primary-btn" name="add-photo">Save</button>
-        <a href="{% url 'add vehicle'%}" class="btn primary-btn">Cancel</a>
+        {{form.as_p}}
+        <div class="btns-container top-margin">
+            <button type="submit" class="btn primary-btn" name="add-photo">Upload</button>
+            <!-- TODO: back to same add vehicle page -->
+            <a href="{% url 'add vehicle'%}" class="btn primary-btn">Cancel</a>
+        </div>
     </div>
 </form>
 {% endblock %}
