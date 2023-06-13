@@ -7,5 +7,3 @@ class CreateVehicleForm(ModelForm):
     class Meta:
         model = Vehicles
         exclude = ['slug']
-
-    # TODO: ImageField style

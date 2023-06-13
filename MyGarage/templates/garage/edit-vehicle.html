@@ -15,7 +15,7 @@ Edit vehicle
     <h2>{{ title|upper }}</h2>
 </header>
 
-<form method="POST" class="article", enctype="multipart/form-data">
+<form method="POST" class="article" , enctype="multipart/form-data">
     {% csrf_token %}
 
     <div class="photo-container">
@@ -24,6 +24,14 @@ Edit vehicle
         {% else %}
         <img src="" class="photo hidden" id="img_preview">
         {% endif %}
+        <div class="upload_file_after">
+            <div class="btns-container">
+                <label for="id_photo" id="upload_file" class="file_field">{{ form.photo }}</label>
+            <label for="id_photo" id="delete_file" class="file_field">{{ form.photo }}</label>
+            </div>
+            
+        </div>
+
     </div>
 
     <div class="info-container">
@@ -31,14 +39,15 @@ Edit vehicle
         {% if field.errors %}
         <p class="errors">{{field.errors}}</p>
         {% endif %}
+        {% if field.name != 'photo' %}
         <div class="flex-row">
             <label for="{{field.id_for_label}}">{{field.label}}</label>
             {{field}}
         </div>
+        {% endif %}
         {% endfor %}
         <div class="btns-container top-margin">
             <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
-            <!-- <button type="button" class="btn primary-btn" name="submit" value="upload">Upload photo</button> -->
             <a href="{% url 'garage' %}" class="btn primary-btn">Cancel</a>
         </div>
     </div>
