@@ -8,3 +8,4 @@ class CreateVehicleForm(ModelForm):
         model = Vehicles
         exclude = ['slug']
 
+    # TODO: ImageField style

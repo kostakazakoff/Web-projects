@@ -73,7 +73,7 @@ def edit_vehicle(request, id):
 
 def delete_vehicle(request, id):
     vehicle = get_object_or_404(Vehicles, pk=id)
-    context = {'brand': vehicle.brand}
+    context = {'vehicle': vehicle}
 
     if request.method == 'POST':
         if request.POST.get('delete-vehicle'):

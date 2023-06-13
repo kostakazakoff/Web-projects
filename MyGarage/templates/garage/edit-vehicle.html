@@ -14,7 +14,7 @@ Edit vehicle
 <header class="section-title">
     <h2>{{ title|upper }}</h2>
 </header>
-# TODO : Input field style
+
 <form method="POST" class="article", enctype="multipart/form-data">
     {% csrf_token %}
 
@@ -22,7 +22,7 @@ Edit vehicle
         {% if vehicle.photo %}
         <img src="{{ vehicle.photo.url }}" class="photo" id="img_preview">
         {% else %}
-        <img src="" class="photo" id="img_preview">
+        <img src="" class="photo hidden" id="img_preview">
         {% endif %}
     </div>
 

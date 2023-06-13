@@ -72,10 +72,20 @@ class Vehicles(models.Model):
         blank=True,
     )
 
-    # Auto generate slug
+    
     def save(self, *args, **kwargs):
+
+        # Delete old image file from media if exist
+        try:
+            current_img = Vehicles.objects.get(id=self.id)
+            if current_img.photo != self.photo:
+                current_img.photo.delete()
+        except:
+            pass
+
         super().save(*args, **kwargs)
 
+        # Auto generate slug
         if not self.slug:
             self.slug = slugify(f'{self.brand}-{self.plate}')
 
