@@ -1,4 +1,4 @@
-function preview() {
+function handleImgUpload() {
     const uploadField = document.getElementById('upload_file');
     uploadField.innerHTML = '<input type="file" name="photo" accept="image/*" id="id_photo"></input>';
 
@@ -15,4 +15,4 @@ function preview() {
     });
 }
 
-preview()
+handleImgUpload()
