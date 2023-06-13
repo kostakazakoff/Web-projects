@@ -45,10 +45,6 @@ def add_vehicle(request):
             print(v)
             return redirect('garage')
         
-        # if request.POST.get('submit') == 'upload':
-        #     # TODO: upload photo
-        #     return redirect('garage')
-        
     else:
         form = CreateVehicleForm()
 
