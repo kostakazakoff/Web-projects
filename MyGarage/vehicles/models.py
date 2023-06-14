@@ -2,7 +2,11 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from django.core.validators import MinLengthValidator, MaxLengthValidator, URLValidator
+from django.core.validators import (
+    MinLengthValidator,
+    MaxLengthValidator,
+    URLValidator,
+    )
 from my_garage.core.validators import value_is_17_chars, year_is_valid, validate_url
 
 
@@ -65,7 +69,7 @@ class Vehicles(models.Model):
         null=True,
     )
     
-    # TODO: slug validator
+    # TODO: slug validator if slug field is added to admin panel
     slug = models.SlugField(
         unique=True,
         null=False,
