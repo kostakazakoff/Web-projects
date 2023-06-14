@@ -4,6 +4,7 @@ from vehicles.models import Vehicles
 from datetime import datetime
 from .forms import AddServiceForm
 
+#TODO: Add 'documents' app, OneToMany realated to service
 
 def vehicle_service_history(request, pk):
     vehicle = Vehicles.objects.get(pk=pk)

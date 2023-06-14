@@ -52,7 +52,7 @@ class Vehicles(models.Model):
     )
     date_of_purchase = models.DateField(
         blank=True,
-        null=True
+        null=True,
     )
     price = models.PositiveIntegerField(
         blank=False,

@@ -19,7 +19,13 @@ Add vehicle
     {% csrf_token %}
 
     <div class="photo-container">
-        <img src="" alt="" class="photo" id="img_preview">
+        <img src="" alt="" class="hidden" id="img_preview">
+        <div class="upload_file_after">
+            <div class="btns-container">
+                <label for="id_photo" id="upload_file" class="file_field">{{ form.photo }}</label>
+                <label for="id_photo" id="delete_file" class="file_field">{{ form.photo }}</label>
+            </div>
+        </div>
     </div>
 
     <div class="info-container">
@@ -27,18 +33,18 @@ Add vehicle
         {% if field.errors %}
         <p class="errors">{{field.errors}}</p>
         {% endif %}
+        {% if field.name != 'photo' %}
         <div class="flex-row">
             <label for="{{field.id_for_label}}">{{field.label}}</label>
             {{field}}
         </div>
+        {% endif %}
         {% endfor %}
         <div class="btns-container top-margin">
             <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
-            <!-- <a href="{% url 'add photo' %}" class="btn primary-btn">Upload photo</a> -->
-            <!-- TODO: back to same vehicle page -->
             <a href="{% url 'garage' %}" class="btn primary-btn">Cancel</a>
         </div>
     </div>
 </form>
-<script src="{% static 'js/img_preview.js' %}"></script>
+<script src="{% static 'js/handle_img_upload.js' %}"></script>
 {% endblock %}

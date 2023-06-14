@@ -57,7 +57,7 @@ def edit_vehicle(request, id):
 
     if request.method == 'POST':
         form = CreateVehicleForm(request.POST, request.FILES, instance=vehicle)
-        if request.POST.get('submit') == 'save' and form.is_valid():
+        if form.is_valid():
             form.save()
             return redirect('garage')
     else:

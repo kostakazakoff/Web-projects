@@ -11,16 +11,16 @@ class AddServiceForm(forms.ModelForm):
         fields = '__all__'
         
 
-    def clean(self):
-        cleaned_data = super().clean()
-        date = cleaned_data.get('date')
-        vehicle = cleaned_data.get('vehicle')
-        purchase_date = vehicle.date_of_purchase
+    # def clean(self):
+    #     cleaned_data = super().clean()
+    #     date = cleaned_data.get('date')
+    #     vehicle = cleaned_data.get('vehicle')
+    #     purchase_date = vehicle.date_of_purchase
 
-        if date < purchase_date:
-            # raise ValidationError(f'Date of service must be greater than {purchase_date}')
-            msg = f'Date of service must be greater than {purchase_date}'
-            self.add_error('date', msg)
+    #     if date < purchase_date:
+    #         # raise ValidationError(f'Date of service must be greater than {purchase_date}')
+    #         msg = f'Date of service must be greater than {purchase_date}'
+    #         self.add_error('date', msg)
         
 
     def clean_odometer_deadline(self):
