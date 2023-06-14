@@ -16,7 +16,7 @@ Delete service
         <h2 class="article-title">Are you sure you want to delete this service?</h2>
         <div class="btns-container flex-centered">
             <button type="submit" class="btn danger-btn" name="delete-service" value=True>Delete</button>
-            <button type="submit" class="btn primary-btn" name="cancel-delete-service" value=False>Cancel</button>
+            <a href="{% url 'vehicle service' vehicle.id %}" class="btn primary-btn">Cancel</a>
         </div>
     </form>
 </header>

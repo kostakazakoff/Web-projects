@@ -30,8 +30,8 @@ Service history: {{ title }}
             </div>
             {% endfor %}
             <div class="btns-container top-margin">
-                <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
-                <button type="submit" class="btn primary-btn" name="submit" value="cancel">Cancel</button>
+                <button type="submit" class="btn primary-btn">Save</button>
+                <a href="{% url 'vehicle service' vehicle.id %}" class="btn primary-btn">Cancel</a>
             </div>
         </div>
     </form>

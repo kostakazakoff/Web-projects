@@ -71,16 +71,15 @@ def add_service(request, pk):
 
 
 def edit_service(request, service_id):
-    btn_value = request.POST.get('submit')
     service = get_object_or_404(Service, pk=service_id)
     vehicle = service.vehicle
     title = 'Edit service'
     form = AddServiceForm(request.POST or None, instance=service)
 
     if request.method == 'POST':
-        if btn_value == 'save' and form.is_valid():
+        if form.is_valid():
             form.save()
-        return redirect('vehicle service', pk=vehicle.id)
+            return redirect('vehicle service', pk=vehicle.id)
 
     context = {'form': form, 'time': datetime.now(), 'title': title,
                'vehicle': vehicle}
@@ -96,5 +95,7 @@ def delete_service(request, service_id):
         if request.POST.get('delete-service'):
             service.delete()
         return redirect('vehicle service', pk=vehicle.id)
+    
+    context = {'vehicle': vehicle}
 
-    return render(request, 'service/delete-service.html')
+    return render(request, 'service/delete-service.html', context=context)
