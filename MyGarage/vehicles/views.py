@@ -6,20 +6,20 @@ from .forms import CreateVehicleForm
 # TODO: Add dictionaries - currency, language, theme
 
 def garage(request, *args, **kwargs):
-    search_inPOST = request.GET.get('header__search_field')
+    search_input = request.GET.get('header__search_field')
     service_field = []
     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
     placeholder = 'Brand, VIN, Plate or Odometer'
     header_icon_class = 'fa-solid fa-car'
 
-    if search_inPOST:
+    if search_input:
         nav_search_btn_content = 'fa-solid fa-arrows-rotate'
-        if search_inPOST.isdigit():
-            all_vehicles = Vehicles.objects.filter(odometer__gte=search_inPOST)
+        if search_input.isdigit():
+            all_vehicles = Vehicles.objects.filter(odometer__gte=search_input)
         else: 
-            all_vehicles = Vehicles.objects.filter(brand__icontains=search_inPOST) or\
-            Vehicles.objects.filter(vin__contains=search_inPOST) or\
-            Vehicles.objects.filter(plate__icontains=search_inPOST)
+            all_vehicles = Vehicles.objects.filter(brand__icontains=search_input) or\
+            Vehicles.objects.filter(vin__contains=search_input) or\
+            Vehicles.objects.filter(plate__icontains=search_input)
         
     else:
         all_vehicles = Vehicles.objects.all()
