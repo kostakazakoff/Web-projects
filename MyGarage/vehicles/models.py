@@ -7,7 +7,11 @@ from django.core.validators import (
     MaxLengthValidator,
     URLValidator,
     )
-from my_garage.core.validators import value_is_17_chars, year_is_valid, validate_url
+from my_garage.core.validators import (
+    value_is_17_chars,
+    year_is_valid,
+    )
+from django.utils import timezone
 
 
 class VehicleChoices(models.TextChoices):
@@ -57,6 +61,7 @@ class Vehicles(models.Model):
     date_of_purchase = models.DateField(
         blank=True,
         null=True,
+        default=timezone.now(),
     )
     price = models.PositiveIntegerField(
         blank=False,
