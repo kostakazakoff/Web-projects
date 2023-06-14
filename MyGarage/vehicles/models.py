@@ -81,9 +81,9 @@ class Vehicles(models.Model):
 
         # Delete old image file from media if exist
         try:
-            current_img = Vehicles.objects.get(id=self.id)
-            if current_img.photo != self.photo:
-                current_img.photo.delete()
+            obj = Vehicles.objects.get(id=self.id)
+            if obj.photo != self.photo:
+                obj.photo.delete()
         except:
             pass
 
