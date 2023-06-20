@@ -99,3 +99,5 @@ def delete_service(request, service_id):
     context = {'vehicle': vehicle}
 
     return render(request, 'service/delete-service.html', context=context)
+
+    return render(request, 'service/edit-service.html', context=context)
