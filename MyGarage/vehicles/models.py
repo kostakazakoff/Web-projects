@@ -2,11 +2,6 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from django.core.validators import (
-    MinLengthValidator,
-    MaxLengthValidator,
-    URLValidator,
-    )
 from my_garage.core.validators import (
     value_is_17_chars,
     year_is_valid,
@@ -61,7 +56,6 @@ class Vehicles(models.Model):
     date_of_purchase = models.DateField(
         blank=True,
         null=True,
-        default=timezone.now(),
     )
     price = models.PositiveIntegerField(
         blank=False,

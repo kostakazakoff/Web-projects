@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from service.models import Service
 from vehicles.models import Vehicles
-from datetime import datetime
+from django.utils import timezone
 from .forms import AddServiceForm
 
 
@@ -33,7 +33,7 @@ def vehicle_service_history(request, pk):
     context = {
         'service': vehicle_service,
         'title': title,
-        'time': datetime.now(),
+        'time': timezone.now(),
         'plate': plate,
         'nav_search_btn_content': nav_search_btn_content,
         'placeholder': placeholder,
@@ -56,14 +56,14 @@ def add_service(request, pk):
     elif request.method == 'GET':
         form = AddServiceForm(initial={
             'vehicle': pk,
-            'date': datetime.now(),
+            'date': timezone.now(),
             'odometer': vehicle.odometer
         })
 
     context = {
         'title': 'Add service',
         'pk': pk,
-        'time': datetime.now(),
+        'time': timezone.now(),
         'form': form,
         'vehicle': vehicle,
     }
@@ -81,7 +81,7 @@ def edit_service(request, service_id):
             form.save()
             return redirect('vehicle service', pk=vehicle.id)
 
-    context = {'form': form, 'time': datetime.now(), 'title': title,
+    context = {'form': form, 'time': timezone.now(), 'title': title,
                'vehicle': vehicle}
 
     return render(request, 'service/edit-service.html', context=context)

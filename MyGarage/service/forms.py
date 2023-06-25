@@ -1,4 +1,3 @@
-from typing import Any, Dict
 from django import forms
 from .models import Service
 from django.core.exceptions import ValidationError
@@ -9,6 +8,10 @@ class AddServiceForm(forms.ModelForm):
     class Meta:
         model = Service
         fields = '__all__'
+        widgets = {
+            'date': forms.TextInput(attrs={'type': 'date'}),
+            'date_deadline': forms.TextInput(attrs={'type': 'date'}),
+        }
         
 
     # def clean(self):
