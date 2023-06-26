@@ -3,7 +3,6 @@ from service.models import Service
 from vehicles.models import Vehicles
 from django.utils import timezone
 from .forms import AddServiceForm
-from django.urls import reverse
 
 
 def vehicle_service_history(request, pk):
