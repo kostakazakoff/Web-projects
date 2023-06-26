@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, resolve_url
 from service.models import Service
 from vehicles.models import Vehicles
 from django.utils import timezone
@@ -21,8 +21,7 @@ def vehicle_service_history(request, pk):
     if search_input:
         nav_search_btn_content = 'fa-solid fa-arrows-rotate'
         if search_input.isdigit():
-            vehicle_service = Service.objects.filter(
-                odometer__gte=search_input)
+            vehicle_service = Service.objects.filter(odometer__gte=search_input)
         else:
             vehicle_service = vehicle_service and \
                 (Service.objects.filter(autoservice__icontains=search_input) or
@@ -46,13 +45,13 @@ def vehicle_service_history(request, pk):
 
 def add_service(request, pk):
     vehicle = Vehicles.objects.get(pk=pk)
-    # TODO: redirect
+
     if request.method == 'POST':
         form = AddServiceForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
             form.save()
-            return redirect('vehicle service', pk=pk)
+            service_id = Service.objects.latest('pk').id
+            return redirect(resolve_url('vehicle service', vehicle.pk) + f'#service-{service_id}')
 
     elif request.method == 'GET':
         form = AddServiceForm(initial={
@@ -80,7 +79,7 @@ def edit_service(request, service_id):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect(f'service/{vehicle.pk}/service-{service_id}')  
+            return redirect(resolve_url('vehicle service', vehicle.pk) + f'#service-{service_id}')
 
     context = {'form': form, 'time': timezone.now(), 'title': title,
                'vehicle': vehicle}
