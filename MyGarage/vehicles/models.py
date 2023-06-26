@@ -75,7 +75,7 @@ class Vehicles(models.Model):
         blank=True,
     )
 
-    
+
     def save(self, *args, **kwargs):
 
         # Delete old image file from media if exist
@@ -94,8 +94,10 @@ class Vehicles(models.Model):
 
         return super().save(*args, **kwargs)
 
+
     def get_absolute_url(self):
         return reverse('vehicle details', kwargs={'pk': self.pk})
+
 
     def __str__(self):
         return f'{self.brand} {self.model}'
