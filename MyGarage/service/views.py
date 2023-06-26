@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from service.models import Service
 from vehicles.models import Vehicles
 from django.utils import timezone
 from .forms import AddServiceForm
+from django.urls import reverse
 
 
 def vehicle_service_history(request, pk):
@@ -45,7 +46,7 @@ def vehicle_service_history(request, pk):
 
 def add_service(request, pk):
     vehicle = Vehicles.objects.get(pk=pk)
-
+    # TODO: redirect
     if request.method == 'POST':
         form = AddServiceForm(request.POST)
         if form.is_valid():
@@ -71,7 +72,7 @@ def add_service(request, pk):
 
 
 def edit_service(request, service_id):
-    service = get_object_or_404(Service, pk=service_id)
+    service = Service.objects.get(id=service_id)
     vehicle = service.vehicle
     title = 'Edit service'
     form = AddServiceForm(request.POST or None, instance=service)
@@ -79,7 +80,7 @@ def edit_service(request, service_id):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('vehicle service', pk=vehicle.id)
+            return redirect('vehicle service', vehicle.id)  
 
     context = {'form': form, 'time': timezone.now(), 'title': title,
                'vehicle': vehicle}
@@ -88,7 +89,7 @@ def edit_service(request, service_id):
 
 
 def delete_service(request, service_id):
-    service = get_object_or_404(Service, pk=service_id)
+    service = Service.objects.get(id=service_id)
     vehicle = service.vehicle
 
     if request.method == 'POST':
@@ -99,5 +100,3 @@ def delete_service(request, service_id):
     context = {'vehicle': vehicle}
 
     return render(request, 'service/delete-service.html', context=context)
-
-    return render(request, 'service/edit-service.html', context=context)
