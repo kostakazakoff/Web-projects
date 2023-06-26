@@ -80,7 +80,7 @@ def edit_service(request, service_id):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('vehicle service', vehicle.id)  
+            return redirect(f'service/{vehicle.pk}/service-{service_id}')  
 
     context = {'form': form, 'time': timezone.now(), 'title': title,
                'vehicle': vehicle}
