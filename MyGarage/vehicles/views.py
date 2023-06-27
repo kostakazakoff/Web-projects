@@ -1,12 +1,12 @@
 # Vehicles
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, resolve_url
 from vehicles.models import Vehicles
 from .forms import CreateVehicleForm
 
 # TODO: Add dictionaries - currency, language, theme
 
 def garage(request, *args, **kwargs):
-    search_input = request.GET.get('header__search_field')
+    search_input = request.GET.get('header__search_field', '')
     service_field = []
     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
     placeholder = 'Brand, VIN, Plate or Odometer'
@@ -41,9 +41,8 @@ def add_vehicle(request):
     
         if form.is_valid():
             form.save()
-            v = Vehicles.objects.all().first()
-            print(v)
-            return redirect('garage')
+            vehicle_id = Vehicles.objects.latest('pk').id
+            return redirect(resolve_url('garage') + f'#vehicle-{vehicle_id}')
         
     else:
         form = CreateVehicleForm()
@@ -53,13 +52,13 @@ def add_vehicle(request):
 
 
 def edit_vehicle(request, id):
-    vehicle = get_object_or_404(Vehicles, pk=id)
+    vehicle = Vehicles.objects.filter(pk=id).get()
 
     if request.method == 'POST':
         form = CreateVehicleForm(request.POST, request.FILES, instance=vehicle)
         if form.is_valid():
             form.save()
-            return redirect('garage')
+            return redirect(resolve_url('garage') + f'#vehicle-{id}')
     else:
         form = CreateVehicleForm(instance=vehicle)
 
@@ -68,7 +67,7 @@ def edit_vehicle(request, id):
 
 
 def delete_vehicle(request, id):
-    vehicle = get_object_or_404(Vehicles, pk=id)
+    vehicle = Vehicles.objects.filter(pk=id).get()
     context = {'vehicle': vehicle}
 
     if request.method == 'POST':
