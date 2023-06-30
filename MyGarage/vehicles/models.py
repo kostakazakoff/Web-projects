@@ -9,7 +9,7 @@ from my_garage.core.validators import (
 from django.utils import timezone
 
 
-class VehicleChoices(models.TextChoices):
+class VehiclesChoices(models.TextChoices):
     BRAND = 'brand'
     VIN = 'vin'
     PLATE = 'plate'

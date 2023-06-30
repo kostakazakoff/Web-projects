@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from .models import Vehicles
 
 
-class CreateVehicleForm(ModelForm):
+class CreateVehiclesForm(ModelForm):
 
     class Meta:
         model = Vehicles

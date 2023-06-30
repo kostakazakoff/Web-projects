@@ -1,43 +1,47 @@
+from typing import Any
+from django.db import models
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect, resolve_url
 from service.models import Service
 from vehicles.models import Vehicles
 from django.utils import timezone
 from .forms import AddServiceForm
+from django.views import generic as views
+
+
+def search_filter(search_input, pk):
+    result = Service.objects.filter(vehicle=pk)
+    nav_search_btn_content = 'fa-solid fa-magnifying-glass'
+
+    if search_input != '':
+        nav_search_btn_content = 'fa-solid fa-arrows-rotate'
+
+        if search_input.isdigit():
+            result = result.filter(odometer__gte=search_input)
+        else:
+            result = result.filter(autoservice__icontains=search_input) or \
+                result.filter(description__icontains=search_input) or \
+                result.filter(notes__icontains=search_input)
+
+    return result, nav_search_btn_content
 
 
 def vehicle_service_history(request, pk):
     vehicle = Vehicles.objects.get(pk=pk)
     title = f'{vehicle.brand} {vehicle.plate} | Odometer: {vehicle.odometer}'
-    plate = ''
     search_input = request.GET.get('header__search_field', '')
-    nav_search_btn_content = 'fa-solid fa-magnifying-glass'
     placeholder = 'Autoservice, Description or Odometer'
 
-    vehicle_service = Service.objects.filter(vehicle=pk)
-    if vehicle_service:
-        plate = vehicle_service.first().vehicle.plate
-
-    if search_input:
-        nav_search_btn_content = 'fa-solid fa-arrows-rotate'
-        if search_input.isdigit():
-            vehicle_service = Service.objects.filter(odometer__gte=search_input)
-        else:
-            vehicle_service = vehicle_service and \
-                (Service.objects.filter(autoservice__icontains=search_input) or
-                 Service.objects.filter(description__icontains=search_input) or
-                 Service.objects.filter(notes__icontains=search_input))
-
-        if vehicle_service:
-            plate = vehicle_service.first().vehicle.plate
+    vehicle_service, nav_search_btn_content = search_filter(search_input, pk)
 
     context = {
         'service': vehicle_service,
         'title': title,
-        'time': timezone.now(),
-        'plate': plate,
+        'date': timezone.localdate(),
         'nav_search_btn_content': nav_search_btn_content,
         'placeholder': placeholder,
-        'pk': pk,
+        'vehicle': vehicle,
+        'search': search_input,
     }
 
     return render(request, 'service/service.html', context)
@@ -95,7 +99,7 @@ def delete_service(request, service_id):
         if request.POST.get('delete-service'):
             service.delete()
         return redirect('vehicle service', pk=vehicle.id)
-    
+
     context = {'vehicle': vehicle}
 
     return render(request, 'service/delete-service.html', context=context)

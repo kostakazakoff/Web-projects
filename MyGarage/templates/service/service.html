@@ -12,7 +12,7 @@ Service history: {{ title }}
         <a href="{% url 'garage' %}" class="nav__item">Back to Garage</a>
     </li>
     <li>
-        <a href="{% url 'add service' pk %}" class="nav__item">Add service</a>
+        <a href="{% url 'add service' vehicle.pk %}" class="nav__item">Add service</a>
     </li>
 </ul>
 <div class="header__search">
@@ -29,13 +29,13 @@ Service history: {{ title }}
 {% block content %}
 <header class="section-title">
     <h2>Service history: {{ title }} </h2>
-    <p>{{ time|date_style }}</p>
+    <p>{{ date|date_style }}</p>
 </header>
 
 <main>
     <div class="section-flex ">
         {% for s in service %}
-        <article class="article" id="service-{{ s.id }}">
+        <article class="article" id="service-{{ s.pk }}">
             <div class="info-container full-width">
                 {% if title == 'All vehicles' %}
                 <h4 class="article-title">{{ s.vehicle.brand }} {{ s.vehicle.model }}</h4>
@@ -48,8 +48,8 @@ Service history: {{ title }}
                 <p>Autoservice: {{ s.autoservice }}</p>
                 <p><strong>Price: {{ s.price|floatformat:2 }} lv</strong></p>
                 <div class="btns-container top-margin">
-                    <a class="btn primary-btn" href="{% url 'edit service' s.id %}">Edit</a>
-                    <a class="btn danger-btn" href="{% url 'delete service' s.id %}">Delete</a>
+                    <a class="btn primary-btn" href="{% url 'edit service' s.pk %}">Edit</a>
+                    <a class="btn danger-btn" href="{% url 'delete service' s.pk %}">Delete</a>
                 </div>
             </div>
         </article>
