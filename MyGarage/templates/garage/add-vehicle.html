@@ -2,7 +2,7 @@
 {% load tags %}
 {% load static %}
 
-{% block page_title%}
+{% block page_title %}
 Add vehicle
 {% endblock %}
 
@@ -33,7 +33,7 @@ Add vehicle
         {% if field.errors %}
         <p class="errors">{{field.errors}}</p>
         {% endif %}
-        {% if field.name != 'photo' %}
+        {% if field.name != 'photo'%}
         <div class="flex-row">
             <label for="{{field.id_for_label}}">{{field.label}}</label>
             {{field}}

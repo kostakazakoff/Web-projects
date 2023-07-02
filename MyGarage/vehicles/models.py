@@ -2,11 +2,15 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from django.utils import timezone
+from django.contrib.auth import get_user_model
 from my_garage.core.validators import (
     value_is_17_chars,
     year_is_valid,
     )
-from django.utils import timezone
+
+
+UserModel = get_user_model()
 
 
 class VehiclesChoices(models.TextChoices):
@@ -75,14 +79,21 @@ class Vehicles(models.Model):
         blank=True,
     )
 
+    to_user = models.ForeignKey(
+        UserModel,
+        null=False,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name='vehicles'
+    )
 
     def save(self, *args, **kwargs):
 
         # Delete old image file from media if exist
         try:
-            obj = Vehicles.objects.get(id=self.id)
-            if obj.photo != self.photo:
-                obj.photo.delete()
+            current = Vehicles.objects.get(id=self.id)
+            if current.photo != self.photo:
+                current.photo.delete()
         except:
             pass
 
@@ -94,10 +105,8 @@ class Vehicles(models.Model):
 
         return super().save(*args, **kwargs)
 
-
     def get_absolute_url(self):
         return reverse('vehicle details', kwargs={'pk': self.pk})
-
 
     def __str__(self):
         return f'{self.brand} {self.model}'

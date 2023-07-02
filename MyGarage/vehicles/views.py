@@ -22,6 +22,9 @@ def search_filter(search_input):
 
 
 def garage(request, *args, **kwargs):
+    if not request.user.is_authenticated:
+        return redirect('sign in')
+    
     search_input = request.GET.get('header__search_field', '')
     service_field = []
     placeholder = 'Brand, VIN, Plate or Odometer'
@@ -42,7 +45,7 @@ def garage(request, *args, **kwargs):
 
 def add_vehicle(request):
     if request.method == 'POST':
-        form = CreateVehiclesForm(request.POST, request.FILES)
+        form = CreateVehiclesForm(request.POST, request.FILES, initial={'to_user': request.user.id})
 
         if form.is_valid():
             form.save()
@@ -50,7 +53,7 @@ def add_vehicle(request):
             return redirect(resolve_url('garage') + f'#vehicle-{vehicle_id}')
 
     else:
-        form = CreateVehiclesForm()
+        form = CreateVehiclesForm(initial={'to_user': request.user.id})
 
     context = {'form': form, 'title': 'Add vehicle'}
     return render(request, 'garage/add-vehicle.html', context)
@@ -58,6 +61,7 @@ def add_vehicle(request):
 
 def edit_vehicle(request, id):
     vehicle = Vehicles.objects.filter(pk=id).get()
+    user_id = request.user.id
 
     if request.method == 'POST':
         form = CreateVehiclesForm(

@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+{% load tags %}
+
+{% block page_title %}
+{{title}}
+{% endblock %}
+
+{% block nav %}
+{% app_nav 'sign up' %}
+{% endblock %}
+
+{% block content %}
+
+<header class="section-title">
+    <h2>{{ title|upper }}</h2>
+</header>
+
+<div class="centered-form">
+    <form class="info-container" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            {% if field.errors %}
+            <p class="errors">{{field.errors}}</p>
+            {% endif %}
+            <div class="flex-row">
+                <label for="{{field.id_for_label}}">{{field.label}}</label>
+                {{field}}
+            </div>
+        {% endfor %}
+        <div class="btns-container top-margin">
+            <button class="btn primary-btn" type="submit">Sign in</button>
+            <a href="{% url 'garage' %}" class="btn primary-btn">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

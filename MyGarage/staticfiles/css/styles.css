@@ -204,6 +204,24 @@ select {
     margin-right: 48px;
 }
 
+.user-menu-list {
+    display: none;
+}
+
+.user-menu {
+    cursor: pointer;
+    padding: 12px;
+}
+
+.user-menu:hover .user-menu-list {
+    position: absolute;
+    transform: translate(0, -8px);
+    display: flex;
+    flex-direction: column;
+    background-color: #333333;
+    border-left: 1px solid #E69C24;
+}
+
 .hidden {
     display: none;
 }
