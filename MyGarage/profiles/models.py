@@ -44,8 +44,8 @@ class Profile(models.Model):
 
     email = models.EmailField(
         max_length=MAX_EMAIL_LEN,
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
         unique=True,
         validators=[EmailValidator]
     )
@@ -68,4 +68,5 @@ class Profile(models.Model):
         UserModel,
         on_delete=models.CASCADE,
         related_name='profile',
+        primary_key=True,
     )

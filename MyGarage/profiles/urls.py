@@ -1,4 +1,5 @@
 from .views import (
+    create_user,
     create_profile,
     login_profile,
     logout_profile,
@@ -9,7 +10,8 @@ from django.urls import path
 
 
 urlpatterns = [
-    path('create/', create_profile, name='sign up'),
+    # path('create/', create_profile, name='sign up'),
+    path('create/', create_user, name='sign up'),
     path('login/', login_profile, name='sign in'),
     path('logout/', logout_profile, name='sign out'),
     path('<int:pk>/edit/', EditProfileView.as_view(), name='edit profile'),

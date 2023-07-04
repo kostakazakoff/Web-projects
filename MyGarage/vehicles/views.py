@@ -2,10 +2,11 @@
 from django.shortcuts import render, redirect, resolve_url
 from vehicles.models import Vehicles
 from .forms import CreateVehiclesForm
+from django.contrib.auth.decorators import login_required
 
 
-def search_filter(search_input):
-    result = Vehicles.objects.all()
+def search_filter(user, search_input):
+    result = Vehicles.objects.filter(to_user_id=user.pk)
     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
 
     if search_input:
@@ -30,7 +31,7 @@ def garage(request, *args, **kwargs):
     placeholder = 'Brand, VIN, Plate or Odometer'
     header_icon_class = 'fa-solid fa-car'
 
-    all_vehicles, nav_search_btn_content = search_filter(search_input)
+    all_vehicles, nav_search_btn_content = search_filter(request.user, search_input)
 
     context = {
         'vehicles': all_vehicles,
@@ -43,6 +44,7 @@ def garage(request, *args, **kwargs):
     return render(request, 'garage/garage.html', context)
 
 
+@login_required
 def add_vehicle(request):
     if request.method == 'POST':
         form = CreateVehiclesForm(request.POST, request.FILES, initial={'to_user': request.user.id})
@@ -59,6 +61,7 @@ def add_vehicle(request):
     return render(request, 'garage/add-vehicle.html', context)
 
 
+@login_required
 def edit_vehicle(request, id):
     vehicle = Vehicles.objects.filter(pk=id).get()
     user_id = request.user.id
@@ -76,6 +79,7 @@ def edit_vehicle(request, id):
     return render(request, 'garage/edit-vehicle.html', context)
 
 
+@login_required
 def delete_vehicle(request, id):
     vehicle = Vehicles.objects.filter(pk=id).get()
     context = {'vehicle': vehicle}
