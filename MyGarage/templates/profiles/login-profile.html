@@ -7,6 +7,8 @@
 
 {% block nav %}
 {% app_nav 'sign up' %}
+{% comment %} #TODO: remove  {% endcomment %}
+<p>{{request.user}}</p>
 {% endblock %}
 
 {% block content %}

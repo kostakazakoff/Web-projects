@@ -1,19 +1,17 @@
 from .views import (
-    create_user,
-    create_profile,
-    login_profile,
-    logout_profile,
+    CreateProfileView,
+    LoginProfileView,
     EditProfileView,
     DeleteProfileView
     )
 from django.urls import path
+from django.contrib.auth.views import logout_then_login
 
 
 urlpatterns = [
-    # path('create/', create_profile, name='sign up'),
-    path('create/', create_user, name='sign up'),
-    path('login/', login_profile, name='sign in'),
-    path('logout/', logout_profile, name='sign out'),
-    path('<int:pk>/edit/', EditProfileView.as_view(), name='edit profile'),
-    path('<int:pk>/delete/', DeleteProfileView.as_view(), name='delete profile')
+    path('create/', CreateProfileView.as_view(), name='sign up'),
+    path('login/', LoginProfileView.as_view(), name='sign in'),
+    path('edit/', EditProfileView.as_view(), name='edit profile'),
+    path('logout/', logout_then_login, name='sign out'),
+    path('delete/', DeleteProfileView.as_view(), name='delete profile')
 ]

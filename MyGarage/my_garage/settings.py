@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+
+from django.urls import reverse, reverse_lazy
 from my_garage.hidden import ThisProject
 import os
 
@@ -132,6 +134,10 @@ STATICFILES_DIRS = (
 # Media root
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 MEDIA_URL = '/media/'
+
+LOGIN_URL = reverse_lazy('sign in')
+LOGIN_REDIRECT_URL = reverse_lazy('garage') 
+LOGOUT_REDIRECT_URL = reverse_lazy('sign in')
 
 
 # Default primary key field type

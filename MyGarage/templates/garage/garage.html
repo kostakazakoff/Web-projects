@@ -15,10 +15,10 @@ Garage
         </button>
         {% comment %} <a href="{% url 'sign out' %}" class="btn danger-btn">Sign out</a> {% endcomment %}
         <div class="user-menu">
-            <i class="fa-regular fa-user"></i>
+            <i class="fa-regular fa-user"> {{request.user}}</i>
             <ul class="user-menu-list" role="list">
                 <li>
-                    <a href="{% url 'edit profile' user.id %}" class="nav__item">Edit profile</a>
+                    <a href="{% url 'edit profile' %}" class="nav__item">Edit profile</a>
                 </li>
                 <li>
                     <a href="{% url 'sign out' %}" class="nav__item">Sign out</a>
