@@ -17,8 +17,9 @@ Garage
         <div class="user-menu">
             <i class="fa-regular fa-user"> {{request.user}}</i>
             <ul class="user-menu-list" role="list">
+                {% comment %} #TODO: Create or Edit profile {% endcomment %}
                 <li>
-                    <a href="{% url 'edit profile' %}" class="nav__item">Edit profile</a>
+                    <a href="{% url 'create profile' %}" class="nav__item">Create profile</a>
                 </li>
                 <li>
                     <a href="{% url 'sign out' %}" class="nav__item">Sign out</a>

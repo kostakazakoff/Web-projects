@@ -5,14 +5,16 @@
 {{ title }}
 {% endblock %}
 
-
+{% block nav %}
+{% app_nav 'sign in' %}
+{% endblock %}
 
 {% block content %}
 <header class="section-title">
     <h2>{{ title|upper }}</h2>
 </header>
 
-<form class="info-container full-width" method="post" action="{% url 'sign up' %}">
+<form class="info-container" method="post" action="{% url 'create profile' %}">
     {% csrf_token %}
     {{form}}
     <button class='btn primary-btn' type="submit">Save</button>

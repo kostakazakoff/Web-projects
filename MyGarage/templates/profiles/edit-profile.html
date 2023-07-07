@@ -14,7 +14,7 @@
     <h2>{{ title|upper }}</h2>
 </header>
 
-<form class="info-container full-width" method="post" action="{% url 'sign up' %}">
+<form class="info-container" method="post" action="{% url 'edit profile' %}">
     {% csrf_token %}
     {{form}}
     <button class='btn primary-btn' type="submit">Save</button>

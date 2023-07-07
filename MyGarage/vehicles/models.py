@@ -1,5 +1,5 @@
 # Vehicles
-from django.db import models
+from django.db import models, router
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils import timezone
@@ -8,6 +8,7 @@ from my_garage.core.validators import (
     value_is_17_chars,
     year_is_valid,
     )
+from django.db.models.deletion import Collector
 
 
 UserModel = get_user_model()
@@ -88,7 +89,6 @@ class Vehicles(models.Model):
     )
 
     def save(self, *args, **kwargs):
-
         # Delete old image file from media if exist
         try:
             current = Vehicles.objects.get(id=self.id)
@@ -104,6 +104,23 @@ class Vehicles(models.Model):
             self.slug = slugify(f'{self.brand}-{self.plate}')
 
         return super().save(*args, **kwargs)
+    
+    def delete(self, using=None, keep_parents=False):
+        try:
+            current = Vehicles.objects.get(id=self.id)
+            current.photo.delete()
+        except:
+            pass
+
+        if self.pk is None:
+            raise ValueError(
+                "%s object can't be deleted because its %s attribute is set "
+                "to None." % (self._meta.object_name, self._meta.pk.attname)
+            )
+        using = using or router.db_for_write(self.__class__, instance=self)
+        collector = Collector(using=using, origin=self)
+        collector.collect([self], keep_parents=keep_parents)
+        return collector.delete()
 
     def get_absolute_url(self):
         return reverse('vehicle details', kwargs={'pk': self.pk})
