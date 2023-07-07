@@ -5,18 +5,15 @@
 {{ title }}
 {% endblock %}
 
-
-
 {% block content %}
 <header class="section-title">
-    <h2>{{ title|upper }}</h2>
-</header>
-
-<form class="info-container full-width" method="post" action="{% url 'sign up' %}">
-    {% csrf_token %}
-    {{form}}
-    <button class='btn primary-btn' type="submit">Save</button>
-    <a href="{% url 'garage' %}" class='btn primary-btn'>Cancel</a>
-</form>
-
+    <form class="centered-form" method="post" action="{% url 'delete profile' user.pk %}">
+        {% csrf_token %}
+        <h2 class="article-title">{{title}}</h2>
+        <div class="btns-container flex-centered">
+            <button class='btn primary-btn' type="submit">Save</button>
+            <a href="{% url 'edit profile' user.pk %}" class='btn primary-btn'>Cancel</a>
+        </div>
+    </form>
+</header>    
 {% endblock %}

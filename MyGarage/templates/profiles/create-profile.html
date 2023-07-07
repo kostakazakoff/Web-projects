@@ -26,12 +26,11 @@
             {{form.password1}}
         </div>
         <div class="flex-row">
-            <label for="{{field.id_for_label}}">{{form.password2.label}}</label>
+            <label for="{{field.id_for_labelF}}">{{form.password2.label}}</label>
             {{form.password2}}
         </div> 
         <div class="btns-container top-margin">
             <button class="btn primary-btn" type="submit">Save</button>
-            <a href="{% url 'delete' %}" class='btn danger-btn'>Delete</a>
             <a href="{% url 'garage' %}" class='btn primary-btn'>Cancel</a>
         </div>
     </form>

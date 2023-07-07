@@ -117,3 +117,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Initialising the user model
 AUTH_USER_MODEL = 'profiles.AppUser'
+
+if DEBUG:
+    AUTH_PASSWORD_VALIDATORS = []

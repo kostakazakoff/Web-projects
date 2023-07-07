@@ -3,8 +3,8 @@ from .models import AppUser, Profile
 
 @admin.register(AppUser)
 class AppUserAdmin(admin.ModelAdmin):
-    fields = ['email', 'password']
+    pass
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    pass
+    order_by = ['first_name', 'last_name']

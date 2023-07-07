@@ -28,7 +28,8 @@
         {{form.user}}
         <div class="btns-container top-margin">
             <button class='btn primary-btn' type="submit">Save</button>
-        <a href="{% url 'garage' %}" class='btn primary-btn'>Cancel</a>
+            <a href="{% url 'delete profile' user.pk %}" class='btn danger-btn'>Delete</a>
+            <a href="{% url 'garage' %}" class='btn primary-btn'>Cancel</a>
         </div>
     </form>
 </div>
