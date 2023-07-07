@@ -14,11 +14,28 @@
     <h2>{{ title|upper }}</h2>
 </header>
 
-<form class="info-container" method="post" action="{% url 'create profile' %}">
-    {% csrf_token %}
-    {{form}}
-    <button class='btn primary-btn' type="submit">Save</button>
-    <a href="{% url 'garage' %}" class='btn primary-btn'>Cancel</a>
-</form>
+<div class="article">
+    <form class="info-container full-width" method="post" action="{% url 'sign up' %}">
+        {% csrf_token %}
+        <div class="flex-row">
+            <label for="{{field.id_for_label}}">{{form.email.label}}</label>
+            {{form.email}}
+        </div>
+        <div class="flex-row">
+            <label for="{{field.id_for_label}}">{{form.password1.label}}</label>
+            {{form.password1}}
+        </div>
+        <div class="flex-row">
+            <label for="{{field.id_for_label}}">{{form.password2.label}}</label>
+            {{form.password2}}
+        </div> 
+        <div class="btns-container top-margin">
+            <button class="btn primary-btn" type="submit">Save</button>
+            <a href="{% url 'delete' %}" class='btn danger-btn'>Delete</a>
+            <a href="{% url 'garage' %}" class='btn primary-btn'>Cancel</a>
+        </div>
+    </form>
+</div>
+
 
 {% endblock %}

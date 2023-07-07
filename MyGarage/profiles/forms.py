@@ -19,14 +19,14 @@ class RegisterUserForm(auth_forms.UserCreationForm):
 
     class Meta(auth_forms.UserCreationForm.Meta):
         model = UserModel
-        fields = ('email',)
+        fields = ('email', 'password1', 'password2')
 
 
 class LoginProfileForm(auth_forms.AuthenticationForm):
     pass
 
 
-class CreateProfileForm(forms.ModelForm):
+class EditProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
