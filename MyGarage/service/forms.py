@@ -11,19 +11,20 @@ class AddServiceForm(forms.ModelForm):
         widgets = {
             'date': forms.TextInput(attrs={'type': 'date'}),
             'date_deadline': forms.TextInput(attrs={'type': 'date'}),
+            'vehicle': forms.TextInput(attrs={'hidden': True}),
         }
+        labels = {'vehicle': ''}
         
 
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #     date = cleaned_data.get('date')
-    #     vehicle = cleaned_data.get('vehicle')
-    #     purchase_date = vehicle.date_of_purchase
+    def clean(self):
+        cleaned_data = super().clean()
+        vehicle = cleaned_data.get('vehicle')
+        service_odometer = cleaned_data.get('odometer')
+        vehicle_odometer = vehicle.odometer
 
-    #     if date < purchase_date:
-    #         # raise ValidationError(f'Date of service must be greater than {purchase_date}')
-    #         msg = f'Date of service must be greater than {purchase_date}'
-    #         self.add_error('date', msg)
+        if service_odometer > vehicle_odometer:
+            msg = f'Odometer must be max {vehicle_odometer}. Update your vehicle odometer'
+            self.add_error('odometer', msg)
         
 
     def clean_odometer_deadline(self):

@@ -7,6 +7,7 @@ Garage
 
 {% block nav %}
 {% app_nav 'add vehicle' %}
+
 <div class="header__search">
     <form action="" class="btns-container">
         <input type="text" name="header__search_field" id="header__search_field" class="input_field" placeholder="{{ placeholder }}">
@@ -15,17 +16,7 @@ Garage
             <i class="{{ nav_search_btn_content }}"></i>
         </button>
 
-        <div class="user-menu">
-            <i class="fa-regular fa-user"></i>
-            <ul class="user-menu-list" role="list">
-                <li>
-                    <a href="{% url 'edit profile' pk=user.pk %}" class="nav__item">Edit profile</a>
-                </li>
-                <li>
-                    <a href="{% url 'sign out' %}" class="nav__item">Sign out</a>
-                </li>
-            </ul>
-        </div>
+        {% include 'tags/user-menu.html' %}
 
     </form>
 </div>

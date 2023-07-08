@@ -30,7 +30,8 @@ class CreateUserView(LoginRequiredMixin, views.CreateView):
     
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return self.handle_no_permission()
+            return redirect('/')
+            # return self.handle_no_permission()
         return super().dispatch(request, *args, **kwargs)
 
 

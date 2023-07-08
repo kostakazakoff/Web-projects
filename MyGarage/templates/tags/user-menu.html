@@ -1,0 +1,11 @@
+<div class="user-menu">
+    <i class="fa-regular fa-user"></i>
+    <ul class="user-menu-list" role="list">
+        <li>
+            <a href="{% url 'edit profile' pk=user.pk %}" class="nav__item">Edit profile</a>
+        </li>
+        <li>
+            <a href="{% url 'sign out' %}" class="nav__item">Sign out</a>
+        </li>
+    </ul>
+</div>

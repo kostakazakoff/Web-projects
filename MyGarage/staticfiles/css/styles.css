@@ -209,7 +209,11 @@ select {
 }
 
 .user-menu-list li {    
-    padding: 4px;
+    padding: 0 24px;
+}
+
+.user-menu-list a {
+    padding: 0;
 }
 
 .user-menu {
@@ -220,13 +224,14 @@ select {
 
 .user-menu:hover .user-menu-list {
     position: absolute;
-    transform: translate(-48px, -12px);
+    transform: translate(-24px, -12px);
     display: flex;
     flex-direction: column;
     gap: 8px;
     background-color: #333333;
     border-left: 1px solid #E69C24;
-    transition: transform all 300ms linear;
+    transition: transform 300ms ease-in-out;
+    padding: 0;
 }
 
 .hidden {
