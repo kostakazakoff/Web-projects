@@ -220,12 +220,13 @@ select {
 
 .user-menu:hover .user-menu-list {
     position: absolute;
-    transform: translate(0, -8px);
+    transform: translate(-48px, -12px);
     display: flex;
     flex-direction: column;
     gap: 8px;
     background-color: #333333;
     border-left: 1px solid #E69C24;
+    transition: transform all 300ms linear;
 }
 
 .hidden {

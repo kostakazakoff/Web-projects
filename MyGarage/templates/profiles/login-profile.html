@@ -7,8 +7,6 @@
 
 {% block nav %}
 {% app_nav 'sign up' %}
-{% comment %} #TODO: remove  {% endcomment %}
-<p>{{request.user}}</p>
 {% endblock %}
 
 {% block content %}
@@ -20,6 +18,7 @@
 <div class="centered-form">
     <form class="info-container" method="post">
         {% csrf_token %}
+        
         {% for field in form %}
             {% if field.errors %}
             <p class="errors">{{field.errors}}</p>
@@ -29,6 +28,7 @@
                 {{field}}
             </div>
         {% endfor %}
+
         <div class="btns-container top-margin">
             <button class="btn primary-btn" type="submit">Sign in</button>
             <a href="{% url 'garage' %}" class="btn primary-btn">Cancel</a>

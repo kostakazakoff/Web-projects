@@ -11,6 +11,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile
 
+
 UserModel = get_user_model()
 
 
