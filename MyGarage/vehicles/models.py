@@ -22,28 +22,33 @@ UserModel = get_user_model()
 
 
 class Vehicles(models.Model):
+    BRAND_MODEL_MAX_LEN = 30
+    VIN_LEN = 17
+    PLATE_LEN = 10
+    YEAR_LEN = 4
+
     class Meta:
         ordering = ('-year',)
 
     brand = models.CharField(
-        max_length=30,
+        max_length=BRAND_MODEL_MAX_LEN,
         null=False,
         blank=False
     )
     model = models.CharField(
-        max_length=30,
+        max_length=BRAND_MODEL_MAX_LEN,
         null=True,
         blank=True
     )
     vin = models.CharField(
-        max_length=17,
+        max_length=VIN_LEN,
         validators=[value_is_17_chars],
         null=True,
         blank=True,
         unique=True,
     )
     plate = models.CharField(
-        max_length=10,
+        max_length=PLATE_LEN,
         null=False,
         blank=False,
         unique=True,
@@ -53,7 +58,7 @@ class Vehicles(models.Model):
         blank=False
     )
     year = models.CharField(
-        max_length=4,
+        max_length=YEAR_LEN,
         validators=[year_is_valid],
         null=False,
         blank=False

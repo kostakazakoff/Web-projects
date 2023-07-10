@@ -6,6 +6,9 @@ from django.urls import reverse
 
 
 class Service(models.Model):
+    DESCRIPTION_MAX_LEN = 100
+    AUTOSERVICE_MAX_LEN = 50
+
     class Meta():
         ordering = ('-date',)
 
@@ -20,14 +23,14 @@ class Service(models.Model):
     description = models.CharField(
         blank=False,
         null=False,
-        max_length=100,
+        max_length=DESCRIPTION_MAX_LEN,
     )
     notes = models.TextField(
         null=True,
         blank=True,
         )
     autoservice = models.CharField(
-        max_length=50,
+        max_length=AUTOSERVICE_MAX_LEN,
         null=True,
         blank=True,
     )
