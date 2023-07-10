@@ -11,7 +11,7 @@ class AddServiceForm(forms.ModelForm):
         widgets = {
             'date': forms.TextInput(attrs={'type': 'date'}),
             'date_deadline': forms.TextInput(attrs={'type': 'date'}),
-            'vehicle': forms.TextInput(attrs={'hidden': True}),
+            'vehicle': forms.TextInput(attrs={'hidden': True, 'readonly': True}),
         }
         labels = {'vehicle': ''}
         

@@ -7,7 +7,6 @@ Delete {{vehicle.brand}}
 
 {% block nav %}
 {% app_nav 'garage' %}
-{% include 'tags/user-menu.html' %}
 {% endblock %}
 
 {% block content %}
@@ -17,7 +16,7 @@ Delete {{vehicle.brand}}
         <h2 class="article-title">Are you sure you want to delete {{ vehicle.brand }} {{ vehicle.plate }}?</h2>
         <div class="btns-container flex-centered">
             <button type="submit" class="btn danger-btn" name="delete-vehicle" value=True>Delete</button>
-            <button type="submit" class="btn primary-btn" name="cancel-delete-vehicle" value=False>Cancel</button>
+            <a href="/" class="btn primary-btn">Cancel</a>
         </div>
     </form>
 </header>

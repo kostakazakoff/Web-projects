@@ -7,6 +7,7 @@ Service history: {{ title }}
 {% endblock %}
 
 {% block nav %}
+
 <ul role="list" class="nav">
     <li>
         <a href="{% url 'garage' %}" class="nav__item">Back to Garage</a>
@@ -15,6 +16,7 @@ Service history: {{ title }}
         <a href="{% url 'add service' vehicle.pk %}" class="nav__item">Add service</a>
     </li>
 </ul>
+
 <div class="header__search">
     <form action="" class="btns-container">
         <input type="text" name="header__search_field" id="header__search_field" class="input_field"
@@ -24,6 +26,7 @@ Service history: {{ title }}
         </button>
     </form>
 </div>
+
 {% endblock %}
 
 {% block content %}

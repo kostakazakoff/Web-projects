@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from my_garage.core.validators import (
     value_is_17_chars,
     year_is_valid,
-    )
+)
 from django.db.models.deletion import Collector
 
 
@@ -72,8 +72,7 @@ class Vehicles(models.Model):
         blank=True,
         null=True,
     )
-    
-    # TODO: slug validator if slug field is added to admin panel
+
     slug = models.SlugField(
         unique=True,
         null=False,
@@ -104,7 +103,7 @@ class Vehicles(models.Model):
             self.slug = slugify(f'{self.brand}-{self.plate}')
 
         return super().save(*args, **kwargs)
-    
+
     def delete(self, using=None, keep_parents=False):
         try:
             current = Vehicles.objects.get(id=self.id)
@@ -114,8 +113,8 @@ class Vehicles(models.Model):
 
         if self.pk is None:
             raise ValueError(
-                "%s object can't be deleted because its %s attribute is set "
-                "to None." % (self._meta.object_name, self._meta.pk.attname)
+                f"{self._meta.object_name} object can't be deleted because its \
+                    {self._meta.pk.attname} attribute is set to None."
             )
         using = using or router.db_for_write(self.__class__, instance=self)
         collector = Collector(using=using, origin=self)
