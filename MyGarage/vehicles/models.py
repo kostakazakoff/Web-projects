@@ -14,11 +14,11 @@ from django.db.models.deletion import Collector
 UserModel = get_user_model()
 
 
-class VehiclesChoices(models.TextChoices):
-    BRAND = 'brand'
-    VIN = 'vin'
-    PLATE = 'plate'
-    YEAR = 'year'
+# class VehiclesChoices(models.TextChoices):
+#     BRAND = 'brand'
+#     VIN = 'vin'
+#     PLATE = 'plate'
+#     YEAR = 'year'
 
 
 class Vehicles(models.Model):
@@ -105,6 +105,7 @@ class Vehicles(models.Model):
         return super().save(*args, **kwargs)
 
     def delete(self, using=None, keep_parents=False):
+
         try:
             current = Vehicles.objects.get(id=self.id)
             current.photo.delete()
