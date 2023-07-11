@@ -4,6 +4,7 @@ from service.models import Service
 #TODO: finish the model, migrate
 class Reminder(models.Model):
     TITLE_MAX_LEN = 30
+    DESCRIPTION_MAX_LEN = 100
 
     title = models.CharField(
         max_length=TITLE_MAX_LEN,
@@ -11,16 +12,26 @@ class Reminder(models.Model):
         blank=False
     )
     description = models.CharField(
-        blank=False,
-        null=False,
-        max_length=100,
+        blank=True,
+        null=True,
+        max_length=DESCRIPTION_MAX_LEN,
+    )
+    #TODO:
+    recurs = models.DateField(
+        null=True,
+        blank=True,
     )
     to_service = models.ForeignKey(
         Service,
         null=False,
         blank=False,
         related_name='service_reminders',
-        on_delete=models.DO_NOTHING,
+        on_delete=models.RESTRICT,
+    )
+    done = models.BooleanField(
+        null=False,
+        blank=True,
+        default=False,
     )
 
     def __str__(self) -> str:

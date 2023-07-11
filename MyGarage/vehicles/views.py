@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, resolve_url
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from vehicles.models import Vehicles
 from .forms import CreateVehiclesForm
 from django.contrib.auth.decorators import login_required
 from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-#TODO: Change odometer view
+# TODO: Change odometer view
+
 
 class GarageView(LoginRequiredMixin, views.ListView):
     template_name = 'garage/garage.html'
@@ -25,9 +26,9 @@ class GarageView(LoginRequiredMixin, views.ListView):
                 queryset = queryset.filter(brand__icontains=search_input) or\
                     queryset.filter(vin__contains=search_input) or\
                     queryset.filter(plate__icontains=search_input)
-                
+
         return queryset
-    
+
     def get_context_data(self, **kwargs):
         search_input = self.request.GET.get('header__search_field', '')
         nav_search_btn_content = 'fa-solid fa-magnifying-glass'
@@ -46,7 +47,7 @@ class GarageView(LoginRequiredMixin, views.ListView):
 
 @login_required
 def add_vehicle(request):
-    
+
     form = CreateVehiclesForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         vehicle = form.save(commit=False)
@@ -62,13 +63,13 @@ def add_vehicle(request):
 @login_required
 def edit_vehicle(request, id):
     vehicle = Vehicles.objects.filter(pk=id).get()
-    
+
     form = CreateVehiclesForm(
         request.POST or None,
         request.FILES or None,
         instance=vehicle
-        )
-    
+    )
+
     if form.is_valid():
         form.save()
         return redirect(resolve_url('garage') + f'#vehicle-{id}')
@@ -95,7 +96,7 @@ def delete_vehicle(request, id):
 
 #     if search_input:
 #         nav_search_btn_content = 'fa-solid fa-arrows-rotate'
-        
+
 #         if search_input.isdigit():
 #             result = result.filter(odometer__gte=search_input)
 #         else:
@@ -109,7 +110,7 @@ def delete_vehicle(request, id):
 # def garage(request, *args, **kwargs):
 #     if not request.user.is_authenticated:
 #         return redirect('sign in')
-    
+
 #     search_input = request.GET.get('header__search_field', '')
 #     service_field = []
 #     placeholder = 'Brand, VIN, Plate or Odometer'

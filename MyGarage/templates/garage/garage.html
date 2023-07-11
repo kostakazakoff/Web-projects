@@ -31,7 +31,7 @@ Garage
     <div class="section-flex ">
         {% if vehicles %}
         {% for v in vehicles %}
-        <article class="article" id="vehicle-{{v.id}}">
+        <article class="article" id="vehicle-{{v.pk}}">
             <div class="photo-container">
                 {% if v.photo %}
                 <img src="media/{{ v.photo }}" alt="">
