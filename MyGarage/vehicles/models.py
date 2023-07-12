@@ -9,6 +9,7 @@ from my_garage.core.validators import (
     year_is_valid,
 )
 from django.db.models.deletion import Collector
+from my_garage.core.validators import validate_max_date
 
 
 UserModel = get_user_model()
@@ -63,14 +64,16 @@ class Vehicles(models.Model):
         null=False,
         blank=False
     )
+    #TODO: max date validation don't work
     date_of_purchase = models.DateField(
         blank=True,
         null=True,
+        # validators=[validate_max_date],
     )
     price = models.PositiveIntegerField(
         blank=False,
         null=False,
-        default=0
+        default=0,
     )
     photo = models.ImageField(
         upload_to='images',
@@ -82,6 +85,7 @@ class Vehicles(models.Model):
         unique=True,
         null=False,
         blank=True,
+        editable=False,
     )
 
     to_user = models.ForeignKey(
@@ -89,7 +93,8 @@ class Vehicles(models.Model):
         null=False,
         blank=True,
         on_delete=models.CASCADE,
-        related_name='vehicles'
+        related_name='vehicles',
+        editable=False,
     )
 
     def save(self, *args, **kwargs):

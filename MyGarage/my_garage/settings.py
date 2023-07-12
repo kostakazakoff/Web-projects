@@ -108,15 +108,23 @@ MEDIA_URL = '/media/'
 
 # Login/Logout roots
 LOGIN_URL = reverse_lazy('sign in')
-LOGIN_REDIRECT_URL = reverse_lazy('garage') 
+LOGIN_REDIRECT_URL = reverse_lazy('garage')
 LOGOUT_REDIRECT_URL = reverse_lazy('sign in')
-
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Initialising the user model
 AUTH_USER_MODEL = 'profiles.AppUser'
+
+# CACHES = ThisProject.cache_redis
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "app_cache",
+    }
+}
 
 if DEBUG:
     AUTH_PASSWORD_VALIDATORS = []

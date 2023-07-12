@@ -6,11 +6,22 @@ from service.models import Service
 from vehicles.models import Vehicles
 from django.utils import timezone
 from .forms import AddServiceForm
-from django.views import generic as views
+from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
 
+# @cache_page(30) # Cache timeotut 30 seconds
 def search_filter(search_input, pk):
-    result = Service.objects.filter(vehicle=pk)
+
+    if not cache.get('service_history'):
+        # Caching (<key>, <value>, <timeout>)
+        result = cache.set(
+            'service_history',
+            Service.objects.filter(vehicle=pk),
+            24*60*60 # 1 day timeout
+            )
+    result = cache.get('service_history')
+
     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
 
     if search_input != '':
@@ -49,10 +60,11 @@ def vehicle_service_history(request, pk):
 
 def add_service(request, pk):
     vehicle = Vehicles.objects.get(pk=pk)
-
+    
     if request.method == 'POST':
         form = AddServiceForm(request.POST)
         if form.is_valid():
+            cache.delete('service_history')
             form.save()
             service_id = Service.objects.latest('pk').id
             return redirect(resolve_url('vehicle service', vehicle.pk) + f'#service-{service_id}')
@@ -82,6 +94,7 @@ def edit_service(request, service_id):
 
     if request.method == 'POST':
         if form.is_valid():
+            cache.delete('service_history')
             form.save()
             return redirect(resolve_url('vehicle service', vehicle.pk) + f'#service-{service_id}')
 
@@ -96,8 +109,8 @@ def delete_service(request, service_id):
     vehicle = service.vehicle
 
     if request.method == 'POST':
-        if request.POST.get('delete-service'):
-            service.delete()
+        cache.delete('service_history')
+        service.delete()
         return redirect('vehicle service', pk=vehicle.id)
 
     context = {'vehicle': vehicle}

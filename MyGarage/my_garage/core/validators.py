@@ -1,7 +1,9 @@
+import datetime
 from my_garage.core.utils import mbytes_to_bytes
 from django.core.exceptions import ValidationError
 from urllib.parse import urlparse
 from django.core.validators import URLValidator
+from django.utils import timezone
 
 
 def validate_img_size_up_to_1mb(image):
@@ -26,3 +28,9 @@ def validate_url(value):
     valid_url = validate(value)
     if not valid_url:
         raise ValidationError('Invalid URL')
+
+#TODO:
+def validate_max_date(value):
+    max_value = timezone.localdate(timezone.now())
+    if value > max_value:
+        raise ValidationError("Invalid date of purchase. It can't be after current date")

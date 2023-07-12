@@ -49,11 +49,12 @@ class GarageView(LoginRequiredMixin, views.ListView):
 def add_vehicle(request):
 
     form = CreateVehiclesForm(request.POST or None, request.FILES or None)
+    vehicle = form.save(commit=False)
+    vehicle.to_user = request.user
+
     if form.is_valid():
-        vehicle = form.save(commit=False)
-        vehicle.to_user = request.user
         form.save()
-        vehicle_id = Vehicles.objects.latest('pk').id
+        vehicle_id = Vehicles.objects.latest('pk').pk
         return redirect(resolve_url('garage') + f'#vehicle-{vehicle_id}')
 
     context = {'form': form, 'title': 'Add vehicle'}
