@@ -7,9 +7,9 @@ from django.contrib.auth import get_user_model
 from my_garage.core.validators import (
     value_is_17_chars,
     year_is_valid,
+    validate_max_date,
 )
 from django.db.models.deletion import Collector
-from my_garage.core.validators import validate_max_date
 
 
 UserModel = get_user_model()
@@ -119,6 +119,7 @@ class Vehicles(models.Model):
                 f"{self._meta.object_name} object can't be deleted because its \
                     {self._meta.pk.attname} attribute is set to None."
             )
+        
         using = using or router.db_for_write(self.__class__, instance=self)
         collector = Collector(using=using, origin=self)
         collector.collect([self], keep_parents=keep_parents)
