@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-# TODO: Change odometer view
+# TODO: Odometer view
 
 
 class GarageView(LoginRequiredMixin, views.ListView):
@@ -49,11 +49,12 @@ class GarageView(LoginRequiredMixin, views.ListView):
 def add_vehicle(request):
 
     form = CreateVehiclesForm(request.POST or None, request.FILES or None)
-    vehicle = form.save(commit=False)
-    vehicle.to_user = request.user
+    
 
     if form.is_valid():
-        form.save()
+        vehicle = form.save(commit=False)
+        vehicle.to_user = request.user
+        vehicle.save()
         vehicle_id = Vehicles.objects.latest('pk').pk
         return redirect(resolve_url('garage') + f'#vehicle-{vehicle_id}')
 

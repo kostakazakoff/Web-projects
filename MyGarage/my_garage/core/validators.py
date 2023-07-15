@@ -19,8 +19,13 @@ def value_is_17_chars(value):
 
 
 def year_is_valid(value):
+    current_year = timezone.now().year
+
     if len(value) != 4 or not value.isdigit():
         raise ValidationError('Year must be exactly 4 digit long!')
+    
+    if int(value) > current_year:
+        raise ValidationError('Bought from the future?!')
 
 
 def validate_url(value):
@@ -29,7 +34,7 @@ def validate_url(value):
     if not valid_url:
         raise ValidationError('Invalid URL')
 
-#TODO:
+
 def validate_max_date(value):
     max_value = timezone.localdate(timezone.now())
     if value > max_value:

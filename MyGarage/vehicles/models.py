@@ -15,13 +15,6 @@ from my_garage.core.validators import validate_max_date
 UserModel = get_user_model()
 
 
-# class VehiclesChoices(models.TextChoices):
-#     BRAND = 'brand'
-#     VIN = 'vin'
-#     PLATE = 'plate'
-#     YEAR = 'year'
-
-
 class Vehicles(models.Model):
     BRAND_MODEL_MAX_LEN = 30
     VIN_LEN = 17
@@ -64,11 +57,10 @@ class Vehicles(models.Model):
         null=False,
         blank=False
     )
-    #TODO: max date validation don't work
     date_of_purchase = models.DateField(
         blank=True,
         null=True,
-        # validators=[validate_max_date],
+        validators=[validate_max_date],
     )
     price = models.PositiveIntegerField(
         blank=False,
@@ -132,8 +124,8 @@ class Vehicles(models.Model):
         collector.collect([self], keep_parents=keep_parents)
         return collector.delete()
 
-    def get_absolute_url(self):
-        return reverse('vehicle details', kwargs={'pk': self.pk})
+    # def get_absolute_url(self):
+    #     return reverse('vehicle details', kwargs={'pk': self.pk})
 
     def __str__(self):
         return f'{self.brand} {self.model}'
