@@ -1,5 +1,9 @@
 from django.db import models
 from service.models import Service
+from django.contrib.auth import get_user_model
+
+#TODO: validators
+UserModel = get_user_model()
 
 
 class Reminder(models.Model):
@@ -21,11 +25,11 @@ class Reminder(models.Model):
         null=True,
         blank=True,
     )
-    to_service = models.ForeignKey(
-        Service,
+    to_user = models.ForeignKey(
+        UserModel,
         null=False,
         blank=False,
-        on_delete=models.RESTRICT,
+        on_delete=models.CASCADE,
     )
     done = models.BooleanField(
         null=False,

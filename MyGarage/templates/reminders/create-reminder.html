@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+{% load filters %}
+{% load tags %}
+
+{% block page_title %}
+{{ title }}
+{% endblock %}
+
+{% block nav %}
+{% app_nav 'garage' %}
+{% endblock %}
+
+{% block content %}
+<header class="section-title">
+    <h2>{{ title }}</h2>
+    <p>{{ time|date_style }}</p>
+</header>
+
+<form method="post" class="article"">
+    {% csrf_token %}
+    <div class="info-container">
+        {% for field in form %}
+        {% if field.errors %}
+        <p class="errors">{{field.errors}}</p>
+        {% endif %}
+        <div class="flex-row">
+            <label for="{{field.id_for_label}}">{{field.label}}</label>
+            {{field}}
+        </div>
+        {% endfor %}
+        <div class="btns-container top-margin">
+            <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
+            <a class="btn primary-btn" href="{% url 'list reminders' %}">Cancel</a>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

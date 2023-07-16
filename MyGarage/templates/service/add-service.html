@@ -17,7 +17,7 @@ Service history: {{ title }}
 </header>
 
 <main>
-    <form method="post" class="article" id="service-{{ s.id }}">
+    <form method="post" class="article">
         {% csrf_token %}
         <div class="info-container full-width">
             {% for field in form %}
@@ -31,7 +31,7 @@ Service history: {{ title }}
             {% endfor %}
             <div class="btns-container top-margin">
                 <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
-                <a class="btn danger-btn" href="{% url 'vehicle service' pk %}">Cancel</a>
+                <a class="btn primary-btn" href="{% url 'vehicle service' pk %}">Cancel</a>
             </div>
         </div>
     </form>

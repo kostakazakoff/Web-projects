@@ -1,2 +1,6 @@
 from django.contrib import admin
-# from vehicles.models import
+from .models import Reminder
+
+@admin.register(Reminder)
+class ReminderAdmin(admin.ModelAdmin):
+    pass
