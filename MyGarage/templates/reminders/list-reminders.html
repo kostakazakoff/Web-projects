@@ -7,9 +7,13 @@ Service history: {{ title }}
 {% endblock %}
 
 {% block nav %}
-{% app_nav 'garage' %}
+{% app_nav 'garage' 'create reminder' %}
 {% endblock %}
 
 {% block content %}
-
+{% for reminder in reminders %}
+<p>{{ reminder.title }}</p>
+{% empty %}
+<p>No reminders</p>
+{% endfor %}
 {% endblock %}

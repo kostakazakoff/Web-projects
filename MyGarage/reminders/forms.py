@@ -1,9 +1,35 @@
 from django import forms
 from .models import Reminder
-from django.core.exceptions import ValidationError
 
 
-class CreateReminderForm(forms.ModelForm):
+class BaseReminderForm(forms.ModelForm):
     class Meta:
         model = Reminder
-        exclude = ['to_user', 'done']
+        fields = '__all__'
+        widgets = {
+            'description': forms.Textarea(),
+            'on_date': forms.TextInput(attrs={
+                'type': 'date'
+            }),
+        }
+
+
+class CreateServiceReminderForm(BaseReminderForm):
+    class Meta(BaseReminderForm.Meta):
+        exclude = ['to_user']
+        widgets = {
+            'to_service': forms.TextInput(attrs={
+                'readonly': True,
+            }),
+            'on_date': forms.TextInput(attrs={
+                'readonly': True,
+            }),
+            'on_odometer': forms.TextInput(attrs={
+                'readonly': True,
+            }),
+        }
+
+
+class CreateReminderForm(BaseReminderForm):
+    class Meta(BaseReminderForm.Meta):
+        exclude = ['to_user', 'on_odometer', 'to_service']

@@ -19,20 +19,25 @@
 <form method="post" class="article"">
     {% csrf_token %}
     <div class="info-container full-width">
+
         {% for field in form %}
+
         {% if field.errors %}
         <p class="errors">{{field.errors}}</p>
         {% endif %}
+
         <div class="flex-row">
             <label for="{{field.id_for_label}}">{{field.label}}</label>
             {{field}}
         </div>
+
         {% endfor %}
+
         <div class="btns-container top-margin">
             <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
             <a class="btn primary-btn" href="{% url 'reminders' %}">Cancel</a>
         </div>
+        
     </div>
 </form>
-
 {% endblock %}

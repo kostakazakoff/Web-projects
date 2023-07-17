@@ -24,7 +24,7 @@ INSTALLED_APPS = [
     # My apps
     'vehicles',
     'service',
-    'reminders',
+    'reminders.apps.RemindersConfig',
     'profiles',
 ]
 
@@ -36,6 +36,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    'my_garage.common.middlewares.save_current_request_middleware',
 ]
 
 ROOT_URLCONF = 'my_garage.urls'

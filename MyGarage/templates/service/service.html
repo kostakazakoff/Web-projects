@@ -53,6 +53,7 @@ Service history: {{ title }}
                 <div class="btns-container top-margin">
                     <a class="btn primary-btn" href="{% url 'edit service' s.pk %}">Edit</a>
                     <a class="btn danger-btn" href="{% url 'delete service' s.pk %}">Delete</a>
+                    <a class="btn primary-btn" href="{% url 'create service reminder' service_pk=s.pk %}">Create reminder</a>
                 </div>
             </div>
         </article>

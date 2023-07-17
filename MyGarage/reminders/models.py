@@ -20,8 +20,11 @@ class Reminder(models.Model):
         null=True,
         max_length=DESCRIPTION_MAX_LEN,
     )
-    #TODO:
-    recurs = models.DateField(
+    on_date = models.DateField(
+        null=True,
+        blank=True,
+    )
+    on_odometer = models.PositiveIntegerField(
         null=True,
         blank=True,
     )
@@ -29,13 +32,18 @@ class Reminder(models.Model):
         UserModel,
         null=False,
         blank=False,
+        editable=False,
         on_delete=models.CASCADE,
     )
-    done = models.BooleanField(
-        null=False,
+    to_service = models.ForeignKey(
+        Service,
+        null=True,
         blank=True,
-        default=False,
+        on_delete=models.CASCADE,
     )
 
     def __str__(self) -> str:
         return self.title
+    
+    # def save(self, *args, **kwargs):
+    #     pass
