@@ -22,8 +22,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # My apps
-    'vehicles',
-    'service',
+    'vehicles.apps.VehiclesConfig',
+    'service.apps.ServiceConfig',
     'reminders.apps.RemindersConfig',
     'profiles',
 ]

@@ -14,14 +14,17 @@ from django.views.decorators.cache import cache_page
 # @cache_page(30) # Cache timeotut 30 seconds
 def search_filter(search_input, pk):
 
-    if not cache.get('service_history'):
-        # Caching (<key>, <value>, <timeout>)
-        result = cache.set(
-            'service_history',
-            Service.objects.filter(vehicle=pk),
-            24*60*60 # 1 day timeout
-            )
-    result = cache.get('service_history')
+    # if not cache.get('service_history'):
+    #     # Caching (<key>, <value>, <timeout>)
+    #     result = cache.set(
+    #         'service_history',
+    #         Service.objects.filter(vehicle=pk),
+    #         24*60*60 # 1 day timeout
+    #         )
+    # result = cache.get('service_history')
+
+    # No cache result:
+    result = Service.objects.filter(vehicle=pk)
 
     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
 
@@ -77,7 +80,7 @@ def add_service(request, pk):
     if request.method == 'POST':
         form = AddServiceForm(request.POST)
         if form.is_valid():
-            cache.delete('service_history')
+            # cache.delete('service_history')
             form.save()
             service = Service.objects.latest('pk')
             create_service_reminder(service, request.user)
@@ -108,7 +111,7 @@ def edit_service(request, service_id):
 
     if request.method == 'POST':
         if form.is_valid():
-            cache.delete('service_history')
+            # cache.delete('service_history')
             form.save()
             return redirect(resolve_url('vehicle service', vehicle.pk) + f'#service-{service_id}')
 

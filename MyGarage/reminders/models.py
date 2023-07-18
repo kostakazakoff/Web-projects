@@ -8,6 +8,9 @@ UserModel = get_user_model()
 
 
 class Reminder(models.Model):
+    class Meta():
+        ordering = ('-on_date',)
+
     TITLE_MAX_LEN = 30
     DESCRIPTION_MAX_LEN = 100
 
@@ -30,7 +33,7 @@ class Reminder(models.Model):
         blank=True,
     )
     photo = models.ImageField(
-        upload_to='images/',
+        upload_to='images/reminders/',
         blank=True,
         null=True,
     )

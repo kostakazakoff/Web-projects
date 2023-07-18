@@ -1,15 +1,54 @@
 {% extends 'base/base.html' %}
 {% load filters %}
 {% load tags %}
+{% load static %}
 
 {% block page_title %}
-Service history: {{ title }}
+{{ title }}
 {% endblock %}
 
 {% block nav %}
-{% app_nav 'garage' %}
+{% app_nav 'garage' 'reminders' %}
 {% endblock %}
 
 {% block content %}
+<header class="section-title">
+    <h2>{{ title }}</h2>
+    <p>{{ time|date_style }}</p>
+</header>
 
+<form method="post" class="article"  enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="photo-container">
+        <img src="" alt="" class="hidden" id="img_preview">
+        <div class="upload_file_after">
+            <div class="btns-container">
+                <label for="id_photo" id="upload_file" class="file_field">{{ form.photo }}</label>
+                <label for="id_photo" id="delete_file" class="file_field">{{ form.photo }}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-container">
+        {% for field in form %}
+        {% if field.errors %}
+        <p class="errors">{{field.errors}}</p>
+        {% endif %}
+
+        {% if field.name != 'photo'%}
+        <div class="flex-row">
+            <label for="{{field.id_for_label}}">{{field.label}}</label>
+            {{field}}
+        </div>
+        {% endif %}
+        {% endfor %}
+        <div class="btns-container top-margin">
+            <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
+            <a class="btn primary-btn" href="{% url 'reminders' %}">Cancel</a>
+        </div>
+    </div>
+</form>
+
+<script src="{% static 'js/handle_img_upload.js' %}"></script>
 {% endblock %}

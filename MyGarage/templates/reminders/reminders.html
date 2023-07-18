@@ -31,13 +31,15 @@ Service history: {{ title }}
 
         {% for reminder in reminders %}
         <article class="article" id="reminder-{{reminder.pk}}">
+
             <div class="photo-container">
                 {% if reminder.photo %}
-                <img src="media/{{ reminder.photo }}" alt="{{ reminder.photo }}">
+                <img src= '/media/{{reminder.photo}}' alt="{{ reminder.photo }}">
                 {% else %}
                 <i class="fa-solid fa-file-image"></i>
                 {% endif %}
             </div>
+
             <div class="info-container">
                 <h3 class="article-title">{{reminder.title}}</h3>
                 <h3 class="article-title">{{reminder.to_vehicle}}</h3>
@@ -46,9 +48,10 @@ Service history: {{ title }}
                 <p>On odometer: {{reminder.on_odometer}}</p>
                 <div class="btns-container  top-margin">
                     <a class="btn primary-btn" href="{% url 'edit reminder' pk=reminder.pk %}">Edit</a>
-                    <a class="btn danger-btn" href="{% url 'delete reminder' pk=reminder.pk %}">Delete</a>
+                    <a class="btn danger-btn" href="{% url 'delete reminder' pk=reminder.pk %}">Finished</a>
                 </div>
             </div>
+            
         </article>
         {% empty %}
         <h2>No reminders</h2>

@@ -402,7 +402,7 @@ select {
     gap: 24px;
 }
 
-.full-width > .flex-row > input, textarea, select {
+.full-width .flex-row input, .full-width textarea, s.full-width select {
     MAX-width: 800px;
     flex-grow: 1;
 }

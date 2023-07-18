@@ -16,4 +16,4 @@ class BaseReminderForm(forms.ModelForm):
 
 class CreateReminderForm(BaseReminderForm):
     class Meta(BaseReminderForm.Meta):
-        exclude = ['to_user', 'on_odometer', 'to_service']
+        exclude = ['to_user', 'to_service']

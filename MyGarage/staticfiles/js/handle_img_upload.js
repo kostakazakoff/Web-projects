@@ -3,7 +3,7 @@ function handleImgUpload() {
     uploadField.innerHTML = '<input type="file" name="photo" accept="image/*" id="id_photo"></input>';
 
     const deleteField = document.getElementById('delete_file');
-    deleteField.innerHTML = '<label for="photo-clear_id">Delete photo<input type="checkbox" name="photo-clear" id="photo-clear_id"></label>'
+    deleteField.innerHTML = '<label for="photo-clear_id">Delete photo<input type="checkbox" name="photo-clear" id="photo-clear_id"></label>';
 
     const imgInput = document.getElementById('id_photo');
     const imgPreview = document.getElementById('img_preview');
