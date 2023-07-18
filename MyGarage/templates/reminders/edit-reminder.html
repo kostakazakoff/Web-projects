@@ -21,6 +21,12 @@
     {% csrf_token %}
 
     <div class="photo-container">
+        {% if reminder.photo %}
+        <img src="{{ reminder.photo.url }}" class="photo" id="img_preview">
+        {% else %}
+        <img src="" class="photo hidden" id="img_preview">
+        {% endif %}
+
         <img src="" alt="" class="hidden" id="img_preview">
         <div class="upload_file_after">
             <div class="btns-container">

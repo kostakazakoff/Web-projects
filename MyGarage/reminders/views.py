@@ -73,6 +73,7 @@ def edit_reminder_view(request, pk):
         'form': form,
         'title': 'Edit Reminder',
         'time': timezone.now(),
+        'reminder': reminder
     }
     return render(request, 'reminders/edit-reminder.html', context)
 
