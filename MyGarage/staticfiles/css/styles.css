@@ -284,6 +284,7 @@ select {
 .photo-container {
     width: 45%;
     min-width: 510px;
+    aspect-ratio: 9/4;
     overflow: hidden;
     position: relative;
     box-shadow: 8px 0 12px rgba(0, 0, 0, 0.3);
