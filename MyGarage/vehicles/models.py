@@ -68,7 +68,7 @@ class Vehicles(models.Model):
         default=0,
     )
     photo = models.ImageField(
-        upload_to='images',
+        upload_to='images/',
         blank=True,
         null=True,
     )

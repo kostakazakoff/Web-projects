@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+{% load filters %}
+{% load tags %}
+
+{% block page_title %}
+Service history: {{ title }}
+{% endblock %}
+
+{% block nav %}
+{% app_nav 'garage' 'create reminder' %}
+<div class="header__search">
+    <form action="" class="btns-container">
+        <input type="text" name="header__search_field" id="header__search_field" class="input_field" placeholder="{{ placeholder }}">
+
+        <button type="submit">
+            <i class="{{ nav_search_btn_content }}"></i>
+        </button>
+        
+        {% include 'tags/user-menu.html' %}
+    </form>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="section-flex ">
+
+        <header class="section-title">
+            <h2>{{ title|upper }}</h2>
+        </header>
+
+        {% for reminder in reminders %}
+        <article class="article" id="reminder-{{reminder.pk}}">
+            <div class="photo-container">
+                {% if reminder.photo %}
+                <img src="media/{{ reminder.photo }}" alt="{{ reminder.photo }}">
+                {% else %}
+                <i class="fa-solid fa-file-image"></i>
+                {% endif %}
+            </div>
+            <div class="info-container">
+                <h3 class="article-title">{{reminder.title}}</h3>
+                <h3 class="article-title">{{reminder.to_vehicle}}</h3>
+                <p>Description: {{reminder.description}}</p>
+                <p>On date: {{reminder.on_date}}</p>
+                <p>On odometer: {{reminder.on_odometer}}</p>
+                <div class="btns-container  top-margin">
+                    <a class="btn primary-btn" href="{% url 'edit reminder' pk=reminder.pk %}">Edit</a>
+                    <a class="btn danger-btn" href="{% url 'delete reminder' pk=reminder.pk %}">Delete</a>
+                </div>
+            </div>
+        </article>
+        {% empty %}
+        <h2>No reminders</h2>
+        {% endfor %}
+
+    </div>
+</main>
+{% endblock %}

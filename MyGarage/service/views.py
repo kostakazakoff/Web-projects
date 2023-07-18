@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect, resolve_url
 from service.models import Service
+from reminders.models import Reminder
 from vehicles.models import Vehicles
 from django.utils import timezone
 from .forms import AddServiceForm
@@ -58,6 +59,18 @@ def vehicle_service_history(request, pk):
     return render(request, 'service/service.html', context)
 
 
+def create_service_reminder(service, user):
+    if service.date_deadline or service.odometer_deadline:
+        Reminder.objects.create(
+            title=service.description,
+            description=service.notes,
+            on_date=service.date_deadline,
+            on_odometer=service.odometer_deadline,
+            to_user=user,
+            to_vehicle=service.vehicle
+        )
+
+
 def add_service(request, pk):
     vehicle = Vehicles.objects.get(pk=pk)
     
@@ -66,8 +79,9 @@ def add_service(request, pk):
         if form.is_valid():
             cache.delete('service_history')
             form.save()
-            service_id = Service.objects.latest('pk').id
-            return redirect(resolve_url('vehicle service', vehicle.pk) + f'#service-{service_id}')
+            service = Service.objects.latest('pk')
+            create_service_reminder(service, request.user)
+            return redirect(resolve_url('vehicle service', vehicle.pk) + f'#service-{service.id}')
 
     elif request.method == 'GET':
         form = AddServiceForm(initial={

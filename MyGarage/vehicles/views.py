@@ -50,7 +50,6 @@ def add_vehicle(request):
 
     form = CreateVehiclesForm(request.POST or None, request.FILES or None)
     
-
     if form.is_valid():
         vehicle = form.save(commit=False)
         vehicle.to_user = request.user

@@ -11,5 +11,14 @@ Service history: {{ title }}
 {% endblock %}
 
 {% block content %}
-
+<header class="section-title">
+    <form action="" method="post" class="centered-form">
+        {% csrf_token %}
+        <h2 class="article-title">Are you sure you want to delete {{ reminder.title }} to vehicle {{ reminder.to_vehicle }}?</h2>
+        <div class="btns-container flex-centered">
+            <button type="submit" class="btn danger-btn" value=True>Delete</button>
+            <a href="{% url 'reminders' %}" class="btn primary-btn">Cancel</a>
+        </div>
+    </form>
+</header>
 {% endblock %}
