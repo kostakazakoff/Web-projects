@@ -109,6 +109,7 @@ def edit_service(request, service_id):
     title = 'Edit service'
     form = AddServiceForm(request.POST or None, instance=service)
 
+    #TODO: if deadline changde - create or change service reminder
     if request.method == 'POST':
         if form.is_valid():
             # cache.delete('service_history')
