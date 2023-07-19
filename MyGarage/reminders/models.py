@@ -1,5 +1,6 @@
 from django.db import models, router
 from django.contrib.auth import get_user_model
+from service.models import Service
 from vehicles.models import Vehicles
 from django.db.models.deletion import Collector
 
@@ -50,6 +51,13 @@ class Reminder(models.Model):
         blank=False,
         on_delete=models.CASCADE,
         verbose_name='vehicle',
+    )
+    to_service = models.ForeignKey(
+        Service,
+        null=True,
+        blank=True,
+        editable=False,
+        on_delete=models.SET_NULL,
     )
 
     def __str__(self) -> str:

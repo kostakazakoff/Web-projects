@@ -34,14 +34,15 @@ def search_filter(user, search_input):
         if search_input.isdigit():
             result = result.filter(on_odometer__gte=search_input)
         else:
+            vehicle_pk = Vehicles.objects.filter(brand__icontains=search_input).first().pk
             result = result.filter(description__icontains=search_input) or\
-                result.filter(title__icontains=search_input)
+                result.filter(title__icontains=search_input) or\
+                result.filter(to_vehicle=vehicle_pk)
 
     return result, nav_search_btn_content
 
 
 def list_reminders_view(request):
-    reminders = Reminder.objects.all()
     search_input = request.GET.get('header__search_field', '')
 
     reminders, nav_search_btn_content = search_filter(

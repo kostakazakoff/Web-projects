@@ -48,8 +48,6 @@ class Service(models.Model):
         null=True,
         blank=True,
     )
-
-    # One-To-Many relations
     vehicle = models.ForeignKey(
         Vehicles,
         on_delete=models.CASCADE,

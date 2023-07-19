@@ -3,4 +3,4 @@ from .models import Reminder
 
 @admin.register(Reminder)
 class ReminderAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['title', 'on_date', 'on_odometer', 'to_vehicle', 'to_service', 'id']

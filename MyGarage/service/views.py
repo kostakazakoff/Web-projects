@@ -70,13 +70,23 @@ def create_service_reminder(service, user):
             on_date=service.date_deadline,
             on_odometer=service.odometer_deadline,
             to_user=user,
-            to_vehicle=service.vehicle
+            to_vehicle=service.vehicle,
+            to_service=service
         )
+
+
+def update_service_reminder(form, reminder):
+    reminder.update(
+        title=form.cleaned_data['description'],
+        description=form.cleaned_data['notes'],
+        on_date=form.cleaned_data['date_deadline'],
+        on_odometer=form.cleaned_data['odometer_deadline']
+    )
 
 
 def add_service(request, pk):
     vehicle = Vehicles.objects.get(pk=pk)
-    
+
     if request.method == 'POST':
         form = AddServiceForm(request.POST)
         if form.is_valid():
@@ -109,10 +119,54 @@ def edit_service(request, service_id):
     title = 'Edit service'
     form = AddServiceForm(request.POST or None, instance=service)
 
-    #TODO: if deadline changde - create or change service reminder
+    # TODO: if deadline changde - create or change service reminder
     if request.method == 'POST':
         if form.is_valid():
             # cache.delete('service_history')
+            service_reminders = service.reminder_set.all()
+            have_to_create_reminder = all(
+                [
+                    not service_reminders,
+                    form.has_changed(),
+                    any([
+                        form.cleaned_data['date_deadline'],
+                        form.cleaned_data['odometer_deadline'],
+                        form.cleaned_data['notes']
+                        ])
+                ]
+            )
+
+            if service_reminders:
+                reminder_to_edit = service_reminders.filter(
+                    title=form.cleaned_data['description']).first()
+
+                have_to_update_reminder = all(
+                    [
+                        reminder_to_edit,
+                        form.has_changed()
+                    ]
+                )
+                have_to_create_reminder = all(
+                    [
+                        not reminder_to_edit,
+                        form.has_changed(),
+                        any([
+                            form.cleaned_data['date_deadline'],
+                            form.cleaned_data['odometer_deadline'],
+                            form.cleaned_data['notes']
+                        ])
+                    ]
+                )
+
+                if have_to_update_reminder:
+                    print('have to update reminder')
+                    obj = Reminder.objects.filter(pk=reminder_to_edit.pk)
+                    update_service_reminder(form, obj)
+
+            if have_to_create_reminder:
+                print('have to create reminder')
+                create_service_reminder(service, request.user)
+
             form.save()
             return redirect(resolve_url('vehicle service', vehicle.pk) + f'#service-{service_id}')
 
