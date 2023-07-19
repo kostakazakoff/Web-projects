@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, resolve_url
 
 from vehicles.models import Vehicles
-from .forms import CreateReminderForm
+from .forms import CreateReminderForm, EditReminderForm
 from .models import Reminder
 from django.utils import timezone
 
@@ -59,7 +59,8 @@ def list_reminders_view(request):
 
 def edit_reminder_view(request, pk):
     reminder = Reminder.objects.filter(pk=pk).first()
-    form = CreateReminderForm(
+    vehicle = reminder.to_vehicle
+    form = EditReminderForm(
         request.POST or None,
         request.FILES or None,
         instance=reminder
@@ -72,9 +73,9 @@ def edit_reminder_view(request, pk):
 
     context = {
         'form': form,
-        'title': 'Edit Reminder',
+        'title': f'Edit Reminder for {vehicle}, plate {vehicle.plate}',
         'time': timezone.now(),
-        'reminder': reminder
+        'reminder': reminder,
     }
     return render(request, 'reminders/edit-reminder.html', context)
 
