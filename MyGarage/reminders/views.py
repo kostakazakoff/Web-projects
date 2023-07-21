@@ -7,12 +7,14 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from my_garage.settings import EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
+from django.contrib.auth.decorators import login_required
 
 #TODO: send email
 def send_email_to_user(request):
     subject = 'Hello from Django!'
     message = 'This is a test email sent using Django.'
     from_email = EMAIL_HOST_USER
+    auth_user = EMAIL_HOST_USER
     recipient_list = [request.user.email]
     html_message = '<p>This is the <strong>HTML</strong> version of the email.</p>'
 
@@ -21,12 +23,14 @@ def send_email_to_user(request):
         message,
         from_email,
         recipient_list,
+        auth_user,
         # fail_silently=True,
-        # auth_password=EMAIL_HOST_PASSWORD,
+        auth_password=EMAIL_HOST_PASSWORD,
         # html_message=html_message
         )
 
 
+@login_required
 def create_reminder_view(request):
     form = CreateReminderForm(request.POST or None, request.FILES or None)
 
@@ -62,8 +66,9 @@ def search_filter(user, search_input):
     return result, nav_search_btn_content
 
 
+@login_required
 def list_reminders_view(request):
-    send_email_to_user(request)
+    # send_email_to_user(request)
     search_input = request.GET.get('header__search_field', '')
 
     reminders, nav_search_btn_content = search_filter(
@@ -80,6 +85,7 @@ def list_reminders_view(request):
     return render(request, 'reminders/reminders.html', context)
 
 
+@login_required
 def edit_reminder_view(request, pk):
     reminder = Reminder.objects.filter(pk=pk).first()
     vehicle = reminder.to_vehicle
@@ -112,6 +118,7 @@ def edit_reminder_view(request, pk):
     return render(request, 'reminders/edit-reminder.html', context)
 
 
+@login_required
 def delete_reminder_view(request, pk):
     reminder = Reminder.objects.filter(pk=pk).first()
 
@@ -125,6 +132,7 @@ def delete_reminder_view(request, pk):
     return render(request, 'reminders/delete-reminder.html', context)
 
 
+@login_required
 def create_service_reminder(service, user):
     if service.date_deadline or service.odometer_deadline:
         Reminder.objects.create(
@@ -138,6 +146,7 @@ def create_service_reminder(service, user):
         )
 
 
+@login_required
 def update_service_reminder(form, reminder):
     reminder.update(
         title=form.cleaned_data['description'],

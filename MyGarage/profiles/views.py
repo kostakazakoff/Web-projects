@@ -78,6 +78,7 @@ def edit_profile_view(request):
     return render(request, 'profiles/edit-profile.html', context)
 
 
+@login_required
 def password_change_view(request):
     form = EditPasswordForm(request.user, request.POST or None)
     
