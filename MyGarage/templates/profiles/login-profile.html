@@ -2,7 +2,7 @@
 {% load tags %}
 
 {% block page_title %}
-{{title}}
+{{ title }}
 {% endblock %}
 
 {% block nav %}
@@ -16,7 +16,7 @@
 </header>
 
 <div class="centered-form">
-    <form class="info-container" method="post">
+    <form class="info-container" method="post" action="{% url 'sign in' %}">
         {% csrf_token %}
         
         {% for field in form %}

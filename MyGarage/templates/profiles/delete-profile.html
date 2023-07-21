@@ -11,8 +11,8 @@
         {% csrf_token %}
         <h2 class="article-title">{{title}}</h2>
         <div class="btns-container flex-centered">
-            <button class='btn primary-btn' type="submit">Save</button>
-            <a href="{% url 'edit profile' user.pk %}" class='btn primary-btn'>Cancel</a>
+            <button class='btn primary-btn' type="submit">Confirm delete</button>
+            <a href="{% url 'edit profile' %}" class='btn primary-btn'>Cancel</a>
         </div>
     </form>
 </header>    

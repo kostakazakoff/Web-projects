@@ -9,6 +9,7 @@ from django.utils import timezone
 from .forms import AddServiceForm
 from django.core.cache import cache
 from django.views.decorators.cache import cache_page
+from reminders.views import create_service_reminder, update_service_reminder
 
 
 # @cache_page(30) # Cache timeotut 30 seconds
@@ -62,26 +63,26 @@ def vehicle_service_history(request, pk):
     return render(request, 'service/service.html', context)
 
 
-def create_service_reminder(service, user):
-    if service.date_deadline or service.odometer_deadline:
-        Reminder.objects.create(
-            title=service.description,
-            description=service.notes,
-            on_date=service.date_deadline,
-            on_odometer=service.odometer_deadline,
-            to_user=user,
-            to_vehicle=service.vehicle,
-            to_service=service
-        )
+# def create_service_reminder(service, user):
+#     if service.date_deadline or service.odometer_deadline:
+#         Reminder.objects.create(
+#             title=service.description,
+#             description=service.notes,
+#             on_date=service.date_deadline,
+#             on_odometer=service.odometer_deadline,
+#             to_user=user,
+#             to_vehicle=service.vehicle,
+#             to_service=service
+#         )
 
 
-def update_service_reminder(form, reminder):
-    reminder.update(
-        title=form.cleaned_data['description'],
-        description=form.cleaned_data['notes'],
-        on_date=form.cleaned_data['date_deadline'],
-        on_odometer=form.cleaned_data['odometer_deadline']
-    )
+# def update_service_reminder(form, reminder):
+#     reminder.update(
+#         title=form.cleaned_data['description'],
+#         description=form.cleaned_data['notes'],
+#         on_date=form.cleaned_data['date_deadline'],
+#         on_odometer=form.cleaned_data['odometer_deadline']
+#     )
 
 
 def add_service(request, pk):

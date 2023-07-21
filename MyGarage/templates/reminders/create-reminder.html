@@ -31,6 +31,12 @@
     </div>
 
     <div class="info-container">
+        {% if reminder.photo %}
+        <img src="{{ reminder.photo.url }}" class="photo" id="img_preview">
+        {% else %}
+        <img src="" class="photo hidden" id="img_preview">
+        {% endif %}
+        
         {% for field in form %}
         {% if field.errors %}
         <p class="errors">{{field.errors}}</p>

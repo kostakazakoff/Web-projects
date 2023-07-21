@@ -42,7 +42,9 @@ Service history: {{ title }}
 
             <div class="info-container">
                 <h3 class="article-title">{{reminder.title}}</h3>
+                {% if reminder.to_vehicle %}
                 <h3 class="article-title">{{reminder.to_vehicle}}</h3>
+                {% endif %}
                 <p>Description: {{reminder.description}}</p>
                 <p>On date: {{reminder.on_date}}</p>
                 <p>On odometer: {{reminder.on_odometer}}</p>

@@ -47,10 +47,11 @@ class Reminder(models.Model):
     )
     to_vehicle = models.ForeignKey(
         Vehicles,
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
+        editable = False,
         on_delete=models.CASCADE,
-        verbose_name='vehicle',
+        # verbose_name='vehicle',
     )
     to_service = models.ForeignKey(
         Service,

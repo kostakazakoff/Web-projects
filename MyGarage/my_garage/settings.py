@@ -62,7 +62,6 @@ WSGI_APPLICATION = 'my_garage.wsgi.application'
 
 DATABASES = ThisProject.databases
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -92,9 +91,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
 
 # Base location in the browser
 STATIC_URL = '/static/'
@@ -130,3 +126,12 @@ CACHES = {
 
 if DEBUG:
     AUTH_PASSWORD_VALIDATORS = []
+
+#TODO: email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.abv.bg'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = True
+EMAIL_HOST_USER = ThisProject.email_settings['USER']
+EMAIL_HOST_PASSWORD = ThisProject.email_settings['PASSWORD']

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import forms as auth_forms
 from django.shortcuts import render
-from django.utils.translation import gettext_lazy as _
+# from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from .models import Profile
 
@@ -30,5 +30,9 @@ class EditProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ['first_name', 'last_name']
         widgets = {'user': forms.TextInput(attrs={'class': 'hidden'},)}
+
+
+class EditPasswordForm(auth_forms.PasswordChangeForm):
+    pass
