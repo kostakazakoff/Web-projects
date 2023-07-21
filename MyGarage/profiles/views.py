@@ -13,28 +13,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
+from my_garage.common.messages import send_email_to_user
 
 
 UserModel = get_user_model()
-
-
-# class CreateUserView(LoginRequiredMixin, views.CreateView):
-
-#     template_name = 'profiles/create-profile.html'
-#     form_class = RegisterUserForm
-#     success_url = reverse_lazy('garage')
-#     extra_context = {'title': 'Sign up'}
-
-#     def form_valid(self, form):
-#         parent = super().form_valid(form)
-#         login(self.request, self.object)
-#         Profile.objects.create(user=self.object)
-#         return parent
-
-#     def dispatch(self, request, *args, **kwargs):
-#         if request.user.is_authenticated:
-#             return redirect('garage')
-#         return super().dispatch(request, *args, **kwargs)
 
 
 def create_user_view(request):
@@ -44,7 +26,11 @@ def create_user_view(request):
         form.save()
         obj = UserModel.objects.latest('pk')
         Profile.objects.create(user=obj)
-        return redirect('sign in')
+        login(request, obj)
+        mail_subject = f'Account confirmation'
+        mail_message = f'{obj.email} account was created successfully. You may add your proile details in app menu - USER/EDIT PROFILE'
+        send_email_to_user(request, mail_subject, mail_message)
+        return redirect('garage')
 
     context = {
         'form': form,
@@ -68,8 +54,7 @@ def edit_profile_view(request):
 
     if form.is_valid():
         form.save()
-        return redirect('garage')
-
+        return redirect(request.POST.get('direction'))
 
     context = {
         'form': form,

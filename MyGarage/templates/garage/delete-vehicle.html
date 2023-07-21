@@ -10,7 +10,7 @@ Delete {{vehicle.brand}}
 {% endblock %}
 
 {% block content %}
-<header class="section-title">
+<main class="section-title centered-form">
     <form action="" method="post" class="centered-form">
         {% csrf_token %}
         <h2 class="article-title">Are you sure you want to delete {{ vehicle.brand }} {{ vehicle.plate }}?</h2>
@@ -19,5 +19,5 @@ Delete {{vehicle.brand}}
             <a href="/" class="btn primary-btn">Cancel</a>
         </div>
     </form>
-</header>
+</main>
 {% endblock %}

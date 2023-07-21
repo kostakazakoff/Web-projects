@@ -10,6 +10,7 @@ from .forms import AddServiceForm
 from django.core.cache import cache
 from django.views.decorators.cache import cache_page
 from reminders.views import create_service_reminder, update_service_reminder
+from django.contrib.auth.decorators import login_required
 
 
 # @cache_page(30) # Cache timeotut 30 seconds
@@ -63,28 +64,7 @@ def vehicle_service_history(request, pk):
     return render(request, 'service/service.html', context)
 
 
-# def create_service_reminder(service, user):
-#     if service.date_deadline or service.odometer_deadline:
-#         Reminder.objects.create(
-#             title=service.description,
-#             description=service.notes,
-#             on_date=service.date_deadline,
-#             on_odometer=service.odometer_deadline,
-#             to_user=user,
-#             to_vehicle=service.vehicle,
-#             to_service=service
-#         )
-
-
-# def update_service_reminder(form, reminder):
-#     reminder.update(
-#         title=form.cleaned_data['description'],
-#         description=form.cleaned_data['notes'],
-#         on_date=form.cleaned_data['date_deadline'],
-#         on_odometer=form.cleaned_data['odometer_deadline']
-#     )
-
-
+@login_required
 def add_service(request, pk):
     vehicle = Vehicles.objects.get(pk=pk)
 
@@ -94,7 +74,7 @@ def add_service(request, pk):
             # cache.delete('service_history')
             form.save()
             service = Service.objects.latest('pk')
-            create_service_reminder(service, request.user)
+            create_service_reminder(request, service)
             return redirect(resolve_url('vehicle service', vehicle.pk) + f'#service-{service.id}')
 
     elif request.method == 'GET':
@@ -114,6 +94,7 @@ def add_service(request, pk):
     return render(request, 'service/add-service.html', context)
 
 
+@login_required
 def edit_service(request, service_id):
     service = Service.objects.get(id=service_id)
     vehicle = service.vehicle
@@ -123,53 +104,53 @@ def edit_service(request, service_id):
     if request.method == 'POST':
         if form.is_valid():
             # cache.delete('service_history')
-            service_reminders = service.reminder_set.all()
+            service_reminder = service.reminder_set.all().first()
             data_for_remind = any([
                 form.cleaned_data['date_deadline'],
                 form.cleaned_data['odometer_deadline'],
             ])
             have_to_create_reminder = all(
                 [
-                    not service_reminders,
+                    not service_reminder,
                     form.has_changed(),
                     data_for_remind
                 ]
             )
 
-            if service_reminders:
-                reminder_to_edit = service_reminders.filter(
-                    title=form.cleaned_data['description']).first()
+            if service_reminder:
+                # service_reminder = service_reminder.filter(
+                #     title=form.cleaned_data['description']).first()
 
                 have_to_update_reminder = all(
                     [
-                        reminder_to_edit,
+                        service_reminder,
                         form.has_changed(),
                     ]
                 )
                 have_to_create_reminder = all(
                     [
-                        not reminder_to_edit,
+                        not service_reminder,
                         form.has_changed(),
                         data_for_remind
                     ]
                 )
                 have_to_delete_reminder = all([
-                    reminder_to_edit,
+                    service_reminder,
                     not data_for_remind
                 ])
 
                 if have_to_update_reminder:
                     print('have to update reminder')
-                    obj = Reminder.objects.filter(pk=reminder_to_edit.pk)
+                    obj = Reminder.objects.filter(pk=service_reminder.pk)
                     update_service_reminder(form, obj)
 
                 if have_to_delete_reminder:
-                    obj = Reminder.objects.filter(pk=reminder_to_edit.pk)
+                    obj = Reminder.objects.filter(pk=service_reminder.pk)
                     obj.delete()
 
             if have_to_create_reminder:
                 print('have to create reminder')
-                create_service_reminder(service, request.user)
+                create_service_reminder(request, service)
 
             form.save()
             return redirect(resolve_url('vehicle service', vehicle.pk) + f'#service-{service_id}')
@@ -180,6 +161,7 @@ def edit_service(request, service_id):
     return render(request, 'service/edit-service.html', context=context)
 
 
+@login_required
 def delete_service(request, service_id):
     service = Service.objects.get(id=service_id)
     vehicle = service.vehicle

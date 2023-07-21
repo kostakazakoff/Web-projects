@@ -10,31 +10,34 @@
 {% endblock %}
 
 {% block content %}
-<header class="section-title">
-    <h2>{{ title|upper }}</h2>
-</header>
+<main class="centered-form">
+    <header class="section-title">
+        <h2>{{ title|upper }}</h2>
+    </header>
+    
+    <div class="article">
+        <form class="info-container full-width" method="post" action="{% url 'sign up' %}">
+            {% csrf_token %}
+            <div class="flex-row">
+                <label for="{{field.id_for_label}}">{{form.email.label}}</label>
+                {{form.email}}
+            </div>
+            <div class="flex-row">
+                <label for="{{field.id_for_label}}">{{form.password1.label}}</label>
+                {{form.password1}}
+            </div>
+            <div class="flex-row">
+                <label for="{{field.id_for_labelF}}">{{form.password2.label}}</label>
+                {{form.password2}}
+            </div> 
+            <div class="btns-container top-margin">
+                <button class="btn primary-btn" type="submit">Save</button>
+                <a href="{% url 'garage' %}" class='btn primary-btn'>Cancel</a>
+            </div>
+        </form>
+    </div>
+</main>
 
-<div class="article">
-    <form class="info-container full-width" method="post" action="{% url 'sign up' %}">
-        {% csrf_token %}
-        <div class="flex-row">
-            <label for="{{field.id_for_label}}">{{form.email.label}}</label>
-            {{form.email}}
-        </div>
-        <div class="flex-row">
-            <label for="{{field.id_for_label}}">{{form.password1.label}}</label>
-            {{form.password1}}
-        </div>
-        <div class="flex-row">
-            <label for="{{field.id_for_labelF}}">{{form.password2.label}}</label>
-            {{form.password2}}
-        </div> 
-        <div class="btns-container top-margin">
-            <button class="btn primary-btn" type="submit">Save</button>
-            <a href="{% url 'garage' %}" class='btn primary-btn'>Cancel</a>
-        </div>
-    </form>
-</div>
 
 
 {% endblock %}

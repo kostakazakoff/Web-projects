@@ -6,14 +6,17 @@
 {% endblock %}
 
 {% block content %}
-<header class="section-title">
-    <form class="centered-form" method="post" action="{% url 'delete profile' user.pk %}">
-        {% csrf_token %}
-        <h2 class="article-title">{{title}}</h2>
-        <div class="btns-container flex-centered">
-            <button class='btn primary-btn' type="submit">Confirm delete</button>
-            <a href="{% url 'edit profile' %}" class='btn primary-btn'>Cancel</a>
-        </div>
-    </form>
-</header>    
+<main class="centered-form">
+    <header class="section-title">
+        <form method="post" action="{% url 'delete profile' user.pk %}">
+            {% csrf_token %}
+            <h2 class="article-title">{{title}}</h2>
+            <div class="btns-container flex-centered">
+                <button class='btn primary-btn' type="submit">Confirm delete</button>
+                <a href="{% url 'edit profile' %}" class='btn primary-btn'>Cancel</a>
+            </div>
+        </form>
+    </header> 
+</main>
+   
 {% endblock %}

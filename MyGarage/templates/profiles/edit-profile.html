@@ -10,30 +10,31 @@
 {% endblock %}
 
 {% block content %}
-<header class="section-title">
-    <h2>{{ title }}</h2>
-</header>
 
-<div class="article">
-    <form class="info-container full-width" method="post" action="{% url 'edit profile' %}">
-        {% csrf_token %}
-
-        <div class="flex-row">
-            <label for="{{field.id_for_label}}">{{form.first_name.label}}</label>
-            {{form.first_name}}
-        </div>
-        <div class="flex-row">
-            <label for="{{field.id_for_label}}">{{form.last_name.label}}</label>
-            {{form.last_name}}
-        </div>
-
-        <div class="btns-container top-margin">
-            <button class='btn primary-btn' type="submit">Save</button>
-            <a href="{% url 'password change' %}" class='btn primary-btn'>Change password</a>
-            <a href="{% url 'delete profile' user.pk %}" class='btn danger-btn'>Delete profile</a>
-            <a href="{% url 'garage' %}" class='btn primary-btn'>Cancel</a>
-        </div>
-    </form>
-</div>
+    <header class="section-title">
+        <h2>{{ title }}</h2>
+    </header>
+    <div class="article">
+        <form class="info-container full-width" method="post" action="{% url 'edit profile' %}">
+            {% csrf_token %}
+    
+            <div class="flex-row">
+                <label for="{{field.id_for_label}}">{{form.first_name.label}}</label>
+                {{form.first_name}}
+            </div>
+            <div class="flex-row">
+                <label for="{{field.id_for_label}}">{{form.last_name.label}}</label>
+                {{form.last_name}}
+            </div>
+    
+            <div class="btns-container top-margin">
+                <button class='btn primary-btn' type="submit" name="direction" value="garage">Save</button>
+                <button class='btn primary-btn' type="submit" name="direction" value="password change">Change password</button>
+                <!-- <a href="{% url 'password change' %}" class='btn primary-btn'>Change password</a> -->
+                <a href="{% url 'delete profile' user.pk %}" class='btn danger-btn'>Delete profile</a>
+                <a href="{% url 'garage' %}" class='btn primary-btn'>Cancel</a>
+            </div>
+        </form>
+    </div>
 
 {% endblock %}

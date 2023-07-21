@@ -1,5 +1,4 @@
 {% extends 'base/base.html' %}
-{% load filters %}
 {% load tags %}
 
 {% block page_title %}
@@ -11,7 +10,7 @@ Service history: {{ title }}
 {% endblock %}
 
 {% block content %}
-<header class="section-title">
+<header class="section-title centered-form">
     <form action="" method="post" class="centered-form">
         {% csrf_token %}
         <h2 class="article-title">Are you sure you want to delete {{ reminder.title }}?</h2>

@@ -10,7 +10,7 @@ Delete service
 {% endblock %}
 
 {% block content %}
-<header class="section-title">
+<main class="section-title centered-form">
     <form action="" method="post" class="centered-form">
         {% csrf_token %}
         <h2 class="article-title">Are you sure you want to delete this service?</h2>
@@ -19,5 +19,5 @@ Delete service
             <a href="{% url 'vehicle service' vehicle.id %}" class="btn primary-btn">Cancel</a>
         </div>
     </form>
-</header>
+</main>
 {% endblock %}

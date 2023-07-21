@@ -3,32 +3,12 @@ from vehicles.models import Vehicles
 from .forms import CreateReminderForm, EditServiceReminderForm, EditReminderForm
 from .models import Reminder
 from django.utils import timezone
-from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from my_garage.settings import EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
 from django.contrib.auth.decorators import login_required
+from my_garage.common.messages import send_email_to_user
 
-#TODO: send email
-def send_email_to_user(request):
-    subject = 'Hello from Django!'
-    message = 'This is a test email sent using Django.'
-    from_email = EMAIL_HOST_USER
-    auth_user = EMAIL_HOST_USER
-    recipient_list = [request.user.email]
-    html_message = '<p>This is the <strong>HTML</strong> version of the email.</p>'
-
-    send_mail(
-        subject,
-        message,
-        from_email,
-        recipient_list,
-        auth_user,
-        # fail_silently=True,
-        auth_password=EMAIL_HOST_PASSWORD,
-        # html_message=html_message
-        )
-
+#TODO: send reminder mail by date or odometer
 
 @login_required
 def create_reminder_view(request):
@@ -68,7 +48,6 @@ def search_filter(user, search_input):
 
 @login_required
 def list_reminders_view(request):
-    # send_email_to_user(request)
     search_input = request.GET.get('header__search_field', '')
 
     reminders, nav_search_btn_content = search_filter(
@@ -132,21 +111,19 @@ def delete_reminder_view(request, pk):
     return render(request, 'reminders/delete-reminder.html', context)
 
 
-@login_required
-def create_service_reminder(service, user):
+def create_service_reminder(request, service):
     if service.date_deadline or service.odometer_deadline:
         Reminder.objects.create(
             title=service.description,
             description=service.notes,
             on_date=service.date_deadline,
             on_odometer=service.odometer_deadline,
-            to_user=user,
+            to_user=request.user,
             to_vehicle=service.vehicle,
             to_service=service
         )
 
 
-@login_required
 def update_service_reminder(form, reminder):
     reminder.update(
         title=form.cleaned_data['description'],
