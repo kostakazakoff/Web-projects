@@ -23,3 +23,17 @@ def send_confirm_registration_email(user):
         # auth_password=EMAIL_HOST_PASSWORD,
         html_message=html_message,
     )
+
+
+def send_confirm_delete_email(user):
+    subject = 'User deletion confirmation'
+    message = 'Your account was deleted successfully.'
+    from_email = EMAIL_HOST_USER
+    recipient_list = [user.email]
+
+    send_mail(
+        subject,
+        message,
+        from_email,
+        recipient_list,
+    )
