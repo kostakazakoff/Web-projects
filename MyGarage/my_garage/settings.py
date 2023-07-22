@@ -1,16 +1,17 @@
 from pathlib import Path
-
 from django.urls import reverse, reverse_lazy
-from my_garage.hidden import ThisProject
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = ThisProject.secret_key
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = True
+DEBUG = bool(int(os.getenv('DEBUG')))
 
-ALLOWED_HOSTS = ThisProject.alowed_hosts
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 INSTALLED_APPS = [
     # Django Apps
@@ -25,7 +26,7 @@ INSTALLED_APPS = [
     'vehicles.apps.VehiclesConfig',
     'service.apps.ServiceConfig',
     'reminders.apps.RemindersConfig',
-    'profiles',
+    'profiles.apps.ProfilesConfig',
 ]
 
 MIDDLEWARE = [
@@ -36,7 +37,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+
     'my_garage.common.middlewares.save_current_request_middleware',
 ]
 
@@ -60,7 +61,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'my_garage.wsgi.application'
 
-DATABASES = ThisProject.databases
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv('DB_NAME'),
+        "USER": os.getenv('DB_USER'),
+        "PASSWORD": os.getenv('DB_PASSWORD'),
+        "HOST": os.getenv('DB_HOST'),
+        "PORT": os.getenv('DB_PORT'),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -101,6 +111,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
 )
 
+# STATIC_ROOT = os.getenv('STATIC_ROOT')
+
 # Media root
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 MEDIA_URL = '/media/'
@@ -116,22 +128,28 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Initialising the user model
 AUTH_USER_MODEL = 'profiles.AppUser'
 
-# CACHES = ThisProject.cache_redis
-
 CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "app_cache",
+    'default': {
+        'BACKEND':
+            'django.core.cache.backends.redis.RedisCache',
+            'LOCATION': os.getenv('CACHE_REDIS_DB_LOCATION'),
+            "NAME": os.getenv('CACHE_REDIS_DB_NAME'),
     }
 }
+
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+#         "LOCATION": "app_cache",
+#     }
+# }
 
 if DEBUG:
     AUTH_PASSWORD_VALIDATORS = []
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-# EMAIL_USE_SSL = True
-EMAIL_HOST_USER = ThisProject.email_settings['USER']
-EMAIL_HOST_PASSWORD = ThisProject.email_settings['PASSWORD']
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = bool(int(os.getenv('EMAIL_USE_TLS')))   
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')

@@ -13,7 +13,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
-from my_garage.common.messages import send_email_to_user
 
 
 UserModel = get_user_model()
@@ -29,7 +28,6 @@ def create_user_view(request):
         login(request, obj)
         mail_subject = f'Account confirmation'
         mail_message = f'{obj.email} account was created successfully. You may add your proile details in app menu - USER/EDIT PROFILE'
-        send_email_to_user(request, mail_subject, mail_message)
         return redirect('garage')
 
     context = {

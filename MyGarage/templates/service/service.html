@@ -10,7 +10,7 @@ Service history: {{ title }}
 
 <ul role="list" class="nav">
     <li>
-        <a href="{% url 'garage' %}" class="nav__item">Back to Garage</a>
+        <a href="{% url 'garage' %}" class="nav__item">Garage</a>
     </li>
     <li>
         <a href="{% url 'add service' vehicle.pk %}" class="nav__item">Add service</a>
@@ -27,6 +27,7 @@ Service history: {{ title }}
         <button type="submit">
             <i class="{{ nav_search_btn_content }}"></i>
         </button>
+        {% include 'tags/user-menu.html' %}
     </form>
 </div>
 
@@ -60,7 +61,7 @@ Service history: {{ title }}
             </div>
         </article>
         {% empty %}
-        <h3 class="article-title">No service history</h3>
+            <h3 class="article-title centered-form">No service history</h3>                   
         {% endfor %}
     </div>
 </main>

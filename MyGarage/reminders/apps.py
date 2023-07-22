@@ -6,4 +6,6 @@ class RemindersConfig(AppConfig):
     name = 'reminders'
 
     def ready(self):
+        result = super().ready()
         import reminders.signals
+        return result
