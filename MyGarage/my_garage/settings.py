@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # load environment variables
-LOCAL_DEV_ENV_PATH = 'environments/.env'
+LOCAL_DEV_ENV_PATH = 'environments/.env_local_dev'
 
 load_dotenv(dotenv_path=LOCAL_DEV_ENV_PATH)
 #------------------
