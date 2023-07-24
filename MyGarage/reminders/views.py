@@ -8,6 +8,7 @@ from django.utils.html import strip_tags
 from django.contrib.auth.decorators import login_required
 # from my_garage.core.utils import send_confirm_registration_email
 
+
 #TODO: send reminder mail by date or odometer
 
 @login_required

@@ -27,6 +27,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #3th party
+    'background_task',
+
     # My apps
     'vehicles.apps.VehiclesConfig',
     'service.apps.ServiceConfig',
@@ -101,8 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-# TODO: setup timezone
-TIME_ZONE = 'UTC'
+TIME_ZONE = os.getenv('TIME_ZONE', 'UTC')
 
 USE_I18N = True
 

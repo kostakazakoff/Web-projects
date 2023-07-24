@@ -10,7 +10,7 @@ UserModel = get_user_model()
 
 class Reminder(models.Model):
     class Meta():
-        ordering = ('-on_date',)
+        ordering = ('-on_odometer', '-on_date')
 
     TITLE_MAX_LEN = 30
     DESCRIPTION_MAX_LEN = 100
