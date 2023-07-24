@@ -8,7 +8,6 @@ from django.contrib.auth import get_user_model
 
 
 class CreateVehiclesForm(ModelForm):
-
     class Meta:
         model = Vehicles
         exclude = ['slug', 'to_user']
@@ -21,4 +20,10 @@ class CreateVehiclesForm(ModelForm):
             'year': forms.TextInput(attrs={'placeholder': 'Year of manufacture in format YYYY'}),
             'date_of_purchase': forms.TextInput(attrs={'type': 'date'}),
         }
-    
+
+
+class UpdateOdometerForm(ModelForm):
+    class Meta:
+        model = Vehicles
+        fields = ['odometer']
+        labels = {'odometer': ''}

@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, resolve_url
 from service.models import Service
 from reminders.models import Reminder
 from vehicles.models import Vehicles
+from vehicles.forms import UpdateOdometerForm
 from django.utils import timezone
 from .forms import AddServiceForm
 from django.core.cache import cache
@@ -45,9 +46,13 @@ def search_filter(search_input, pk):
 
 def vehicle_service_history(request, pk):
     vehicle = Vehicles.objects.get(pk=pk)
-    title = f'{vehicle.brand} {vehicle.plate} | Odometer: {vehicle.odometer}'
+    update_odometer_form = UpdateOdometerForm(request.POST or None, instance=vehicle)
+    title = f'{vehicle.brand} {vehicle.plate}'
     search_input = request.GET.get('header__search_field', '')
     placeholder = 'Autoservice, Description or Odometer'
+
+    if update_odometer_form.is_valid():
+        update_odometer_form.save()
 
     vehicle_service, nav_search_btn_content = search_filter(search_input, pk)
 
@@ -59,6 +64,7 @@ def vehicle_service_history(request, pk):
         'placeholder': placeholder,
         'vehicle': vehicle,
         'search': search_input,
+        'update_odometer_form': update_odometer_form
     }
 
     return render(request, 'service/service.html', context)

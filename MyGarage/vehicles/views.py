@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect, resolve_url
 from django.urls import reverse, reverse_lazy
 from vehicles.models import Vehicles
-from .forms import CreateVehiclesForm
+from .forms import CreateVehiclesForm, UpdateOdometerForm
 from django.contrib.auth.decorators import login_required
 from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # TODO: Odometer view
-
 
 class GarageView(LoginRequiredMixin, views.ListView):
     template_name = 'garage/garage.html'
@@ -89,42 +88,3 @@ def delete_vehicle(request, id):
         return redirect('garage')
 
     return render(request, 'garage/delete-vehicle.html', context)
-
-
-# def search_filter(user, search_input):
-#     result = Vehicles.objects.filter(to_user_id=user.pk)
-#     nav_search_btn_content = 'fa-solid fa-magnifying-glass'
-
-#     if search_input:
-#         nav_search_btn_content = 'fa-solid fa-arrows-rotate'
-
-#         if search_input.isdigit():
-#             result = result.filter(odometer__gte=search_input)
-#         else:
-#             result = result.filter(brand__icontains=search_input) or\
-#                 result.filter(vin__contains=search_input) or\
-#                 result.filter(plate__icontains=search_input)
-
-#     return result, nav_search_btn_content
-
-
-# def garage(request, *args, **kwargs):
-#     if not request.user.is_authenticated:
-#         return redirect('sign in')
-
-#     search_input = request.GET.get('header__search_field', '')
-#     service_field = []
-#     placeholder = 'Brand, VIN, Plate or Odometer'
-#     header_icon_class = 'fa-solid fa-car'
-
-#     all_vehicles, nav_search_btn_content = search_filter(request.user, search_input)
-
-#     context = {
-#         'vehicles': all_vehicles,
-#         'title': 'Garage',
-#         'vehicles_service': service_field,
-#         'nav_search_btn_content': nav_search_btn_content,
-#         'placeholder': placeholder,
-#         'header_icon_class': header_icon_class
-#     }
-#     return render(request, 'garage/garage.html', context)

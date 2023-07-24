@@ -47,7 +47,7 @@ Edit vehicle
         {% endfor %}
         <div class="btns-container top-margin">
             <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
-            <a href="{% url 'garage' %}" class="btn primary-btn">Cancel</a>
+            <a href="{% url 'garage' %}#vehicle-{{vehicle.pk}}" class="btn primary-btn">Cancel</a>
         </div>
     </div>
     

@@ -45,7 +45,7 @@ Garage
                 <h3 class="article-title">{{v.brand}} {{v.model}}</h3>
                 <p>VIN code: {{v.vin}}</p>
                 <p>Plate: {{v.plate}}</p>
-                <p>Odometer: {{v.odometer}}</p>
+                <p>Current odometer: <a href="{% url 'edit vehicle' v.id %}" class='btn primary-btn'>{{v.odometer}}</a></p>
                 <p>Year of manufacture: {{v.year}}</p>
                 <p>Purchase date: {{v.date_of_purchase}}</p>
                 <p>Price: {{v.price}} lv</p>
