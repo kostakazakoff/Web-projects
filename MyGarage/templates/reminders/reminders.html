@@ -30,13 +30,14 @@ Service history: {{ title }}
         {% for reminder in reminders %}
         <article class="article" id="reminder-{{reminder.pk}}">
 
-            <div class="photo-container">
+            <a href="{% url 'edit reminder' pk=reminder.pk %}" class="photo-container">
                 {% if reminder.photo %}
-                <img src= '/media/{{reminder.photo}}' alt="{{ reminder.photo }}">
+                    <img src= '/media/{{reminder.photo}}' alt="{{ reminder.photo }}">
                 {% else %}
-                <i class="fa-solid fa-file-image"></i>
+                    <i class="fa-solid fa-file-image"></i>
                 {% endif %}
-            </div>
+            </a>
+            
 
             <div class="info-container">
                 

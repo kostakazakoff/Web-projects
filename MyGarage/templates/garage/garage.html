@@ -32,15 +32,13 @@ Garage
         {% if vehicles %}
         {% for v in vehicles %}
         <article class="article" id="vehicle-{{v.pk}}">
-
-            <div class="photo-container">
+            <a href="{% url 'edit vehicle' v.id %}" class="photo-container">
                 {% if v.photo %}
-                <img src="/media/{{ v.photo }}" alt="">
+                    <img src="/media/{{ v.photo }}" alt="">
                 {% else %}
-                <i class="fa-solid fa-file-image"></i>
+                    <i class="fa-solid fa-file-image"></i>
                 {% endif %}
-            </div>
-
+            </a>
             <div class="info-container">
                 <h3 class="article-title">{{v.brand}} {{v.model}}</h3>
                 <p>VIN code: {{v.vin}}</p>
