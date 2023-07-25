@@ -6,8 +6,6 @@ from django.utils import timezone
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.contrib.auth.decorators import login_required
-# from my_garage.core.utils import send_confirm_registration_email
-
 
 #TODO: send reminder mail by date or odometer
 
@@ -69,7 +67,7 @@ def list_reminders_view(request):
 def edit_reminder_view(request, pk):
     reminder = Reminder.objects.filter(pk=pk).first()
     vehicle = reminder.to_vehicle
-    title = 'Edit Reminder'
+    title = 'Reminder'
     form = EditReminderForm(
         request.POST or None,
         request.FILES or None,
@@ -77,7 +75,7 @@ def edit_reminder_view(request, pk):
     )
 
     if vehicle:
-        title = f'Edit Reminder for {vehicle} with license plate {vehicle.plate}'
+        title = f'Service reminder for {vehicle} with license plate {vehicle.plate}, current odometer: {vehicle.odometer}'
         form = EditServiceReminderForm(
             request.POST or None,
             request.FILES or None,
@@ -93,7 +91,7 @@ def edit_reminder_view(request, pk):
         'form': form,
         'title': title,
         'time': timezone.now(),
-        'reminder': reminder,
+        'reminder': reminder
     }
     return render(request, 'reminders/edit-reminder.html', context)
 

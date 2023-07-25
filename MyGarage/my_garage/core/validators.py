@@ -39,3 +39,9 @@ def validate_max_date(value):
     max_value = timezone.localdate(timezone.now())
     if value > max_value:
         raise ValidationError("Invalid date of purchase. It can't be after current date")
+    
+
+def validate_min_date(value):
+    max_value = timezone.localdate(timezone.now())
+    if value < max_value:
+        raise ValidationError("Invalid reminder date. It can't be in the past")

@@ -46,10 +46,10 @@ def search_filter(search_input, pk):
 
 def vehicle_service_history(request, pk):
     vehicle = Vehicles.objects.get(pk=pk)
-    update_odometer_form = UpdateOdometerForm(request.POST or None, instance=vehicle)
     title = f'{vehicle.brand} {vehicle.plate}'
     search_input = request.GET.get('header__search_field', '')
     placeholder = 'Autoservice, Description or Odometer'
+    update_odometer_form = UpdateOdometerForm(request.POST or None, instance=vehicle)
 
     if update_odometer_form.is_valid():
         update_odometer_form.save()
@@ -124,9 +124,6 @@ def edit_service(request, service_id):
             )
 
             if service_reminder:
-                # service_reminder = service_reminder.filter(
-                #     title=form.cleaned_data['description']).first()
-
                 have_to_update_reminder = all(
                     [
                         service_reminder,

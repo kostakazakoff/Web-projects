@@ -3,6 +3,9 @@ from django.contrib.auth import get_user_model
 from service.models import Service
 from vehicles.models import Vehicles
 from django.db.models.deletion import Collector
+from django.utils import timezone
+from my_garage.core.validators import validate_min_date
+from django.core.exceptions import ValidationError
 
 #TODO: validators
 UserModel = get_user_model()
@@ -10,7 +13,7 @@ UserModel = get_user_model()
 
 class Reminder(models.Model):
     class Meta():
-        ordering = ('-on_odometer', '-on_date')
+        ordering = ('on_date', 'on_odometer')
 
     TITLE_MAX_LEN = 30
     DESCRIPTION_MAX_LEN = 100
@@ -28,6 +31,7 @@ class Reminder(models.Model):
     on_date = models.DateField(
         null=True,
         blank=True,
+        validators=[validate_min_date]
     )
     on_odometer = models.PositiveIntegerField(
         null=True,
@@ -51,7 +55,6 @@ class Reminder(models.Model):
         blank=True,
         editable = False,
         on_delete=models.CASCADE,
-        # verbose_name='vehicle',
     )
     to_service = models.ForeignKey(
         Service,
@@ -60,6 +63,10 @@ class Reminder(models.Model):
         editable=False,
         on_delete=models.SET_NULL,
     )
+
+    def clean(self):
+        if self.to_vehicle and self.to_vehicle.odometer >= self.on_odometer:
+            raise ValidationError(f'Odometer must be at least {self.to_vehicle.odometer}')
 
     def __str__(self) -> str:
         return self.title

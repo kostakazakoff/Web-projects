@@ -38,6 +38,7 @@
 
     <div class="info-container">
         {% for field in form %}
+
         {% if field.errors %}
         <p class="errors">{{field.errors}}</p>
         {% endif %}
@@ -48,7 +49,9 @@
             {{field}}
         </div>
         {% endif %}
+
         {% endfor %}
+        
         <div class="btns-container top-margin">
             <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
             <a class="btn primary-btn" href="{% url 'reminders' %}">Cancel</a>

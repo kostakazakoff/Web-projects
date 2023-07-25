@@ -411,6 +411,10 @@ select {
     gap: 24px;
 }
 
+.flex-row-centered {
+    justify-content: center;
+}
+
 .full-width .flex-row input, .full-width textarea, s.full-width select {
     MAX-width: 800px;
     flex-grow: 1;

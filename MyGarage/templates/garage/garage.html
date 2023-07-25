@@ -45,14 +45,19 @@ Garage
                 <h3 class="article-title">{{v.brand}} {{v.model}}</h3>
                 <p>VIN code: {{v.vin}}</p>
                 <p>Plate: {{v.plate}}</p>
-                <p>Current odometer: <a href="{% url 'edit vehicle' v.id %}" class='btn primary-btn'>{{v.odometer}}</a></p>
+                <p>Current odometer: {{v.odometer}}</p>
                 <p>Year of manufacture: {{v.year}}</p>
                 <p>Purchase date: {{v.date_of_purchase}}</p>
                 <p>Price: {{v.price}} lv</p>
+                <form method="POST" action="{% url 'update odometer' v.id %}" class="flex-row">
+                    {% csrf_token %}
+                    {{update_odometer_form}}
+                    <button class="btn primary-btn">Update odometer</button>
+                </form>
                 <div class="btns-container  top-margin">
                     <a class="btn primary-btn" href="{% url 'vehicle service' v.id %}">Service history</a>
-                    <a class="btn primary-btn" href="{% url 'edit vehicle' v.id %}">Edit</a>
-                    <a class="btn danger-btn" href="{% url 'delete vehicle' v.id %}">Delete</a>
+                    <a class="btn primary-btn" href="{% url 'edit vehicle' v.id %}">Edit vehicle</a>
+                    <a class="btn danger-btn" href="{% url 'delete vehicle' v.id %}">Delete vehicle</a>
                 </div>
             </div>
             

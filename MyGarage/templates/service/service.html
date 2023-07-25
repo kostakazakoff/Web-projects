@@ -36,19 +36,12 @@ Service history: {{ title }}
 {% block content %}
 <header class="section-title">
     <h2>Service history: {{ title }}</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {% for field in update_odometer_form %}
-            {% if field.errors %}
-            <p class="errors">{{field.errors}}</p>
-            {% endif %}
-            <div class="flex-row">
-                {{field}}
-            </div>
-        {% endfor %}
-        <button type="submit" class="btn primary-btn">Update odometer</button>
-    </form>
     <p>{{ date|date_style }}</p>
+    <form method="POST" action="{% url 'update odometer' vehicle.pk %}" class="flex-row flex-row-centered">
+        {% csrf_token %}
+        {{update_odometer_form}}
+        <button class="btn primary-btn">Update odometer</button>
+    </form>
 </header>
 
 <main>
@@ -58,10 +51,12 @@ Service history: {{ title }}
             <div class="info-container full-width">
                 <h3 class="article-title">{{ s.description }}</h3>
                 <p>Notes: {{ s.notes }}</p>
+                <p><strong>Price: {{ s.price|floatformat:2 }} lv</strong></p>
+                <hr>
+                <h3 class="article-title">Serviced on:</h3>
                 <p>Odometer: {{ s.odometer }}</p>
                 <p>Date: {{ s.date }}</p>
                 <p>Autoservice: {{ s.autoservice }}</p>
-                <p><strong>Price: {{ s.price|floatformat:2 }} lv</strong></p>
                 <div class="btns-container top-margin">
                     <a class="btn primary-btn" href="{% url 'edit service' s.pk %}">Edit</a>
                     <a class="btn danger-btn" href="{% url 'delete service' s.pk %}">Delete</a>

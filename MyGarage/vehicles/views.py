@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-# TODO: Odometer view
 
 class GarageView(LoginRequiredMixin, views.ListView):
     template_name = 'garage/garage.html'
@@ -40,6 +39,7 @@ class GarageView(LoginRequiredMixin, views.ListView):
         context['nav_search_btn_content'] = nav_search_btn_content
         context['title'] = 'Garage'
         context['placeholder'] = 'Brand, VIN, Plate or Odometer'
+        context['update_odometer_form'] = UpdateOdometerForm()
 
         return context
 
@@ -76,6 +76,21 @@ def edit_vehicle(request, id):
 
     context = {'form': form, 'vehicle': vehicle, 'title': 'Edit vehicle'}
     return render(request, 'garage/edit-vehicle.html', context)
+
+
+@login_required
+def update_odometer(request, id=None):
+    direction = request.META['HTTP_REFERER']
+    vehicle = Vehicles.objects.filter(pk=id).first()
+    if vehicle:
+        form = UpdateOdometerForm(request.POST or None, instance=vehicle)
+        direction = f'{direction}#vehicle-{vehicle.pk}'
+
+    if form.is_valid():
+        form.save()
+        
+    return redirect(direction)
+    # return redirect(resolve_url('garage') + f'#vehicle-{id}')
 
 
 @login_required

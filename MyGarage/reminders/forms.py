@@ -1,11 +1,13 @@
+from typing import Any, Dict
 from django import forms
 from .models import Reminder
+from django.core.exceptions import ValidationError
 
 
 class BaseReminderForm(forms.ModelForm):
     class Meta:
         model = Reminder
-        fields = '__all__'
+        exclude = ['to_user', 'to_service', 'to_vehicle']
         widgets = {
             'description': forms.Textarea(),
             'on_date': forms.TextInput(attrs={
@@ -16,14 +18,12 @@ class BaseReminderForm(forms.ModelForm):
 
 class CreateReminderForm(BaseReminderForm):
     class Meta(BaseReminderForm.Meta):
-        exclude = ['to_user', 'to_service', 'on_odometer']
+        exclude = ['on_odometer']
 
 
 class EditServiceReminderForm(BaseReminderForm):
-    class Meta(BaseReminderForm.Meta):
-        exclude = ['to_user', 'to_service', 'to_vehicle']
+    pass
 
 
-class EditReminderForm(BaseReminderForm):
-    class Meta(BaseReminderForm.Meta):
-        exclude = ['to_user', 'to_service', 'to_vehicle', 'on_odometer']
+class EditReminderForm(CreateReminderForm):
+    pass
