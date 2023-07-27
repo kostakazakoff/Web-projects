@@ -8,7 +8,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # load environment variables
 LOCAL_DEV_ENV_PATH = 'environments/.env_local_dev'
-
 load_dotenv(dotenv_path=LOCAL_DEV_ENV_PATH)
 #------------------
 
@@ -28,7 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #3th party
-    'background_task',
+    'django_apscheduler',
 
     # My apps
     'vehicles.apps.VehiclesConfig',
@@ -160,3 +159,7 @@ EMAIL_PORT = os.getenv('EMAIL_PORT', None)
 EMAIL_USE_TLS = bool(int(os.getenv('EMAIL_USE_TLS', 0)))   
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', None)
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', None)
+
+SCHEDULER_CONFIG = {
+    'apscheduler.timezone': TIME_ZONE,
+}

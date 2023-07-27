@@ -143,7 +143,7 @@ def edit_service(request, service_id):
                 ])
 
                 if have_to_update_reminder:
-                    print('have to update reminder')
+                    # print('have to update reminder')
                     obj = Reminder.objects.filter(pk=service_reminder.pk)
                     update_service_reminder(form, obj)
 
@@ -152,7 +152,7 @@ def edit_service(request, service_id):
                     obj.delete()
 
             if have_to_create_reminder:
-                print('have to create reminder')
+                # print('have to create reminder')
                 create_service_reminder(request, service)
 
             form.save()

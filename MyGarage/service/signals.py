@@ -3,12 +3,18 @@ from django.dispatch import receiver
 from .models import Service
 from my_garage.common.middlewares import get_current_request
 from django.core.cache import cache
+from django.contrib.auth import get_user_model
+
+
+UserModel = get_user_model()
 
 
 @receiver(post_save, sender=Service)
 def delete_cache(sender, instance, **kwargs):
     cache.delete('service_history')
 
+
 @receiver(m2m_changed, sender=Service)
 def delete_cache(sender, instance, **kwargs):
     cache.delete('service_history')
+   

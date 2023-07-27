@@ -1,19 +1,16 @@
-from datetime import datetime
 from django.apps import AppConfig
-
+from apscheduler.schedulers.background import BackgroundScheduler
 
 
 class RemindersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'reminders'
 
-    def register_task(self):
-        from .tasks import my_scheduled_task
-        from background_task.tasks import Task
-        print(datetime.datetime.now())
-        my_scheduled_task.schedule(repeat=Task.DAILY, time=datetime.time(hour=17, minute=58))
-
     def ready(self):
         result = super().ready()
         import reminders.signals
+        from .schedule import check_reminders
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(check_reminders, 'cron', hour=2, minute=37)
+        scheduler.start()
         return result
