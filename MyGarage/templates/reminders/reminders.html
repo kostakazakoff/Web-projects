@@ -27,6 +27,7 @@ Service history: {{ title }}
 </header>
 <main>
     <div class="section-flex ">
+
         {% for reminder in reminders %}
         <article class="article" id="reminder-{{reminder.pk}}">
 
@@ -44,10 +45,12 @@ Service history: {{ title }}
                 {% if reminder.to_vehicle %}
                 <h3 class="article-title">{{reminder.to_vehicle}}</h3>
                 {% endif %}
+
                 <h3 class="article-title">{{reminder.title}}</h3>
                 <p>Description: {{reminder.description}}</p>
                 <p>On date: {{reminder.on_date}}</p>
                 <p>On odometer: {{reminder.on_odometer}}</p>
+
                 <div class="btns-container  top-margin">
                     <a class="btn primary-btn" href="{% url 'edit reminder' pk=reminder.pk %}">Edit</a>
                     <a class="btn danger-btn" href="{% url 'delete reminder' pk=reminder.pk %}">Done</a>

@@ -64,6 +64,7 @@ class Reminder(models.Model):
         on_delete=models.SET_NULL,
     )
 
+    #TODO: validationworks but doesn't raise an error
     def clean(self):
         if self.to_vehicle and self.to_vehicle.odometer >= self.on_odometer:
             raise ValidationError(f'Odometer must be at least {self.to_vehicle.odometer}')

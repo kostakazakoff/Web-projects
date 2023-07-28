@@ -52,7 +52,9 @@ def edit_profile_view(request):
 
     if form.is_valid():
         form.save()
-        return redirect(request.POST.get('direction'))
+        print(request.POST)
+        direction = request.POST.get('direction')
+        return redirect(direction)
 
     context = {
         'form': form,
@@ -68,9 +70,12 @@ def password_change_view(request):
     if form.is_valid():
         user = form.save()
         update_session_auth_hash(request, user)
-        return redirect('garage')
+        return redirect('edit profile')
     
-    context = {'form': form}
+    context = {
+        'form': form,
+        'title': request.user.email
+        }
     
     return render(request, 'profiles/change-password.html', context)
 
