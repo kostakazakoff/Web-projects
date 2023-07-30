@@ -96,21 +96,20 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = os.getenv('TIME_ZONE', 'UTC')
+TIME_ZONE = os.getenv('TIME_ZONE', 'Europe/Sofia')
 
 USE_I18N = True
 
 USE_TZ = True
 
-# Base location in the browser
 STATIC_URL = '/static/'
 
-# Location on file system
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'staticfiles'),
-)
-
-# STATIC_ROOT = os.getenv('STATIC_ROOT')
+if DEBUG:
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'staticfiles'),
+    )
+else:
+    STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'static')
 
 # Media root
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
@@ -127,21 +126,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Initialising the user model
 AUTH_USER_MODEL = 'profiles.AppUser'
 
-CACHES = {
-    'default': {
-        'BACKEND':
-            'django.core.cache.backends.redis.RedisCache',
-            'LOCATION': os.getenv('CACHE_REDIS_DB_LOCATION'),
-            "NAME": os.getenv('CACHE_REDIS_DB_NAME'),
-    }
-}
-
 # CACHES = {
-#     "default": {
-#         "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-#         "LOCATION": "app_cache",
+#     'default': {
+#         'BACKEND':
+#             'django.core.cache.backends.redis.RedisCache',
+#             'LOCATION': os.getenv('CACHE_REDIS_DB_LOCATION'),
+#             "NAME": os.getenv('CACHE_REDIS_DB_NAME'),
 #     }
 # }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "app_cache",
+    }
+}
 
 if DEBUG:
     AUTH_PASSWORD_VALIDATORS = []
