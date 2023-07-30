@@ -1,5 +1,3 @@
-https://youtu.be/1XiPW9gmSAY
-
 ![image](https://github.com/kostakazakoff/Web-projects/assets/104040753/04a3cf6c-f1bf-4111-9056-de2cd695aa27)
 
 ![image](https://github.com/kostakazakoff/Web-projects/assets/104040753/d7409d11-575a-44a4-9a92-e1cd109fd7ef)
