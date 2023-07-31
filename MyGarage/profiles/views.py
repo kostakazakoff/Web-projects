@@ -52,7 +52,6 @@ def edit_profile_view(request):
 
     if form.is_valid():
         form.save()
-        print(request.POST)
         direction = request.POST.get('direction')
         return redirect(direction)
 
