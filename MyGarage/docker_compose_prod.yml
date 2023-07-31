@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   web:
-    image: app_garage
+    image: app_garage:1.0
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,11 +13,13 @@ services:
       - ./environments/.env_local_dev
     depends_on:
       - db
+      - cache
     links:
       - db
+      - cache
     volumes:
-      - /tmp/for_deploy/static:/app/static
-    command: gunicorn --bind=0.0.0.0:8000 for_deploy.wsgi:application
+      - /tmp/app_resources/static:/app/staticfiles
+    command: gunicorn --bind=0.0.0.0:8000 app_garage.wsgi:application
       
   db:
     image: postgres
@@ -32,10 +34,10 @@ services:
     volumes:
       - ./postgresql:/var/lib/postgresql/data
 
-  # cache:
-  #   container_name: mygarage-cache-redis
-  #   image: redis:latest
-  #   restart: always
-  #   ports:
-  #     - "6379:6379"
+  cache:
+    container_name: mygarage-cache-redis
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
   

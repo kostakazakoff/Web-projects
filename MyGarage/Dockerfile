@@ -9,4 +9,14 @@ COPY requirements.txt /app/
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-COPY . /app/
+# COPY . /app/
+COPY manage.py /app/manage.py
+COPY mediafiles /app/mediafiles
+COPY static /app/static
+COPY staticfiles /app/staticfiles
+COPY my_garage /app/my_garage
+COPY profiles /app/profiles
+COPY reminders /app/reminders
+COPY service /app/service
+COPY templates /app/templates
+COPY vehicles /app/vehicles
