@@ -8,15 +8,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    platform: linux/amd64
     env_file:
       - ./environments/.env_local_dev
     depends_on:
       - db
-      - cache
     links:
       - db
-      - cache
-    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - /tmp/for_deploy/static:/app/static
+    command: gunicorn --bind=0.0.0.0:8000 for_deploy.wsgi:application
       
   db:
     image: postgres
@@ -31,9 +32,10 @@ services:
     volumes:
       - ./postgresql:/var/lib/postgresql/data
 
-  cache:
-    image: redis:latest
-    restart: always
-    ports:
-      - "6379:6379"
+  # cache:
+  #   container_name: mygarage-cache-redis
+  #   image: redis:latest
+  #   restart: always
+  #   ports:
+  #     - "6379:6379"
   
