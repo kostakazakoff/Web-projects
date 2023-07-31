@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   web:
-    image: my_garage:1.0
+    image: my_garage
     build:
       context: .
       dockerfile: Dockerfile
