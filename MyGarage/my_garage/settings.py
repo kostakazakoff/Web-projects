@@ -11,7 +11,7 @@ LOCAL_DEV_ENV_PATH = 'environments/.env_local_dev'
 load_dotenv(dotenv_path=LOCAL_DEV_ENV_PATH)
 #------------------
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', None)
 
 DEBUG = bool(int(os.getenv('DEBUG', 0)))
 
@@ -111,36 +111,33 @@ if DEBUG:
 else:
     STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'static')
 
-# Media root
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 MEDIA_URL = '/media/'
 
-# Login/Logout roots
 LOGIN_URL = reverse_lazy('sign in')
 LOGIN_REDIRECT_URL = reverse_lazy('garage')
 LOGOUT_REDIRECT_URL = reverse_lazy('sign in')
 
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Initialising the user model
 AUTH_USER_MODEL = 'profiles.AppUser'
 
-# CACHES = {
-#     'default': {
-#         'BACKEND':
-#             'django.core.cache.backends.redis.RedisCache',
-#             'LOCATION': os.getenv('CACHE_REDIS_DB_LOCATION'),
-#             "NAME": os.getenv('CACHE_REDIS_DB_NAME'),
-#     }
-# }
-
 CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "app_cache",
+    'default': {
+        'BACKEND':
+            'django.core.cache.backends.redis.RedisCache',
+            'LOCATION': os.getenv('CACHE_REDIS_DB_LOCATION'),
+            "NAME": os.getenv('CACHE_REDIS_DB_NAME'),
     }
 }
+
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+#         "LOCATION": "app_cache",
+#     }
+# }
 
 if DEBUG:
     AUTH_PASSWORD_VALIDATORS = []
