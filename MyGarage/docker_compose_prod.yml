@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   web:
-    image: app_garage:1.0
+    image: my_garage:1.0
     build:
       context: .
       dockerfile: Dockerfile
@@ -19,7 +19,7 @@ services:
       - cache
     volumes:
       - /tmp/app_resources/static:/app/staticfiles
-    command: gunicorn --bind=0.0.0.0:8000 app_garage.wsgi:application
+    command: gunicorn --bind=0.0.0.0:8000 my_garage.wsgi:application
       
   db:
     image: postgres
@@ -35,7 +35,6 @@ services:
       - ./postgresql:/var/lib/postgresql/data
 
   cache:
-    container_name: mygarage-cache-redis
     image: redis:latest
     restart: always
     ports:
