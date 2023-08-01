@@ -17,6 +17,8 @@ DEBUG = bool(int(os.getenv('DEBUG', 0)))
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
+CSRF_TRUSTED_ORIGINS = [f'http://{x}:81' for x in os.environ.get('ALLOWED_HOSTS', '').split(',')]
+
 INSTALLED_APPS = [
     # Django Apps
     'django.contrib.admin',
@@ -104,12 +106,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-if DEBUG:
-    STATICFILES_DIRS = (
+STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'staticfiles'),
     )
-else:
-    STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'static')
+STATIC_ROOT = os.environ.get('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 MEDIA_URL = '/media/'

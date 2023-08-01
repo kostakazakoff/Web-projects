@@ -10,7 +10,7 @@ services:
       - "8000:8000"
     platform: linux/amd64
     env_file:
-      - ./environments/.env_local_dev
+      - ./environments/.env_prod
     depends_on:
       - db
       - cache
@@ -18,7 +18,7 @@ services:
       - db
       - cache
     volumes:
-      - /tmp/app_resources/static:/app/staticfiles
+      - /tmp/my_garage/static:/app/static
     command: gunicorn --bind=0.0.0.0:8000 my_garage.wsgi:application
       
   db:
@@ -46,7 +46,7 @@ services:
       - "81:80"
       - "443:443"
     volumes:
-      - /tmp/app_resources/static:/home/app/staticfiles
+      - /tmp/my_garage/static:/home/app/web/staticfiles/
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/logs:/var/log/nginx
       - ./certbot/www:/var/www/certbot/:ro
