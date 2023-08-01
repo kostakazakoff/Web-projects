@@ -3,3 +3,6 @@ scratch.*
 .mygarage
 .vscode
 environments/
+static/
+postgresql/
+mygarage/
