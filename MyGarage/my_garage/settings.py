@@ -9,7 +9,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # load environment variables
 ENV_PATH = 'environments/.env_prod' #production environment
 # ENV_PATH = 'environments/.env_local_dev' #local dev environment
-
 load_dotenv(dotenv_path=ENV_PATH)
 #------------------
 
@@ -19,7 +18,7 @@ DEBUG = bool(int(os.getenv('DEBUG', 0)))
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
-CSRF_TRUSTED_ORIGINS = [f'http://{x}:81' for x in os.environ.get('ALLOWED_HOSTS', '').split(',')]
+CSRF_TRUSTED_ORIGINS = [f'http://{x}:80' for x in os.environ.get('ALLOWED_HOSTS', '').split(',')]
 
 INSTALLED_APPS = [
     # Django Apps

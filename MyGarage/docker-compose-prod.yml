@@ -2,7 +2,8 @@ version: '3.4'
 
 services:
   web:
-    image: kostakazakoff/my_garage
+    image: kostakazakoff/garage
+    command: gunicorn --bind=0.0.0.0:8000 my_garage.wsgi:application
     build:
       context: .
       dockerfile: Dockerfile
@@ -19,7 +20,6 @@ services:
       - cache
     volumes:
       - /tmp/my_garage/static:/app/static
-    command: gunicorn --bind=0.0.0.0:8000 my_garage.wsgi:application
       
   db:
     image: postgres
@@ -43,7 +43,7 @@ services:
   nginx:
     image: nginx
     ports:
-      - "81:80"
+      - "80:80"
       - "443:443"
     volumes:
       - /tmp/my_garage/static:/home/app/web/staticfiles/
