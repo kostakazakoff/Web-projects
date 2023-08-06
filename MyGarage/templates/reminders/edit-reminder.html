@@ -22,7 +22,7 @@
 
     <div class="photo-container">
         {% if reminder.photo %}
-        <img src="{{ reminder.photo.url }}" class="photo" id="img_preview">
+        <img src="{{ reminder.photo.url }}" class="photo" id="img_preview" alt="{{ reminder.photo.url }}">
         {% else %}
         <img src="" class="photo hidden" id="img_preview">
         {% endif %}

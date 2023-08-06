@@ -8,7 +8,6 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.contrib.auth.decorators import login_required
 
-#TODO: send reminder mail by date or odometer
 
 @login_required
 def create_reminder_view(request):
@@ -83,6 +82,7 @@ def edit_reminder_view(request, pk):
             instance=reminder
         )
 
+    print(form.is_valid)
     if form.is_valid():
         form.save()
         reminder_pk = Reminder.objects.latest('pk').pk

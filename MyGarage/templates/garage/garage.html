@@ -34,7 +34,7 @@
         <article class="article" id="vehicle-{{v.pk}}">
             <a href="{% url 'edit vehicle' v.id %}" class="photo-container">
                 {% if v.photo %}
-                    <img src="/media/{{ v.photo }}" alt="">
+                    <img src="{{ v.photo.url }}" alt="{{ v.photo.url }}">
                 {% else %}
                     <i class="fa-solid fa-file-image"></i>
                 {% endif %}

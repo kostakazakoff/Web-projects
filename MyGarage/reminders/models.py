@@ -6,10 +6,11 @@ from django.db.models.deletion import Collector
 from django.utils import timezone
 from my_garage.core.validators import validate_min_date
 from django.core.exceptions import ValidationError
+import cloudinary.api
+from cloudinary_storage.storage import MediaCloudinaryStorage
+from cloudinary.uploader import upload, destroy
 
-#TODO: validators
 UserModel = get_user_model()
-
 
 class Reminder(models.Model):
     class Meta():
@@ -38,7 +39,8 @@ class Reminder(models.Model):
         blank=True,
     )
     photo = models.ImageField(
-        upload_to='images/reminders/',
+        upload_to='reminders/',
+        storage=MediaCloudinaryStorage(),
         blank=True,
         null=True,
     )
@@ -64,7 +66,7 @@ class Reminder(models.Model):
         on_delete=models.SET_NULL,
     )
 
-    #TODO: validationworks but doesn't raise an error
+    #TODO: validation works but doesn't raise an error
     def clean(self):
         if self.to_vehicle and self.to_vehicle.odometer >= self.on_odometer:
             raise ValidationError(f'Odometer must be at least {self.to_vehicle.odometer}')
@@ -73,10 +75,11 @@ class Reminder(models.Model):
         return self.title
     
     def save(self, *args, **kwargs):
+        print(self.photo)
         try:
             current = Reminder.objects.get(pk=self.pk)
-            if current.photo != self.photo:
-                current.photo.delete()
+            if not self.photo or current.photo.url != self.photo.url:
+                destroy(str(current.photo))
         except:
             pass
 
@@ -84,8 +87,7 @@ class Reminder(models.Model):
     
     def delete(self, using=None, keep_parents=False):
         try:
-            current = Reminder.objects.get(pk=self.pk)
-            current.photo.delete()
+            destroy(str(self.photo))
         except:
             pass
 

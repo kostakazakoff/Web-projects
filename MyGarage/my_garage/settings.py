@@ -2,15 +2,18 @@ from pathlib import Path
 from django.urls import reverse, reverse_lazy
 import os
 from dotenv import load_dotenv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # load environment variables
-ENV_PATH = 'environments/.env_prod' #production environment
-# ENV_PATH = 'environments/.env_local_dev' #local dev environment
+# ENV_PATH = 'environments/.env_prod' #production environment
+ENV_PATH = 'environments/.env_local_dev'  # local dev environment
 load_dotenv(dotenv_path=ENV_PATH)
-#------------------
+# ------------------
 
 SECRET_KEY = os.getenv('SECRET_KEY', None)
 
@@ -18,7 +21,8 @@ DEBUG = bool(int(os.getenv('DEBUG', 0)))
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
-CSRF_TRUSTED_ORIGINS = [f'http://{x}:80' for x in os.environ.get('ALLOWED_HOSTS', '').split(',')]
+CSRF_TRUSTED_ORIGINS = [
+    f'http://{x}:80' for x in os.environ.get('ALLOWED_HOSTS', '').split(',')]
 
 INSTALLED_APPS = [
     # Django Apps
@@ -29,7 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #3th party
+    # 3th party
     'django_apscheduler',
 
     # My apps
@@ -108,12 +112,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'staticfiles'),
-    )
+    os.path.join(BASE_DIR, 'staticfiles'),
+)
 STATIC_ROOT = os.environ.get('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
-MEDIA_URL = '/media/'
 
 LOGIN_URL = reverse_lazy('sign in')
 LOGIN_REDIRECT_URL = reverse_lazy('garage')
@@ -146,10 +147,23 @@ if DEBUG:
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.getenv('EMAIL_HOST', None)
 EMAIL_PORT = os.getenv('EMAIL_PORT', None)
-EMAIL_USE_TLS = bool(int(os.getenv('EMAIL_USE_TLS', 0)))   
+EMAIL_USE_TLS = bool(int(os.getenv('EMAIL_USE_TLS', 0)))
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', None)
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', None)
 
 SCHEDULER_CONFIG = {
     'apscheduler.timezone': TIME_ZONE,
 }
+
+cloudinary.config(
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', None),
+    api_key=os.getenv('CLOUDINARY_API_KEY', None),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET', None),
+)
+
+# LOCAL_MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+# MEDIA_ROOT = LOCAL_MEDIA_ROOT
+
+# Set up MEDIA_ROOT using Cloudinary
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+MEDIA_URL = '/media/'

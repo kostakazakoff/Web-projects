@@ -33,7 +33,7 @@ Service history: {{ title }}
 
             <a href="{% url 'edit reminder' pk=reminder.pk %}" class="photo-container">
                 {% if reminder.photo %}
-                    <img src= '/media/{{reminder.photo}}' alt="{{ reminder.photo }}">
+                    <img src= '{{ reminder.photo.url }}' alt="{{ reminder.photo.url }}">
                 {% else %}
                     <i class="fa-solid fa-file-image"></i>
                 {% endif %}

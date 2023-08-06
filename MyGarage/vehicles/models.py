@@ -1,4 +1,3 @@
-# Vehicles
 from django.db import models, router
 from django.urls import reverse
 from django.utils.text import slugify
@@ -10,6 +9,9 @@ from my_garage.core.validators import (
     validate_max_date,
 )
 from django.db.models.deletion import Collector
+from cloudinary_storage.storage import MediaCloudinaryStorage
+import cloudinary.api
+from cloudinary.uploader import upload, destroy
 
 
 UserModel = get_user_model()
@@ -68,11 +70,12 @@ class Vehicles(models.Model):
         default=0,
     )
     photo = models.ImageField(
-        upload_to='images/vehicles/',
+        upload_to='vehicles/',
+        storage=MediaCloudinaryStorage(),
         blank=True,
         null=True,
     )
-
+    
     slug = models.SlugField(
         unique=True,
         null=False,
@@ -90,11 +93,11 @@ class Vehicles(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        # Delete old image file from media if exist
+        # Delete old image file from cloud if exist
         try:
             current = Vehicles.objects.get(id=self.id)
-            if current.photo != self.photo:
-                current.photo.delete()
+            if not self.photo or current.photo.url != self.photo.url:
+                destroy(str(current.photo))
         except:
             pass
 
@@ -106,11 +109,10 @@ class Vehicles(models.Model):
 
         return super().save(*args, **kwargs)
 
-    def delete(self, using=None, keep_parents=False):
 
+    def delete(self, using=None, keep_parents=False):
         try:
-            current = Vehicles.objects.get(id=self.id)
-            current.photo.delete()
+            destroy(str(self.photo))
         except:
             pass
 
