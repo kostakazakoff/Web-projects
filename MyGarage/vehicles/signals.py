@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from .models import Vehicles
 from my_garage.common.middlewares import get_current_request
 from django.core.cache import cache
-from cloudinary.uploader import upload, destroy
+# from cloudinary.uploader import upload, destroy
 
 
 @receiver(post_save, sender=Vehicles)
