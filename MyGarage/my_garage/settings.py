@@ -2,9 +2,9 @@ from pathlib import Path
 from django.urls import reverse, reverse_lazy
 import os
 from dotenv import load_dotenv
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+# import cloudinary
+# import cloudinary.uploader
+# import cloudinary.api
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 
     # 3th party
     'django_apscheduler',
+    'cloudinary',
 
     # My apps
     'vehicles.apps.VehiclesConfig',
@@ -155,15 +156,14 @@ SCHEDULER_CONFIG = {
     'apscheduler.timezone': TIME_ZONE,
 }
 
-cloudinary.config(
-    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', None),
-    api_key=os.getenv('CLOUDINARY_API_KEY', None),
-    api_secret=os.getenv('CLOUDINARY_API_SECRET', None),
-)
-
-# LOCAL_MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
-# MEDIA_ROOT = LOCAL_MEDIA_ROOT
+# cloudinary.config(
+#     cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', None),
+#     api_key=os.getenv('CLOUDINARY_API_KEY', None),
+#     api_secret=os.getenv('CLOUDINARY_API_SECRET', None),
+# )
 
 # Set up MEDIA_ROOT using Cloudinary
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 MEDIA_URL = '/media/'

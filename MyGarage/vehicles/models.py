@@ -71,7 +71,7 @@ class Vehicles(models.Model):
     )
     photo = models.ImageField(
         upload_to='vehicles/',
-        storage=MediaCloudinaryStorage(),
+        # storage=MediaCloudinaryStorage(),
         blank=True,
         null=True,
     )
@@ -97,7 +97,8 @@ class Vehicles(models.Model):
         try:
             current = Vehicles.objects.get(id=self.id)
             if not self.photo or current.photo.url != self.photo.url:
-                destroy(str(current.photo))
+                # destroy(str(current.photo))
+                current.photo.delete()
         except:
             pass
 
@@ -112,7 +113,8 @@ class Vehicles(models.Model):
 
     def delete(self, using=None, keep_parents=False):
         try:
-            destroy(str(self.photo))
+            # destroy(str(self.photo))
+            self.photo.delete()
         except:
             pass
 

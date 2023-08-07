@@ -40,7 +40,7 @@ class Reminder(models.Model):
     )
     photo = models.ImageField(
         upload_to='reminders/',
-        storage=MediaCloudinaryStorage(),
+        # storage=MediaCloudinaryStorage(),
         blank=True,
         null=True,
     )
@@ -79,7 +79,8 @@ class Reminder(models.Model):
         try:
             current = Reminder.objects.get(pk=self.pk)
             if not self.photo or current.photo.url != self.photo.url:
-                destroy(str(current.photo))
+                # destroy(str(current.photo))
+                current.photo.delete()
         except:
             pass
 
@@ -87,7 +88,8 @@ class Reminder(models.Model):
     
     def delete(self, using=None, keep_parents=False):
         try:
-            destroy(str(self.photo))
+            # destroy(str(self.photo))
+            self.photo.delete()
         except:
             pass
 
