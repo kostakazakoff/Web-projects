@@ -5,7 +5,7 @@ from .forms import CreateVehiclesForm, UpdateOdometerForm
 from django.contrib.auth.decorators import login_required
 from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin
-import cloudinary.api
+# import cloudinary.api
 
 
 class GarageView(LoginRequiredMixin, views.ListView):

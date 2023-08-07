@@ -6,9 +6,9 @@ from django.db.models.deletion import Collector
 from django.utils import timezone
 from my_garage.core.validators import validate_min_date
 from django.core.exceptions import ValidationError
-import cloudinary.api
-from cloudinary_storage.storage import MediaCloudinaryStorage
-from cloudinary.uploader import upload, destroy
+# import cloudinary.api
+# from cloudinary_storage.storage import MediaCloudinaryStorage
+# from cloudinary.uploader import upload, destroy
 
 UserModel = get_user_model()
 

@@ -35,7 +35,7 @@ INSTALLED_APPS = [
 
     # 3th party
     'django_apscheduler',
-    'cloudinary',
+    # 'cloudinary',
 
     # My apps
     'vehicles.apps.VehiclesConfig',
