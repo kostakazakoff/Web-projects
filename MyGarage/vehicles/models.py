@@ -9,9 +9,9 @@ from my_garage.core.validators import (
     validate_max_date,
 )
 from django.db.models.deletion import Collector
-from cloudinary_storage.storage import MediaCloudinaryStorage
-import cloudinary.api
-from cloudinary.uploader import upload, destroy
+# from cloudinary_storage.storage import MediaCloudinaryStorage
+# import cloudinary.api
+# from cloudinary.uploader import upload, destroy
 
 
 UserModel = get_user_model()
@@ -101,8 +101,6 @@ class Vehicles(models.Model):
                 current.photo.delete()
         except:
             pass
-
-        super().save(*args, **kwargs)
 
         # Auto generate slug
         if not self.slug:

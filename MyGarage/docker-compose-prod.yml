@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   web:
-    image: kostakazakoff/mygarage:1.0
+    image: kostakazakoff/mygarage:1.1
     command: gunicorn --bind=0.0.0.0:8000 my_garage.wsgi:application
     build:
       context: .
