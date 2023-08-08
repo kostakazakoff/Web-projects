@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 # import cloudinary.uploader
 # import cloudinary.api
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # load environment variables

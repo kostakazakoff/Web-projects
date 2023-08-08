@@ -8,10 +8,10 @@ from vehicles.models import Vehicles
 from vehicles.forms import UpdateOdometerForm
 from django.utils import timezone
 from .forms import AddServiceForm
-from django.core.cache import cache
-from django.views.decorators.cache import cache_page
 from reminders.views import create_service_reminder, update_service_reminder
 from django.contrib.auth.decorators import login_required
+# from django.core.cache import cache
+# from django.views.decorators.cache import cache_page
 
 
 # @cache_page(30) # Cache timeotut 30 seconds
@@ -170,7 +170,7 @@ def delete_service(request, service_id):
     vehicle = service.vehicle
 
     if request.method == 'POST':
-        cache.delete('service_history')
+        # cache.delete('service_history')
         service.delete()
         return redirect('vehicle service', pk=vehicle.id)
 

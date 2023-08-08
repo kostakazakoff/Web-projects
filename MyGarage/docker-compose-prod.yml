@@ -14,12 +14,11 @@ services:
       - ./environments/.env_prod
     depends_on:
       - db
-      - cache
     links:
       - db
-      - cache
     volumes:
       - /tmp/my_garage/static:/app/static
+      - /tmp/my_garage/media:/home/app/web/mediafiles/
       
   db:
     image: postgres
@@ -34,12 +33,6 @@ services:
     volumes:
       - ./postgresql:/var/lib/postgresql/data
 
-  cache:
-    image: redis:latest
-    restart: always
-    ports:
-      - "6379:6379"
-
   nginx:
     image: nginx
     ports:
@@ -47,6 +40,7 @@ services:
       - "443:443"
     volumes:
       - /tmp/my_garage/static:/home/app/web/staticfiles/
+      - /tmp/my_garage/media:/home/app/web/mediafiles/
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/logs:/var/log/nginx
       - ./certbot/www:/var/www/certbot/:ro
