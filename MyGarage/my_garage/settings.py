@@ -10,14 +10,15 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # load environment variables
-# ENV_PATH = 'environments/.env_prod' #production environment
-ENV_PATH = 'environments/.env_local_dev'  # local dev environment
+ENV_PATH = 'environments/.env_prod' #production environment
+# ENV_PATH = 'environments/.env_local_dev'  # local dev environment
 load_dotenv(dotenv_path=ENV_PATH)
 # ------------------
 
 SECRET_KEY = os.getenv('SECRET_KEY', None)
 
-DEBUG = bool(int(os.getenv('DEBUG', 0)))
+# DEBUG = bool(int(os.getenv('DEBUG', 0)))
+DEBUG = True
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
