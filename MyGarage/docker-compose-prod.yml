@@ -17,8 +17,8 @@ services:
     links:
       - db
     volumes:
-      - /tmp/my_garage/static:/app/static
-      - /tmp/my_garage/media:/home/app/web/mediafiles/
+      - /tmp/app_resources/static:/app/static
+      - /tmp/app_resources/media:/home/app/web/mediafiles/
       
   db:
     image: postgres
@@ -39,8 +39,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /tmp/my_garage/static:/home/app/web/staticfiles/
-      - /tmp/my_garage/media:/home/app/web/mediafiles/
+      - /tmp/app_resources/static:/home/app/web/staticfiles/
+      - /tmp/app_resources/media:/home/app/web/mediafiles/
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/logs:/var/log/nginx
       - ./certbot/www:/var/www/certbot/:ro

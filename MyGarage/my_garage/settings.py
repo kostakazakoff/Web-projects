@@ -9,15 +9,14 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # load environment variables
-# ENV_PATH = 'environments/.env_prod' #production environment
-ENV_PATH = 'environments/.env_local_dev'  # local dev environment
+ENV_PATH = 'environments/.env_prod' #production environment
+# ENV_PATH = 'environments/.env_local_dev'  # local dev environment
 load_dotenv(dotenv_path=ENV_PATH)
 # ------------------
 
 SECRET_KEY = os.getenv('SECRET_KEY', None)
 
-# DEBUG = bool(int(os.getenv('DEBUG', 0)))
-DEBUG = True
+DEBUG = bool(int(os.getenv('DEBUG', 0)))
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
@@ -165,5 +164,6 @@ SCHEDULER_CONFIG = {
 # Set up MEDIA_ROOT using Cloudinary
 # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+LOCAL_MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+MEDIA_ROOT = os.getenv('MEDIA_ROOT', LOCAL_MEDIA_ROOT)
 MEDIA_URL = '/media/'
