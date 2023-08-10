@@ -39,7 +39,7 @@
         
         {% for field in form %}
         {% if field.errors %}
-        <p class="errors">{{field.errors}}</p>
+        <p class="errors">{{field.errors.as_text}}</p>
         {% endif %}
 
         {% if field.name != 'photo'%}
@@ -55,6 +55,5 @@
         </div>
     </div>
 </form>
-
 <script src="{% static 'js/handle_img_upload.js' %}"></script>
 {% endblock %}

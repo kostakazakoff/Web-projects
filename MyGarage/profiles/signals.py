@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 
 UserModel = get_user_model()
 
-
+# TODO: Active users count
 @receiver(post_save, sender=UserModel)
 def user_created(sender, instance, created, **kwargs):
     if created:
