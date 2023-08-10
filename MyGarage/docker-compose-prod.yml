@@ -18,7 +18,7 @@ services:
       - db
     volumes:
       - /tmp/app_resources/static:/app/static
-      - /tmp/app_resources/media:/home/app/web/mediafiles/
+      - /tmp/app_resources/media:/app/mediafiles/
       
   db:
     image: postgres
