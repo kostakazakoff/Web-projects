@@ -30,15 +30,18 @@ Add vehicle
 
     <div class="info-container">
         {% for field in form %}
+
         {% if field.errors %}
         <p class="errors">{{field.errors}}</p>
         {% endif %}
+
         {% if field.name != 'photo'%}
         <div class="flex-row">
             <label for="{{field.id_for_label}}">{{field.label}}</label>
             {{field}}
         </div>
         {% endif %}
+        
         {% endfor %}
         <div class="btns-container top-margin">
             <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>

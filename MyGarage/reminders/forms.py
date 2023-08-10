@@ -1,7 +1,6 @@
 from typing import Any, Dict
 from django import forms
 from .models import Reminder
-from django.core.exceptions import ValidationError
 
 
 class BaseReminderForm(forms.ModelForm):
@@ -18,7 +17,7 @@ class BaseReminderForm(forms.ModelForm):
 
 class CreateReminderForm(BaseReminderForm):
     class Meta(BaseReminderForm.Meta):
-        exclude = ['on_odometer']
+        exclude = ['on_odometer'] 
 
 
 class EditServiceReminderForm(BaseReminderForm):
