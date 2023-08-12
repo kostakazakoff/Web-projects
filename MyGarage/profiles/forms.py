@@ -8,6 +8,7 @@ from .models import Profile
 
 UserModel = get_user_model()
 
+# TODO: Validations
 
 class RegisterUserForm(auth_forms.UserCreationForm):
 

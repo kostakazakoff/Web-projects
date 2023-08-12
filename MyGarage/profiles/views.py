@@ -26,8 +26,6 @@ def create_user_view(request):
         obj = UserModel.objects.latest('pk')
         Profile.objects.create(user=obj)
         login(request, obj)
-        mail_subject = f'Account confirmation'
-        mail_message = f'{obj.email} account was created successfully. You may add your proile details in app menu - USER/EDIT PROFILE'
         return redirect('garage')
 
     context = {
