@@ -1,4 +1,4 @@
-from my_garage.settings import EMAIL_HOST_USER, ALLOWED_HOSTS
+from my_garage.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
@@ -6,7 +6,6 @@ from django.template.loader import render_to_string
 def mbytes_to_bytes(mb):
     return mb * 1024 * 1024
 
-#TODO: hardcoded link
 def send_confirm_registration_email(user):
     subject = 'Account confirmation'
     message = 'Your account was created successfully. You may change your proile details in app menu - USER/EDIT PROFILE'

@@ -21,7 +21,8 @@ DEBUG = bool(int(os.getenv('DEBUG', 0)))
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 CSRF_TRUSTED_ORIGINS = [
-    f'http://{x}:80' for x in os.environ.get('ALLOWED_HOSTS', '').split(',')]
+    f'http://{x}:80' for x in os.environ.get('ALLOWED_HOSTS', '').split(',')
+    ]
 
 INSTALLED_APPS = [
     # Django Apps
@@ -51,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
+    # Custom middlewares:
     'my_garage.common.middlewares.save_current_request_middleware',
 ]
 
