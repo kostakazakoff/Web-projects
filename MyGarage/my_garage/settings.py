@@ -18,14 +18,14 @@ SECRET_KEY = os.getenv('SECRET_KEY', None)
 
 DEBUG = bool(int(os.getenv('DEBUG', 0)))
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1').split(',')
 
 CSRF_TRUSTED_ORIGINS = [
     f'http://{x}:80' for x in os.environ.get('ALLOWED_HOSTS', '').split(',')
     ]
 
 INSTALLED_APPS = [
-    # Django Apps
+    # Django Apps:
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -33,11 +33,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # 3th party
+    # 3th party:
     'django_apscheduler',
     # 'cloudinary',
 
-    # My apps
+    # My apps:
     'vehicles.apps.VehiclesConfig',
     'service.apps.ServiceConfig',
     'reminders.apps.RemindersConfig',

@@ -24,6 +24,7 @@ def create_user_view(request):
     if form.is_valid():
         form.save()
         obj = UserModel.objects.latest('pk')
+        #TODO: move it to signals
         Profile.objects.create(user=obj)
         login(request, obj)
         return redirect('garage')
@@ -46,6 +47,7 @@ class LoginProfileView(auth_views.LoginView):
 @login_required
 def edit_profile_view(request):
     profile = Profile.objects.get(pk=request.user.pk)
+
     form = EditProfileForm(request.POST or None, instance=profile)
 
     if form.is_valid():
