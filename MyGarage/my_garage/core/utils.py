@@ -1,4 +1,4 @@
-from my_garage.settings import EMAIL_HOST_USER
+from my_garage.settings import EMAIL_HOST_USER, ALLOWED_HOSTS
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
@@ -11,7 +11,11 @@ def send_confirm_registration_email(user):
     message = 'Your account was created successfully. You may change your proile details in app menu - USER/EDIT PROFILE'
     from_email = EMAIL_HOST_USER
     recipient_list = [user.email]
-    html_message = render_to_string('emails/register-confirmation.html', context={'user': user.email})
+    context={
+        'user': user.email,
+        'link_to_site': ALLOWED_HOSTS[-1]
+        }
+    html_message = render_to_string('emails/register-confirmation.html', context=context)
 
     send_mail(
         subject,
