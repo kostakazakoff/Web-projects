@@ -11,10 +11,7 @@ def send_confirm_registration_email(user):
     message = 'Your account was created successfully. You may change your proile details in app menu - USER/EDIT PROFILE'
     from_email = EMAIL_HOST_USER
     recipient_list = [user.email]
-    context={
-        'user': user.email,
-        'link_to_site': ALLOWED_HOSTS[-1]
-        }
+    context={'user': user.email}
     html_message = render_to_string('emails/register-confirmation.html', context=context)
 
     send_mail(

@@ -24,8 +24,6 @@ def create_user_view(request):
     if form.is_valid():
         form.save()
         obj = UserModel.objects.latest('pk')
-        #TODO: move it to signals
-        Profile.objects.create(user=obj)
         login(request, obj)
         return redirect('garage')
 

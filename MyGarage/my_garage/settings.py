@@ -18,7 +18,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', None)
 
 DEBUG = bool(int(os.getenv('DEBUG', 0)))
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 CSRF_TRUSTED_ORIGINS = [
     f'http://{x}:80' for x in os.environ.get('ALLOWED_HOSTS', '').split(',')
