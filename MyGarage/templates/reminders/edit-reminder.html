@@ -21,7 +21,7 @@
     {% csrf_token %}
 
     <div class="photo-container">
-        {% if reminder.photo %}
+        {% if reminder.photo and not form.non_field_errors %}
         <img src="{{ reminder.photo.url }}" class="photo" id="img_preview" alt="{{ reminder.photo.url }}">
         {% else %}
         <img src="" class="photo hidden" id="img_preview">
@@ -51,6 +51,12 @@
         {% endif %}
 
         {% endfor %}
+
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <p class="errors">{{error}}</p>
+        {% endfor %}
+        {% endif %}
         
         <div class="btns-container top-margin">
             <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>

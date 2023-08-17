@@ -420,10 +420,10 @@ select {
     flex-grow: 1;
 }
 
-.errorlist {
+.errorlist, .errors {
     color: #E69C24;
     text-align: right;
-    font-size: 0.7em;
+    font-size: 0.8em;
     list-style-type: none;
     margin-block-end: 0;
 }

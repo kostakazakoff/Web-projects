@@ -82,7 +82,6 @@ def edit_reminder_view(request, pk):
             instance=reminder
         )
 
-    print(form.is_valid)
     if form.is_valid():
         form.save()
         reminder_pk = Reminder.objects.latest('pk').pk
