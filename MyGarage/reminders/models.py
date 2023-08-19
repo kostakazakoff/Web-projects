@@ -71,6 +71,8 @@ class Reminder(models.Model):
     def clean(self):
         if self.on_odometer and self.to_vehicle and self.to_vehicle.odometer > self.on_odometer:
             raise ValidationError(f'Odometer must be at least {self.to_vehicle.odometer}')
+        if not self.on_odometer and not self.on_date:
+            raise ValidationError('You have to specify a reminder date or odometer')
 
     def __str__(self) -> str:
         return self.title
