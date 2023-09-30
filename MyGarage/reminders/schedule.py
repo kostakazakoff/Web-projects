@@ -28,6 +28,7 @@ def check_reminders():
         email_contents[user].append(task)
 
     for user, details in email_contents.items():
-        message = 'You\'ve got a tasks:\n'
+        name = f'{user.profile.first_name}, y' if user.profile.first_name else 'Y'
+        message = f'{name}ou\'ve got a tasks:\n'
         message += '\n'.join(f'{m.to_vehicle}: {m.title}' if m.to_vehicle else m.title for m in details)
         send_reminder_email(user, message)

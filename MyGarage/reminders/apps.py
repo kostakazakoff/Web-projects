@@ -11,6 +11,6 @@ class RemindersConfig(AppConfig):
         import reminders.signals
         from .schedule import check_reminders
         scheduler = BackgroundScheduler()
-        scheduler.add_job(check_reminders, 'cron', hour=8, minute=0)
+        scheduler.add_job(check_reminders, 'cron', hour=15, minute=52)
         scheduler.start()
         return result
