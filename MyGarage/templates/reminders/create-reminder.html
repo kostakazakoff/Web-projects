@@ -49,6 +49,13 @@
         </div>
         {% endif %}
         {% endfor %}
+        
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <p class="errors">{{error}}</p>
+        {% endfor %}
+        {% endif %}
+
         <div class="btns-container top-margin">
             <button type="submit" class="btn primary-btn" name="submit" value="save">Save</button>
             <a class="btn primary-btn" href="{% url 'reminders' %}">Cancel</a>

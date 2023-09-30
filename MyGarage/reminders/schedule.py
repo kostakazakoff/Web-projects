@@ -6,7 +6,7 @@ from my_garage.core.utils import send_reminder_email
 def check_reminders():
     reminders = Reminder.objects.all()
     have_task_on_odometer = False
-    tasks = []
+    tasks = set()
     email_contents = {}
 
     for reminder in reminders:
@@ -16,12 +16,10 @@ def check_reminders():
             have_task_on_odometer = reminder.to_vehicle.odometer >= reminder.on_odometer
 
         if have_task_on_odometer:
-            tasks.append(reminder)
+            tasks.add(reminder)
 
         if reminder.on_date and reminder.on_date >= timezone.localdate():
-            tasks.append(reminder)
-
-    tasks = set(tasks)
+            tasks.add(reminder)
 
     for task in tasks:
         user = task.to_user
