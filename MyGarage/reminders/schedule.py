@@ -18,7 +18,7 @@ def check_reminders():
         if have_task_on_odometer:
             tasks.add(reminder)
 
-        if reminder.on_date and reminder.on_date >= timezone.localdate():
+        if reminder.on_date and reminder.on_date <= timezone.localdate():
             tasks.add(reminder)
 
     for task in tasks:
