@@ -19,21 +19,15 @@
     <div class="article">
         <form class="info-container full-width" method="post" action="{% url 'sign up' %}">
             {% csrf_token %}
+            {% for field in form %}
             <div class="flex-row">
-                <label for="{{field.id_for_label}}">{{form.email.label}}</label>
-                {{form.email}}
+                <label for="{{field.id_for_label}}">{{field.label}}</label>
+                {{field}}
             </div> 
-            {% if form.email.errors %}
-                <p class="errors">{{form.email.errors.as_text}}</p>
+            {% if field.errors %}
+                <p class="errors">{{field.errors.as_text}}</p>
             {% endif %}
-            <div class="flex-row">
-                <label for="{{field.id_for_label}}">{{form.password1.label}}</label>
-                {{form.password1}}
-            </div>
-            <div class="flex-row">
-                <label for="{{field.id_for_labelF}}">{{form.password2.label}}</label>
-                {{form.password2}}
-            </div>
+            {% endfor %}
             <div class="btns-container top-margin">
                 <button class="btn primary-btn" type="submit">Save</button>
                 <a href="{% url 'garage' %}" class='btn primary-btn'>Cancel</a>
