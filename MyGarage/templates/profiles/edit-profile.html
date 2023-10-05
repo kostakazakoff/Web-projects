@@ -17,20 +17,23 @@
     <div class="article">
         <form class="info-container full-width" method="post" action="{% url 'edit profile' %}">
             {% csrf_token %}
-    
+
+            {% for field in form %}
+
             <div class="flex-row">
-                <label for="{{field.id_for_label}}">{{form.first_name.label}}</label>
-                {{form.first_name}}
+                <label for="{{field.id_for_label}}">{{field.label}}</label>
+                {{field}}
             </div>
-            <div class="flex-row">
-                <label for="{{field.id_for_label}}">{{form.last_name.label}}</label>
-                {{form.last_name}}
-            </div>
+
+            {% for error in field.errors %}
+                <p class="errors">{{ error }}</p>
+            {% endfor %}
+
+            {% endfor %}
     
             <div class="btns-container top-margin">
                 <button class='btn primary-btn' type="submit" name="direction" value="garage">Save</button>
                 <button class='btn primary-btn' type="submit" name="direction" value="password change">Change password</button>
-                <!-- <a href="{% url 'password change' %}" class='btn primary-btn'>Change password</a> -->
                 <a href="{% url 'delete profile' user.pk %}" class='btn danger-btn'>Delete profile</a>
                 <a href="{% url 'garage' %}" class='btn primary-btn'>Cancel</a>
             </div>
