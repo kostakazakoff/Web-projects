@@ -1,4 +1,4 @@
-from my_garage.settings import EMAIL_HOST_USER, ALLOWED_HOSTS
+from my_garage.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
