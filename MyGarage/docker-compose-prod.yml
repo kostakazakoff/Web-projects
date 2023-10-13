@@ -3,7 +3,6 @@ version: '3.4'
 services:
   web:
     image: kostakazakoff/mygarage:1.2
-    command: gunicorn --bind=0.0.0.0:8000 my_garage.wsgi:application
     build:
       context: .
       dockerfile: Dockerfile
@@ -19,6 +18,7 @@ services:
     volumes:
       - /tmp/app_resources/static:/app/static
       - /tmp/app_resources/media:/app/mediafiles/
+    command: gunicorn --bind=0.0.0.0:8000 my_garage.wsgi:application
       
   db:
     image: postgres
