@@ -1,5 +1,5 @@
 from pathlib import Path
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 import os
 from dotenv import load_dotenv
 # import cloudinary

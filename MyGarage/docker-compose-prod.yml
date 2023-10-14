@@ -18,7 +18,7 @@ services:
     volumes:
       - /tmp/app_resources/static:/app/static
       - /tmp/app_resources/media:/app/mediafiles/
-    command: gunicorn --bind=0.0.0.0:8000 my_garage.wsgi:application
+    command: gunicorn --bind=0.0.0.0:8000 -w 4 my_garage.wsgi:application
       
   db:
     image: postgres
