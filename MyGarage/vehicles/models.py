@@ -106,26 +106,15 @@ class Vehicles(models.Model):
         if not self.slug:
             self.slug = slugify(f'{self.brand}-{self.plate}')
 
-        return super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
-    def delete(self, using=None, keep_parents=False):
-        try:
+    def delete(self, *args, **kwargs):
+        if self.photo:
             # destroy(str(self.photo))
             self.photo.delete()
-        except:
-            pass
 
-        if self.pk is None:
-            raise ValueError(
-                f"{self._meta.object_name} object can't be deleted because its \
-                    {self._meta.pk.attname} attribute is set to None."
-            )
-        
-        using = using or router.db_for_write(self.__class__, instance=self)
-        collector = Collector(using=using, origin=self)
-        collector.collect([self], keep_parents=keep_parents)
-        return collector.delete()
+        super().delete(*args, **kwargs)
 
     # def get_absolute_url(self):
     #     return reverse('vehicle details', kwargs={'pk': self.pk})

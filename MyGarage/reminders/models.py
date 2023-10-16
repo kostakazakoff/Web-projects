@@ -84,7 +84,7 @@ class Reminder(models.Model):
         except:
             pass
 
-        return super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
     
     def delete(self, *args, **kwargs):
         if self.photo:
