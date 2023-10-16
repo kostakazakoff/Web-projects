@@ -95,4 +95,4 @@ class Reminder(models.Model):
         if self.photo:
             self.photo.delete(save=False)
 
-        super(Reminder, self).delete(*args, **kwargs)
+        super().delete(*args, **kwargs)
