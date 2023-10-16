@@ -18,11 +18,16 @@ def user_created(sender, instance, created, **kwargs):
 #TODO: remove user media files
 @receiver(pre_delete, sender=UserModel)
 def delete_media(sender, instance, **kwargs):
-    pass
+    user_reminders = instance.reminder_set.all()
+    user_vehicles = instance.vehicles.all()
+    for reminder in user_reminders:
+        if reminder.photo:
+            reminder.photo.delete(save=False)
+    for vehicle in user_vehicles:
+        if vehicle.photo:
+            vehicle.photo.delete(save=False)
 
 
 @receiver(post_delete, sender=UserModel)
 def user_deleted(sender, instance, **kwargs):
-    # user_reminders = instance.reminder_set.all()
-    # [r.clear_media() for r in user_reminders]
     send_confirm_delete_email(instance)
