@@ -49,7 +49,8 @@ def vehicle_service_history(request, pk):
     title = f'{vehicle.brand} {vehicle.plate}'
     search_input = request.GET.get('header__search_field', '')
     placeholder = 'Autoservice, Description or Odometer'
-    update_odometer_form = UpdateOdometerForm(request.POST or None, instance=vehicle)
+    update_odometer_form = UpdateOdometerForm(
+        request.POST or None, instance=vehicle)
 
     if update_odometer_form.is_valid():
         update_odometer_form.save()
@@ -80,7 +81,6 @@ def add_service(request, pk):
             # cache.delete('service_history')
             form.save()
             service = Service.objects.latest('pk')
-            create_service_reminder(request, service)
             return redirect(resolve_url('vehicle service', vehicle.pk) + f'#service-{service.id}')
 
     elif request.method == 'GET':
@@ -110,40 +110,34 @@ def edit_service(request, service_id):
     if request.method == 'POST':
         if form.is_valid():
             # cache.delete('service_history')
+
             service_reminder = service.reminder_set.all().first()
             data_for_remind = any([
                 form.cleaned_data['date_deadline'],
                 form.cleaned_data['odometer_deadline'],
             ])
-            have_to_create_reminder = all(
-                [
+            have_to_create_reminder = all([
                     not service_reminder,
                     form.has_changed(),
                     data_for_remind
-                ]
-            )
+                ])
 
             if service_reminder:
-                have_to_update_reminder = all(
-                    [
+                have_to_update_reminder = all([
                         service_reminder,
                         form.has_changed(),
-                    ]
-                )
-                have_to_create_reminder = all(
-                    [
+                    ])
+                have_to_create_reminder = all([
                         not service_reminder,
                         form.has_changed(),
                         data_for_remind
-                    ]
-                )
+                    ])
                 have_to_delete_reminder = all([
                     service_reminder,
                     not data_for_remind
                 ])
 
                 if have_to_update_reminder:
-                    # print('have to update reminder')
                     obj = Reminder.objects.filter(pk=service_reminder.pk)
                     update_service_reminder(form, obj)
 
@@ -152,7 +146,6 @@ def edit_service(request, service_id):
                     obj.delete()
 
             if have_to_create_reminder:
-                # print('have to create reminder')
                 create_service_reminder(request, service)
 
             form.save()
