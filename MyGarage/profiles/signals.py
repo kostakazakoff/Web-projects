@@ -23,6 +23,6 @@ def delete_media(sender, instance, **kwargs):
 
 @receiver(post_delete, sender=UserModel)
 def user_deleted(sender, instance, **kwargs):
-    user_reminders = instance.reminder_set.all()
-    [r.clear_media() for r in user_reminders]
+    # user_reminders = instance.reminder_set.all()
+    # [r.clear_media() for r in user_reminders]
     send_confirm_delete_email(instance)
