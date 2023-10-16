@@ -9,9 +9,6 @@ from django.contrib.auth import get_user_model
 # from django.core.cache import cache
 
 
-# UserModel = get_user_model()
-
-
 @receiver(post_save, sender=Service)
 def create_reminder(sender, instance, created, **kwargs):
     if created and (instance.date_deadline or instance.odometer_deadline):
