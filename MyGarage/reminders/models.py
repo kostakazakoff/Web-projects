@@ -66,6 +66,10 @@ class Reminder(models.Model):
         on_delete=models.SET_NULL,
     )
 
+    def clear_media(self):
+        if self.photo:
+            self.photo.delete()
+
     def clean(self):
         if self.on_odometer and self.to_vehicle and self.to_vehicle.odometer > self.on_odometer:
             raise ValidationError(f'Odometer must be at least {self.to_vehicle.odometer}')
