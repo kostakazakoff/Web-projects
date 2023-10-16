@@ -80,7 +80,6 @@ class Reminder(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        print(self.photo)
         try:
             current = Reminder.objects.get(pk=self.pk)
             if not self.photo or current.photo.url != self.photo.url:
