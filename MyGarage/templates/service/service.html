@@ -50,13 +50,16 @@ Service history: {{ title }}
         <article class="article" id="service-{{ s.pk }}">
             <div class="info-container full-width">
                 <h3 class="article-title">{{ s.description }}</h3>
+                {% if s.notes %}
                 <p>Notes: {{ s.notes }}</p>
+                {% endif %}
                 <p><strong>Price: {{ s.price|floatformat:2 }} lv</strong></p>
-                <hr>
                 <h3 class="article-title">Serviced on:</h3>
                 <p>Odometer: {{ s.odometer }}</p>
                 <p>Date: {{ s.date }}</p>
+                {% if s.autoservice %}
                 <p>Autoservice: {{ s.autoservice }}</p>
+                {% endif %}
                 <div class="btns-container top-margin">
                     <a class="btn primary-btn" href="{% url 'edit service' s.pk %}">Edit</a>
                     <a class="btn danger-btn" href="{% url 'delete service' s.pk %}">Delete</a>

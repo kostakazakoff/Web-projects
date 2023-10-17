@@ -271,6 +271,7 @@ select {
 .article-title {
     font-size: 18px;
     font-weight: bold;
+    margin-top: 12px;
     margin-bottom: 12px;
     text-transform: uppercase;
 }
@@ -413,6 +414,8 @@ select {
 
 .flex-row-centered {
     justify-content: center;
+    margin-top: 12px;
+    margin-bottom: 12px;
 }
 
 .full-width .flex-row input, .full-width textarea, s.full-width select {

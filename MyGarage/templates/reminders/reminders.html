@@ -48,8 +48,12 @@ Service history: {{ title }}
 
                 <h3 class="article-title">{{reminder.title}}</h3>
                 <p>Description: {{reminder.description}}</p>
+                {% if reminder.on_date %}
                 <p>On date: {{reminder.on_date}}</p>
+                {% endif %}
+                {% if reminder.on_odometer %}
                 <p>On odometer: {{reminder.on_odometer}}</p>
+                {% endif %}
 
                 <div class="btns-container  top-margin">
                     <a class="btn primary-btn" href="{% url 'edit reminder' pk=reminder.pk %}">Edit</a>
