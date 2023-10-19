@@ -28,10 +28,10 @@ def emails_compose(tasks):
 
     for task in tasks:
         user = task.to_user
-        if task.to_user not in email_contents:
+        if user not in email_contents:
             email_contents[user] = []
         email_contents[user].append(task)
-
+    
     for user, details in email_contents.items():
         name = f'{user.profile.first_name}, y' if user.profile.first_name else 'Y'
         message = f'{name}ou\'ve got a tasks:\n'
