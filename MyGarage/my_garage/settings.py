@@ -172,7 +172,7 @@ MEDIA_URL = '/media/'
 
 
 # CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_BROKER_URL = 'redis://default:M58277569k@redis-15848.c311.eu-central-1-1.ec2.cloud.redislabs.com:15848'
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', None)
 # CELERY_ACCEPT_CONTENT = ['application/json']
 # CELERY_RESULT_SERIALIZER = 'json'
 # CELERY_TASK_SERIALIZER = 'json'
