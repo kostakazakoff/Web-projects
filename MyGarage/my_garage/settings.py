@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # load environment variables
-ENV_PATH = 'environments/.env_prod' #production environment
-# ENV_PATH = 'environments/.env_local_dev'  # local dev environment
+# ENV_PATH = 'environments/.env_prod' #production environment
+ENV_PATH = 'environments/.env_local_dev'  # local dev environment
 load_dotenv(dotenv_path=ENV_PATH)
 # ------------------
 
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 
     # 3th party:
     'django_apscheduler',
+    'celery',
     # 'cloudinary',
 
     # My apps:
@@ -168,3 +169,12 @@ SCHEDULER_CONFIG = {
 LOCAL_MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 MEDIA_ROOT = os.getenv('MEDIA_ROOT', LOCAL_MEDIA_ROOT)
 MEDIA_URL = '/media/'
+
+
+# CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_BROKER_URL = 'redis://default:M58277569k@redis-15848.c311.eu-central-1-1.ec2.cloud.redislabs.com:15848'
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_BACKEND = 'django-db'
+CELERY_TIMEZONE = TIME_ZONE
