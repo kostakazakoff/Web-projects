@@ -1,6 +1,6 @@
 from .models import Reminder
 from django.utils import timezone
-from my_garage.core.utils import send_reminder_email
+from my_garage.tasks import send_reminder_email
 
 
 def check_reminders():
@@ -36,4 +36,4 @@ def emails_compose(tasks):
         name = f'{user.profile.first_name}, y' if user.profile.first_name else 'Y'
         message = f'{name}ou\'ve got a tasks:\n'
         message += '\n'.join(f'{m.to_vehicle}: {m.title}' if m.to_vehicle else m.title for m in details)
-        send_reminder_email(user, message)
+        send_reminder_email(user, message).delay()
