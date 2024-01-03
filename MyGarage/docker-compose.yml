@@ -12,10 +12,10 @@ services:
       - ./environments/.env_local_dev
     depends_on:
       - db
-      - cache
+      # - cache
     links:
       - db
-      - cache
+      # - cache
     command: python manage.py runserver 0.0.0.0:8000
       
   db:
@@ -31,9 +31,8 @@ services:
     volumes:
       - ./postgresql:/var/lib/postgresql/data
 
-  cache:
-    image: redis:latest
-    restart: always
-    ports:
-      - "6379:6379"
-  
+  # cache:
+  #   image: redis:latest
+  #   restart: always
+  #   ports:
+  #     - "6379:6379"

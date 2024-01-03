@@ -36,4 +36,5 @@ def emails_compose(tasks):
         name = f'{user.profile.first_name}, y' if user.profile.first_name else 'Y'
         message = f'{name}ou\'ve got a tasks:\n'
         message += '\n'.join(f'{m.to_vehicle}: {m.title}' if m.to_vehicle else m.title for m in details)
-        send_reminder_email(user, message).delay()
+        email = user.email
+        send_reminder_email.delay(email, message)

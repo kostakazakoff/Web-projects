@@ -1,6 +1,6 @@
 from .celery import app as celery_app
 
-__all__ = ('celery_app',)
+__all__ = ("celery_app",)
 
 # 1. Install celery
 # 2. Register Celery in 'INSTALLED_APPS'
