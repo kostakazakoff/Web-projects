@@ -10,15 +10,17 @@ services:
       - "8000:8000"
     platform: linux/amd64
     env_file:
-      - ./environments/.env_prod
+      - ./environments/.env.prod
     depends_on:
       - db
+      - celery_worker
     links:
       - db
+      - celery_worker
     volumes:
       - /tmp/app_resources/static:/app/static
       - /tmp/app_resources/media:/app/mediafiles/
-    command: gunicorn --bind=0.0.0.0:8000 -w 4 my_garage.wsgi:application; celery -A my_garage.celery worker -l info 
+    command: gunicorn --bind=0.0.0.0:8000 -w 4 my_garage.wsgi:application
       
   db:
     image: postgres
@@ -48,3 +50,23 @@ services:
     links:
       - web
   
+  celery_worker:
+    image: kostakazakoff/mygarage:1.2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - ./environments/.env.dev
+    depends_on:
+      - db
+      # - redis
+    links:
+      - db
+      # - redis
+    command: celery -A my_garage.celery worker -l info --concurrency=4
+
+  # redis:
+  #   image: redis:latest
+  #   restart: always
+  #   ports:
+  #     - "6379:6379"

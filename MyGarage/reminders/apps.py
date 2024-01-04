@@ -12,6 +12,6 @@ class RemindersConfig(AppConfig):
         import reminders.signals # must import signals manualy (signals are not a part of Django convension)
         from .schedule import check_reminders
         scheduler = BackgroundScheduler()
-        scheduler.add_job(check_reminders, 'cron', hour=8, minute=0)
+        scheduler.add_job(check_reminders, 'cron', hour=7, minute=0)
         scheduler.start()
         return result

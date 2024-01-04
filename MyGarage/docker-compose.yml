@@ -9,12 +9,14 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - ./environments/.env_local_dev
+      - ./environments/.env.dev
     depends_on:
       - db
+      - celery_worker
       # - cache
     links:
       - db
+      - celery_worker
       # - cache
     command: python manage.py runserver 0.0.0.0:8000
       
@@ -31,7 +33,22 @@ services:
     volumes:
       - ./postgresql:/var/lib/postgresql/data
 
-  # cache:
+  celery_worker:
+      image: app_garage
+      build:
+        context: .
+        dockerfile: Dockerfile
+      env_file:
+        - ./environments/.env.dev
+      depends_on:
+        - db
+        # - broker
+      links:
+        - db
+        # - broker
+      command: celery -A my_garage.celery worker -l info --concurrency=4
+
+  # broker:
   #   image: redis:latest
   #   restart: always
   #   ports:

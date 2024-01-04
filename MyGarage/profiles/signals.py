@@ -13,7 +13,6 @@ def user_created(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
         email = instance.email
-        print(email)
         send_confirm_registration_email.delay(email)
 
 
