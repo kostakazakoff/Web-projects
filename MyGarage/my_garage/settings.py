@@ -131,7 +131,7 @@ CACHES = {
     'default': {
         'BACKEND':
             'django.core.cache.backends.redis.RedisCache',
-            'LOCATION': os.getenv('CACHE_REDIS_DB_LOCATION', 'redis://127.0.0.1:6379'),
+            'LOCATION': os.getenv('CACHE_REDIS_DB_LOCATION', 'redis://127.0.0.1:6379/1'),
             "NAME": os.getenv('CACHE_REDIS_DB_NAME', ''),
     }
 }
@@ -171,10 +171,10 @@ MEDIA_ROOT = os.getenv('MEDIA_ROOT', LOCAL_MEDIA_ROOT)
 MEDIA_URL = '/media/'
 
 
-# CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://127.0.0.1:6379')
-# CELERRY_RESULT_BACKEND = os.getenv('CELERY_BROKER_URL', 'redis://127.0.0.1:6379')
-# CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/0')
+CELERRY_RESULT_BACKEND = os.getenv('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/0')
+
+CELERY_ACCEPT_CONTENT = ['application/json']
 # CELERY_RESULT_SERIALIZER = 'json'
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_BACKEND = 'django-db'

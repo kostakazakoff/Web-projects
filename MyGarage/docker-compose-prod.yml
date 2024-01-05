@@ -59,14 +59,14 @@ services:
       - ./environments/.env.dev
     depends_on:
       - db
-      # - redis
+      # - broker
     links:
       - db
-      # - redis
+      # - broker
     command: celery -A my_garage.celery worker -l info --concurrency=4
 
-  # redis:
-  #   image: redis:latest
+  # broker:
+  #   image: redis:7.2-alpine
   #   restart: always
   #   ports:
   #     - "6379:6379"

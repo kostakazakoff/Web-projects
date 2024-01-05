@@ -18,3 +18,4 @@ COPY reminders /app/reminders
 COPY service /app/service
 COPY templates /app/templates
 COPY vehicles /app/vehicles
+COPY environments /app/environments
