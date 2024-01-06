@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # load environment variables
-ENV_PATH = 'environments/.env.prod' #production environment
-# ENV_PATH = 'environments/.env.dev'  # local dev environment
+# ENV_PATH = 'environments/.env.prod' #production environment
+ENV_PATH = 'environments/.env.dev'  # local dev environment
 load_dotenv(dotenv_path=ENV_PATH)
 # ------------------
 
@@ -172,10 +172,8 @@ MEDIA_URL = '/media/'
 
 
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/0')
-CELERRY_RESULT_BACKEND = os.getenv('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/0')
-
+CELERRY_RESULT_BACKEND = os.getenv('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/1')
 CELERY_ACCEPT_CONTENT = ['application/json']
-# CELERY_RESULT_SERIALIZER = 'json'
-# CELERY_TASK_SERIALIZER = 'json'
-# CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
