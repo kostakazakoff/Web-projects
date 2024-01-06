@@ -56,7 +56,7 @@ services:
       context: .
       dockerfile: Dockerfile
     env_file:
-      - ./environments/.env.dev
+      - ./environments/.env.prod
     depends_on:
       - db
       # - broker
