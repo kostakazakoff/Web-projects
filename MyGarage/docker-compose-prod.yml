@@ -23,7 +23,7 @@ services:
     command: gunicorn --bind=0.0.0.0:8000 -w 4 my_garage.wsgi:application
       
   db:
-    image: postgres
+    image: postgres:alpine
     restart: always
     ports:
       - "5432:5432"
@@ -36,7 +36,7 @@ services:
       - ./postgresql:/var/lib/postgresql/data
 
   nginx:
-    image: nginx
+    image: nginx:1,25,3-alpine
     ports:
       - "80:80"
       - "443:443"
@@ -63,7 +63,7 @@ services:
     links:
       - db
       # - broker
-    command: celery -A my_garage.celery worker -l info --concurrency=4
+    command: celery -A my_garage.celery worker -l info
 
   # broker:
   #   image: redis:7.2-alpine
