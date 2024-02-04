@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   web:
-    image: kostakazakoff/mygarage:1.2
+    image: kostakazakoff/mygarage:1.3
     restart: always
     build:
       context: .
