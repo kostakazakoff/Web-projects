@@ -3,6 +3,7 @@ version: '3.4'
 services:
   web:
     image: kostakazakoff/mygarage:1.2
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
@@ -37,6 +38,7 @@ services:
 
   nginx:
     image: nginx:1,25,3-alpine
+    restart: always
     ports:
       - "80:80"
       - "443:443"
@@ -52,6 +54,7 @@ services:
   
   celery_worker:
     image: kostakazakoff/mygarage:1.2
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
