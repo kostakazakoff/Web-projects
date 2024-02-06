@@ -1,5 +1,4 @@
 # Service
-
 from django.db import models
 from vehicles.models import Vehicles
 from django.urls import reverse
